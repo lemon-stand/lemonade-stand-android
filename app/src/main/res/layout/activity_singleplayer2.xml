@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    tools:context=".SingleplayerActivity2">
+
+
+
+
+
+    <Button
+        android:id="@+id/bfinday"
+        android:layout_width="128dp"
+        android:layout_height="80dp"
+        android:text="Finish day"
+        tools:layout_editor_absoluteX="262dp"
+        tools:layout_editor_absoluteY="621dp"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="600dp"
+        />
+
+    <ImageView
+        android:id="@+id/blogo"
+        android:layout_width="108dp"
+        android:layout_height="98dp"
+        android:src="@drawable/lemonlogo"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

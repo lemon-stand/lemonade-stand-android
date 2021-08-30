@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainMenuActivity">
+
+    <Button
+        android:id="@+id/bsingleplayer"
+        android:layout_width="214dp"
+        android:layout_height="68dp"
+        android:text="Singleplayer"
+        tools:layout_editor_absoluteX="98dp"
+        tools:layout_editor_absoluteY="169dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="150dp"/>
+
+    <Button
+        android:id="@+id/bmultiplayer"
+        android:layout_width="214dp"
+        android:layout_height="68dp"
+        android:text="Multiplayer"
+        tools:layout_editor_absoluteX="98dp"
+        tools:layout_editor_absoluteY="258dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="250dp"/>
+
+
+
+    <Button
+        android:id="@+id/bmarket"
+        android:layout_width="214dp"
+        android:layout_height="68dp"
+        android:text="Market"
+        tools:layout_editor_absoluteX="98dp"
+        tools:layout_editor_absoluteY="352dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="350dp"
+        />
+
+    <Button
+        android:id="@+id/bstore"
+        android:layout_width="214dp"
+        android:layout_height="68dp"
+        android:text="Store"
+        tools:layout_editor_absoluteX="98dp"
+        tools:layout_editor_absoluteY="451dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="450dp"/>
+
+
+
+
+    <Button
+        android:id="@+id/bsettings"
+        android:layout_width="110dp"
+        android:layout_height="102dp"
+        android:text="Settings"
+        tools:layout_editor_absoluteX="45dp"
+        tools:layout_editor_absoluteY="552dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="550dp"
+        />
+
+    <Button
+        android:id="@+id/blemons"
+        android:layout_width="171dp"
+        android:layout_height="99dp"
+        android:text="Lemons"
+        tools:layout_editor_absoluteX="193dp"
+        tools:layout_editor_absoluteY="552dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="550dp"
+        />
+
+    <ImageView
+        android:id="@+id/blogo"
+        android:layout_width="108dp"
+        android:layout_height="98dp"
+        android:src="@drawable/lemonlogo"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/textview_profiletext"
+        android:layout_width="141dp"
+        android:layout_height="107dp"
+        android:text="profile text here"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="16dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="20dp"
+
+        />
+
+
+    <ImageView
+        android:id="@+id/bprofile"
+        android:layout_width="105dp"
+        android:layout_height="107dp"
+        tools:layout_editor_absoluteX="290dp"
+        tools:layout_editor_absoluteY="16dp"
+        android:src="@drawable/account"
+        android:layout_marginLeft="280dp"
+        android:layout_marginTop="20dp"
+
+        />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
