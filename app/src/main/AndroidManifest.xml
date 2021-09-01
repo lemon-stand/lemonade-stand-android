@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.219lemonadestand">
         <activity
-            android:name=".SingleplayerActivity2"
-            android:exported="true" />
-        <activity
             android:name=".MarketActivity"
             android:exported="true"
             android:label="@string/title_activity_market"

@@ -25,8 +25,9 @@ public class SingleplayerActivity extends AppCompatActivity {
     private ImageView logo;
 
     private TextView balance;
-
     private TextView lemonsamount;
+    private TextView sugaramount;
+    private TextView wateramount;
 
     private String moneybalance;
     private String lemonbalance;
@@ -44,13 +45,24 @@ public class SingleplayerActivity extends AppCompatActivity {
 
 
 
+        sugaramount = (TextView) findViewById(R.id.s_sugar);
+
+        sugaramount.setText("Sugar: ");
+
+        wateramount = (TextView) findViewById(R.id.s_water);
+        wateramount.setText("Water: ");
+
         balance = (TextView) findViewById(R.id.s_balance);
         moneybalance = Integer.toString(a1.money);
-        balance.setText(moneybalance);
+        setMoneybalance(balance, moneybalance);
+
+        balance = (TextView) findViewById(R.id.s_balance);
+        moneybalance = Integer.toString(a1.money);
+        balance.setText("$" + moneybalance);
 
         lemonsamount = (TextView) findViewById(R.id.s_lemons);
         lemonbalance = Integer.toString(a1.lemons);
-        lemonsamount.setText(lemonbalance);
+        lemonsamount.setText("Lemons: " + lemonbalance);
 
         buylemonsbutton = (Button) findViewById(R.id.bbuylemons);
         buylemonsbutton.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +76,7 @@ public class SingleplayerActivity extends AppCompatActivity {
 
               a1.buyLemons();
                 moneybalance = Integer.toString(a1.money);
-                balance.setText(moneybalance);
+                setMoneybalance(balance, moneybalance);
                 lemonbalance = Integer.toString(a1.lemons);
                 lemonsamount.setText(lemonbalance);
 
@@ -113,6 +125,11 @@ public class SingleplayerActivity extends AppCompatActivity {
 
 
 
+    }
+
+    void setMoneybalance(TextView a, String b)
+    {
+        a.setText("$" + b);
     }
 
 }
