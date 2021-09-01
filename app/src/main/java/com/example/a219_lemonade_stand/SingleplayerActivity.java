@@ -32,7 +32,8 @@ public class SingleplayerActivity extends AppCompatActivity {
     private String lemonbalance;
 
 
-
+    //game loop
+    public spGame a1 = new spGame();
 
 
     @Override
@@ -41,8 +42,6 @@ public class SingleplayerActivity extends AppCompatActivity {
 
             setContentView(R.layout.activity_singleplayer);
 
-        //game loop
-        spGame a1 = new spGame();
 
 
         balance = (TextView) findViewById(R.id.s_balance);

@@ -33,4 +33,34 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"/>
 
+    <ImageView
+        android:id="@+id/stallpic"
+        android:layout_width="108dp"
+        android:layout_height="98dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="200dp"
+        android:src="@drawable/lemonadestandstall"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="1dp" />
+
+    <ImageView
+        android:id="@+id/sellerpic"
+        android:layout_width="108dp"
+        android:layout_height="98dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="200dp"
+        android:src="@drawable/sellerpic"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="1dp" />
+
+    <ImageView
+        android:id="@+id/buyerpic"
+        android:layout_width="108dp"
+        android:layout_height="98dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="400dp"
+        android:src="@drawable/buyerpic"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="1dp" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -62,8 +62,9 @@ public class MainActivity extends AppCompatActivity {
                 String line,line1 = "";
                 try
                 {
-                    while ((line = buffreader.readLine()) != null)
+                    while ((line = buffreader.readLine()) != ",")
                         line1+=line;
+                    //usertemp = line;
                 }catch (Exception e)
                 {
                     e.printStackTrace();
