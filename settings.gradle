@@ -1,0 +1,2 @@
+rootProject.name = "219-lemonade-stand"
+include ':app'
