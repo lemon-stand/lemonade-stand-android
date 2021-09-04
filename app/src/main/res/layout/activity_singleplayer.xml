@@ -8,6 +8,49 @@
 
     tools:context=".SingleplayerActivity">
 
+    <Button
+        android:id="@+id/bfinday"
+        android:layout_width="128dp"
+        android:layout_height="80dp"
+        android:text="Finish day"
+        tools:layout_editor_absoluteX="262dp"
+        tools:layout_editor_absoluteY="621dp"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="600dp"
+        />
+
+
+
+    <ImageView
+        android:id="@+id/stallpic"
+        android:layout_width="108dp"
+        android:layout_height="98dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="200dp"
+        android:src="@drawable/lemonadestandstall"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="1dp" />
+
+    <ImageView
+        android:id="@+id/sellerpic"
+        android:layout_width="108dp"
+        android:layout_height="98dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="200dp"
+        android:src="@drawable/sellerpic"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="1dp" />
+
+    <ImageView
+        android:id="@+id/buyerpic"
+        android:layout_width="108dp"
+        android:layout_height="98dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="400dp"
+        android:src="@drawable/buyerpic"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="1dp" />
+
     <TextView
         android:id="@+id/s_sugar"
         android:layout_width="150dp"
