@@ -17,10 +17,10 @@
 
     <EditText
         android:id="@+id/etUsername"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
         android:layout_marginLeft="170dp"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="220dp"
         android:layout_marginBottom="20dp"
         android:hint= "   username "
         app:backgroundTint="@color/black"
@@ -48,7 +48,7 @@
 
     <EditText
         android:id="@+id/etPassword"
-        android:layout_width="150dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="170dp"
         android:layout_marginTop="300dp"

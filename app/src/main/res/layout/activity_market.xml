@@ -6,29 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".MarketActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.219lemonadestand.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.219lemonadestand.PopupOverlay" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+    <TextView
+        android:id="@+id/s_balance"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="20dp"
+        android:text = "Markert"
+        />
 
-    <include layout="@layout/content_market" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+    <ImageView
+        android:id="@+id/blogo"
+        android:layout_width="108dp"
+        android:layout_height="98dp"
+        android:src="@drawable/lemonlogo"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
