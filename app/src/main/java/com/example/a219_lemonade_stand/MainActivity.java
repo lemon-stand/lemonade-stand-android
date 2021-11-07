@@ -50,12 +50,28 @@ public class MainActivity extends AppCompatActivity {
     String passtemp = "";
 
 
+    private boolean initCheck = false;
+
     /**
      *  Main Activity onCreate Function
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+        //go to splash screen from start
+        Intent i = new Intent(MainActivity.this, SplashScreenActivity.class);
+        MainActivity.this.startActivity(i);
+
+
+        //
+        //remove all code below and encapsulate into classes.
+        //
+
+
+
 
         setContentView(R.layout.activity_main);
 
