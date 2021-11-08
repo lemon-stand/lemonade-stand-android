@@ -42,6 +42,9 @@ public class SplashScreenActivity extends AppCompatActivity {
             } finally {
 
                 //change from going straight into the mainmenu activity, go into the loginmenu activity(?)
+                // yes, change from going straight into mainmenu to go into loginmenu
+
+
                 Intent mainIntent = new Intent(SplashScreenActivity.this, MainMenuActivity.class);
                 startActivity(mainIntent);
 

@@ -1,11 +1,8 @@
 package com.example.a219_lemonade_stand;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
+import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,34 +18,29 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.a219_lemonade_stand.databinding.ActivityMarketBinding;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class SingleplayerActivity extends AppCompatActivity {
+
+public class SingleplayerActivity2 extends AppCompatActivity {
 
 
     private Handler handler = new Handler();
     private final static long Interval = 30;
 
 
-
-    private SingleplayerView1 spgame1;
-
-
+    private SingleplayerView2 spgame2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        //singleplayer game state 1
-        spgame1 = new SingleplayerView1(this);
-
+        //singleplayer game state 2 = selling state
+        spgame2 = new SingleplayerView2(this);
 
         //game state
-        setContentView(spgame1);
+        setContentView(spgame2);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -57,13 +49,13 @@ public class SingleplayerActivity extends AppCompatActivity {
                     @Override
                     public void run() {
 
-                        spgame1.invalidate();
+                        spgame2.invalidate();
                     }
                 });
             }
         }, 0, Interval);
 
 
-    }
 
+    }
 }
