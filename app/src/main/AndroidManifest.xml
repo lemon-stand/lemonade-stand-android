@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.219lemonadestand">
         <activity
+            android:name=".StoreActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginSystemActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RecipePricingActivity"
+            android:exported="false" />
+        <activity
             android:name=".SingleplayerActivity2"
             android:exported="false" />
         <activity

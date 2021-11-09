@@ -36,6 +36,10 @@ public class SingleplayerView2 extends View {
 
     private boolean touch = false;
 
+    private Bitmap homeButton;
+    private Bitmap unscaledhome;
+    private int homeButtonX = 20, homeButtonY = 20, homeButtonWidth = 200, homeButtonHeight = 200;
+
     private Bitmap backgroundImage;
     private Bitmap unscaledbg;
 
@@ -47,7 +51,11 @@ public class SingleplayerView2 extends View {
     private int sellerX, sellerY;
 
 
-    private int ffX = 700, ffY = 900, ffWidth = 300, ffHeight = 700;
+    private int stockImageX, stockImageY, stockImageWidth = 300, stockImageHeight = 300;
+    private Bitmap stockimage;
+    private Bitmap unscaledstockimage;
+
+    private int ffX, ffY, ffWidth = 300, ffHeight = 300;
     private Bitmap ffbutton;
     private Bitmap unscaledffbutton;
 
@@ -55,6 +63,11 @@ public class SingleplayerView2 extends View {
     private Paint scorePaint = new Paint();
 
     private int gametime;
+    private int hours;
+    private int minutes;
+
+    private String s_gametime = "";
+
 
     public int getgametime() {
         return gametime;
@@ -82,11 +95,17 @@ public class SingleplayerView2 extends View {
         unscaledbg = BitmapFactory.decodeResource(getResources(), R.drawable.location1);
         backgroundImage = Bitmap.createScaledBitmap(unscaledbg, 1000, 1600, false);
 
+        unscaledhome = BitmapFactory.decodeResource(getResources(), R.drawable.lemonlogo);
+        homeButton = Bitmap.createScaledBitmap(unscaledhome, homeButtonWidth, homeButtonHeight, false);
+
         unscaledstall = BitmapFactory.decodeResource(getResources(), R.drawable.lemonadestandstall);
         stall = Bitmap.createScaledBitmap(unscaledstall, 300, 300, false);
 
         unscaledseller = BitmapFactory.decodeResource(getResources(), R.drawable.sellerpic);
         seller = Bitmap.createScaledBitmap(unscaledseller, 300, 300, false);
+
+        unscaledstockimage = BitmapFactory.decodeResource(getResources(), R.drawable.stockimage);
+        stockimage = Bitmap.createScaledBitmap(unscaledstockimage, stockImageWidth, stockImageHeight, false);
 
         unscaledffbutton = BitmapFactory.decodeResource(getResources(), R.drawable.ffbuton);
         ffbutton = Bitmap.createScaledBitmap(unscaledffbutton, ffWidth, ffHeight, false);
@@ -105,7 +124,11 @@ public class SingleplayerView2 extends View {
         buyerX = 0;
         buyerY = 900;
         money = 0;
-        gametime = 1000;
+        gametime = 10000;
+
+        hours = 9;
+        minutes = 0;
+
 
 
     }
@@ -118,21 +141,56 @@ public class SingleplayerView2 extends View {
         canvasWidth = canvas.getWidth();
         canvasHeight = canvas.getHeight();
 
+        ffX = canvas.getWidth() - ffbutton.getWidth() - 20;
+        ffY = canvas.getHeight() - ffbutton.getHeight() - 20;
+
+        stockImageX =  20;
+        stockImageY = canvas.getHeight() - ffbutton.getHeight() - 20;
+
+        canvas.drawBitmap(stockimage, stockImageX, stockImageY, null);
+
         canvas.drawBitmap(backgroundImage, 0, 50, null);
 
-        canvas.drawText("Time: " + gametime , 20, 60, scorePaint);
-        canvas.drawText("Money: " + money, 20, 160, scorePaint);
-        canvas.drawText("Temp: ", 20, 260, scorePaint);
 
-        canvas.drawText(weathertext, 250, 260, scorePaint);
+        if(minutes>=60) {
+            hours ++;
+            minutes =0;
+        }
 
-        canvas.drawText(lemonstock, 600, 60, scorePaint);
-        canvas.drawText(waterstock, 600, 260, scorePaint);
-        canvas.drawText(sugarstock, 600, 460, scorePaint);
+        String s_minutes;
+        String s_hours;
+
+        if(hours <= 9) {
+            s_hours = "0" + hours;
+
+        } else {
+            s_hours = "" + hours;
+
+        }
+
+        if(minutes <= 9) {
+            s_minutes = "0" + minutes;
+
+        } else {
+            s_minutes = "" + minutes;
+
+        }
+
+        s_gametime = s_hours + ":" + s_minutes;
+
+
+        canvas.drawText("Money: " + money, (canvasWidth/2)- 400, 100 , scorePaint);
+        canvas.drawText("Temp: " + weathertext, (canvasWidth/2), 200, scorePaint);
+        canvas.drawText("Time: " + s_gametime , (canvasWidth/2), 100, scorePaint);
+
+        canvas.drawText(lemonstock, stockImageX, stockImageY+50, scorePaint);
+        canvas.drawText(waterstock, stockImageX, stockImageY+ 150, scorePaint);
+        canvas.drawText(sugarstock, stockImageX, stockImageY + 250, scorePaint);
 
         canvas.drawBitmap(stall, 200, 500, null);
         canvas.drawBitmap(seller, sellerX, sellerY, null);
 
+        canvas.drawBitmap(homeButton, homeButtonX, homeButtonY, null);
         canvas.drawBitmap(ffbutton, ffX, ffY, null);
 
 
@@ -200,10 +258,12 @@ public class SingleplayerView2 extends View {
         canvas.drawLine(rainX, rainY, rainX+15, rainY+25, rainPaint);
 
 
+        minutes++;
+        gametime = gametime - 2;
 
+        //if(gametime <= 0)
 
-
-        if(gametime <= 0)  {
+        if(hours >= 17)  {
             Toast.makeText(getContext(), "End of the day", Toast.LENGTH_SHORT).show();
             Intent intent_EndDay = new Intent(getContext(), SingleplayerActivity.class);
             intent_EndDay.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -213,7 +273,7 @@ public class SingleplayerView2 extends View {
 
         }
 
-        gametime = gametime - 2;
+
 
     }
 
@@ -247,6 +307,22 @@ public class SingleplayerView2 extends View {
                     getContext().startActivity(intent_EndDay);
 
                 }
+                if( x > homeButtonX && x < homeButtonY + homeButtonWidth && y > homeButtonY && y < homeButtonY + homeButtonHeight ) {
+
+                    //set true to display request.
+                    //dont pause game??
+                    //then go into another check for accept or deny
+
+                    //intent or set false to bool
+
+                    //Toast.makeText(getContext(), "End of the day", Toast.LENGTH_SHORT).show();
+                    //Intent intent_EndDay = new Intent(getContext(), SingleplayerActivity.class);
+                    //intent_EndDay.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                    //getContext().startActivity(intent_EndDay);
+
+                }
+
                 return true;
         }
         return false;

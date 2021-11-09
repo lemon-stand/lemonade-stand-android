@@ -1,16 +1,13 @@
 package com.example.a219_lemonade_stand;
 
-
-
-public class spGame {
-
+public class GameObject {
 
     public int lemons;
     public int sugar;
     public int water;
     public int money;
 
-    public spGame()
+    public GameObject()
     {
         lemons = 100;
         sugar = 100;
@@ -27,19 +24,22 @@ public class spGame {
 
 
 
-   public void buyLemons()
-   {
-       lemons += 15;
-       money -= 5;
-   }
+    public void buyLemons()
+    {
+        lemons += 15;
+        money -= 5;
+    }
 
-   public void useLemons()
-   {
-       lemons -= 5;
-       sugar -= 2;
-       water -= 5;
-       money +=20;
-   }
+    public void useLemons()
+    {
+        lemons -= 5;
+        sugar -= 2;
+        water -= 5;
+        money +=20;
+    }
+
+
+
 
 
 }

@@ -16,6 +16,7 @@ public class SingleplayerView1 extends View {
 
     private Bitmap seller;
     private Bitmap unscaledseller;
+    private int profileX , profileY , profileWidth = 300, profileHeight = 300;
     private String lemonstock = "lemons: ";
     private String waterstock = "water: ";
     private String sugarstock = "sugar: ";
@@ -29,16 +30,27 @@ public class SingleplayerView1 extends View {
 
     private Bitmap locationImage;
     private Bitmap unscaledlLcationImage;
+    private int locationImageX , locationImageY , locationImageWidth = 500, locationImageHeight = 300;
+
+    private Bitmap recipepricingButton;
+    private Bitmap unscaledrecipepricing;
+    private int rpX , rpY , rpWidth = 300, rpHeight = 300;
 
 
     private Bitmap unscaledknife;
     private Bitmap knife;
+    private int knifeX , knifeY , knifeWidth = 200, knifeHeight = 200;
+
+
+    private Bitmap slot3;
+    private int slot3X , slot3Y , slot3Width = 200, slot3Height = 200;
+
 
     private Bitmap unscaledcooler;
     private Bitmap cooler;
+    private int coolerX , coolerY , coolerWidth = 200, coolerHeight = 200;
 
-
-    private int arrowX = 700, arrowY = 900, arrowWidth = 300, arrowHeight = 700;
+    private int arrowX , arrowY , arrowWidth = 300, arrowHeight = 300;
     private Bitmap unscaledarrow;
     private Bitmap goarrow;
     private boolean arrowClicked= false;
@@ -46,6 +58,9 @@ public class SingleplayerView1 extends View {
 
     public boolean getarrowClicked() { return arrowClicked; };
 
+    private Bitmap homeButton;
+    private Bitmap unscaledhome;
+    private int homeButtonX = 20, homeButtonY = 20, homeButtonWidth = 200, homeButtonHeight = 200;
 
 
 
@@ -56,16 +71,24 @@ public class SingleplayerView1 extends View {
         super(context);
 
 
+        unscaledhome = BitmapFactory.decodeResource(getResources(), R.drawable.lemonlogo);
+        homeButton = Bitmap.createScaledBitmap(unscaledhome, homeButtonWidth, homeButtonHeight, false);
+
+        unscaledrecipepricing = BitmapFactory.decodeResource(getResources(), R.drawable.recipeicon);
+        recipepricingButton = Bitmap.createScaledBitmap(unscaledrecipepricing, rpWidth, rpHeight, false);
+
 
         unscaledknife = BitmapFactory.decodeResource(getResources(), R.drawable.knife);
-        knife = Bitmap.createScaledBitmap(unscaledknife, 300, 300, false);
+        knife = Bitmap.createScaledBitmap(unscaledknife, knifeWidth, knifeHeight, false);
+
+        slot3 = Bitmap.createScaledBitmap(unscaledknife, slot3Width, slot3Height, false);
 
         unscaledcooler = BitmapFactory.decodeResource(getResources(), R.drawable.icecooler);
-        cooler = Bitmap.createScaledBitmap(unscaledcooler, 300, 300, false);
+        cooler = Bitmap.createScaledBitmap(unscaledcooler, coolerWidth, coolerHeight, false);
 
 
         unscaledseller = BitmapFactory.decodeResource(getResources(), R.drawable.sellerpic);
-        seller = Bitmap.createScaledBitmap(unscaledseller, 300, 300, false);
+        seller = Bitmap.createScaledBitmap(unscaledseller, profileWidth, profileHeight, false);
 
 
         unscaledarrow = BitmapFactory.decodeResource(getResources(), R.drawable.goarrow);
@@ -74,7 +97,7 @@ public class SingleplayerView1 extends View {
 
 
         unscaledlLcationImage = BitmapFactory.decodeResource(getResources(), R.drawable.location1);
-        locationImage = Bitmap.createScaledBitmap(unscaledlLcationImage,  400, 300, false);
+        locationImage = Bitmap.createScaledBitmap(unscaledlLcationImage,  locationImageWidth, locationImageHeight, false);
 
 
 
@@ -94,22 +117,53 @@ public class SingleplayerView1 extends View {
 
         super.onDraw(canvas);
 
-        canvas.drawBitmap(seller, 0, 50, null);
-        canvas.drawBitmap(locationImage, 0, 500, null);
+        profileX = canvas.getWidth() - seller.getWidth() - 20;
+        profileY = 20;
 
-        canvas.drawBitmap(cooler, 400, 500, null);
-        canvas.drawBitmap(knife, 800, 500, null);
+        canvas.drawBitmap(seller, profileX, profileY, null);
 
-        canvas.drawText(lemonstock, 500, 70, scorePaint);
-        canvas.drawText(waterstock, 500, 270, scorePaint);
-        canvas.drawText(sugarstock, 500, 470, scorePaint);
 
-        canvas.drawText(s_Revenue, 20, 700, scorePaint);
-        canvas.drawText(s_Overhead, 20, 900, scorePaint);
-        canvas.drawText(s_Profit, 20, 1100, scorePaint);
+        locationImageX = (canvas.getWidth() /2 ) - (locationImageWidth/2);
+        locationImageY = 20;
+        canvas.drawBitmap(locationImage, locationImageX, locationImageY, null);
 
+
+        coolerX = (canvas.getWidth() /2 ) + (coolerWidth/2) + 100;
+        coolerY = 450;
+
+        knifeX = (canvas.getWidth() /2 ) - (knifeWidth/2);
+        knifeY = 450;
+
+        slot3X = (canvas.getWidth() /2 ) - (slot3Width/2) - 300;
+        slot3Y = 450;
+
+        canvas.drawBitmap(slot3, slot3X, slot3Y, null);
+        canvas.drawBitmap(cooler, coolerX, coolerY, null);
+        canvas.drawBitmap(knife, knifeX, knifeY, null);
+
+
+        canvas.drawText("PREVIOUS RETURN", 40, 750, scorePaint);
+        canvas.drawText(s_Revenue, 40, 850, scorePaint);
+        canvas.drawText(s_Overhead, 40, 950, scorePaint);
+        canvas.drawText(s_Profit, 40, 1050, scorePaint);
+
+        canvas.drawText("CURRENT STOCK", 40, 1200, scorePaint);
+        canvas.drawText(lemonstock, 40, 1300, scorePaint);
+        canvas.drawText(waterstock, 40, 1400, scorePaint);
+        canvas.drawText(sugarstock, 40, 1500, scorePaint);
+        canvas.drawText("Recipe(s): ", 40, 1600, scorePaint);
+
+
+
+        arrowX = canvas.getWidth() - goarrow.getWidth() - 20;
+        arrowY = canvas.getHeight() - goarrow.getHeight() - 20;
         canvas.drawBitmap(goarrow, arrowX, arrowY, null);
 
+        rpX = 20;
+        rpY = canvas.getHeight() - recipepricingButton.getHeight() - 20;
+        canvas.drawBitmap(recipepricingButton, rpX, rpY, null);
+
+        canvas.drawBitmap(homeButton, homeButtonX, homeButtonY, null);
 
         if(touch)  {
 
@@ -136,6 +190,16 @@ public class SingleplayerView1 extends View {
         switch(event.getAction()) {
             case MotionEvent.ACTION_DOWN:
 
+
+                if( x > rpX && x < rpX + rpWidth && y > rpY && y < rpY + rpHeight )  {
+
+                    Toast.makeText(getContext(), "Go to Recipe/Pricing State", Toast.LENGTH_SHORT).show();
+                    Intent intent_RP = new Intent(getContext(), RecipePricingActivity.class);
+                    intent_RP.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    getContext().startActivity(intent_RP);
+
+                }
+
                 if( x > arrowX && x < arrowX + arrowWidth && y > arrowY && y < arrowY + arrowHeight ) {
                     arrowClicked = true;
 
@@ -143,6 +207,15 @@ public class SingleplayerView1 extends View {
                     Intent intent_StartDay = new Intent(getContext(), SingleplayerActivity2.class);
                     intent_StartDay.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     getContext().startActivity(intent_StartDay);
+
+                }
+                if( x > homeButtonX && x < homeButtonY + homeButtonWidth && y > homeButtonY && y < homeButtonY + homeButtonHeight ) {
+
+                    Toast.makeText(getContext(), "Return to MainMenu", Toast.LENGTH_SHORT).show();
+                    Intent intent_EndDay = new Intent(getContext(), MainMenuActivity.class);
+                    intent_EndDay.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                    getContext().startActivity(intent_EndDay);
 
                 }
                 return true;

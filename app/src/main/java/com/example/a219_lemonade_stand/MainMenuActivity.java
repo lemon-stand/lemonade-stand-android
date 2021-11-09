@@ -40,6 +40,7 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+        getSupportActionBar().hide();
 
         singleplayer =  findViewById(R.id.bsingleplayer);
         multiplayer = findViewById(R.id.bmultiplayer);
@@ -58,7 +59,6 @@ public class MainMenuActivity extends AppCompatActivity {
 
         String s_profiletext = s_username + "\n" + s_balance;
 
-        spGame a1 = new spGame();
 
         profiletext.setText(s_profiletext);
 
@@ -78,6 +78,20 @@ public class MainMenuActivity extends AppCompatActivity {
 
 
 
+            }
+        });
+
+        lemonsbutton.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Function to return boolean value based on user data.
+             * @param v
+             */
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(MainMenuActivity.this, RecipePricingActivity.class);
+                MainMenuActivity.this.startActivity(i);
             }
         });
 

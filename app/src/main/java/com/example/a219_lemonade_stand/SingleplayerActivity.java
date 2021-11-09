@@ -42,6 +42,7 @@ public class SingleplayerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
 
         //singleplayer game state 1
         spgame1 = new SingleplayerView1(this);
