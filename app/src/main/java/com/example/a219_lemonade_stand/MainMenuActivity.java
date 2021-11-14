@@ -110,6 +110,20 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
+        store.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Function to return boolean value based on user data.
+             * @param v
+             */
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(MainMenuActivity.this, StoreActivity.class);
+                MainMenuActivity.this.startActivity(i);
+            }
+        });
+
 
 
 

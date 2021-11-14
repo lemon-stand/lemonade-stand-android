@@ -67,6 +67,19 @@ public class SingleplayerView1 extends View {
 
     private boolean touch = false;
 
+
+
+
+
+
+
+
+    GameObject sp1GameObject = new GameObject();
+
+
+
+
+
     public SingleplayerView1(Context context) {
         super(context);
 
@@ -116,6 +129,10 @@ public class SingleplayerView1 extends View {
     protected void onDraw(Canvas canvas) {
 
         super.onDraw(canvas);
+
+        lemonstock = "Lemons: " + sp1GameObject.getLemons();
+        waterstock = "Water: " + sp1GameObject.getWater();
+        sugarstock = "Sugar: " + sp1GameObject.getSugar();
 
         profileX = canvas.getWidth() - seller.getWidth() - 20;
         profileY = 20;

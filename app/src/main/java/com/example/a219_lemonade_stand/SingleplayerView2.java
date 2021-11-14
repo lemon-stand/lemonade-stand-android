@@ -83,9 +83,13 @@ public class SingleplayerView2 extends View {
     private int money;
 
 
+    GameObject sp2GameObject = new GameObject();
+
+
 
     public SingleplayerView2(Context context) {
         super(context);
+
 
 
 
@@ -137,6 +141,12 @@ public class SingleplayerView2 extends View {
     protected void onDraw(Canvas canvas) {
 
         super.onDraw(canvas);
+
+
+        lemonstock = "Lemons: " + sp2GameObject.getLemons();
+        waterstock = "Water: " + sp2GameObject.getWater();
+        sugarstock = "Sugar: " + sp2GameObject.getSugar();
+
 
         canvasWidth = canvas.getWidth();
         canvasHeight = canvas.getHeight();
@@ -246,6 +256,7 @@ public class SingleplayerView2 extends View {
         if(customerpurchasechecker(sellerX, sellerY))
         {
             money = money +=10;
+            sp2GameObject.useLemons();
         }
 
 

@@ -9,7 +9,7 @@ public class GameObject {
 
     public GameObject()
     {
-        lemons = 100;
+        lemons = 999;
         sugar = 100;
         water = 1000;
         money = 200;
@@ -22,6 +22,24 @@ public class GameObject {
 
     //bool profit window
 
+    public int getSugar(){
+
+        return sugar;
+    }
+
+    public int getWater(){
+
+        return water;
+    }
+
+    public int getLemons() {
+
+        return lemons;
+    }
+
+    public int getMoney(){
+        return money;
+    }
 
 
     public void buyLemons()
