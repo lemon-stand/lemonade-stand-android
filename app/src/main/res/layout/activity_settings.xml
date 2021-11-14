@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/blogo"
+            android:layout_width="108dp"
+            android:layout_height="98dp"
+            android:src="@drawable/lemonlogo"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"/>
+    </FrameLayout>
+
+
+
+
+</LinearLayout>

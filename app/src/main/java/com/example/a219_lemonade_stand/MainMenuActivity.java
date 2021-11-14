@@ -95,6 +95,20 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
+        settings.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Function to return boolean value based on user data.
+             * @param v
+             */
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(MainMenuActivity.this, SettingsActivity.class);
+                MainMenuActivity.this.startActivity(i);
+            }
+        });
+
 
         market.setOnClickListener(new View.OnClickListener() {
 

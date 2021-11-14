@@ -51,7 +51,7 @@ public class RecipePricingView extends View {
             case MotionEvent.ACTION_DOWN:
 
 
-                if( x > homeButtonX && x < homeButtonY + homeButtonWidth && y > homeButtonY && y < homeButtonY + homeButtonHeight ) {
+                if( x > homeButtonX && x < homeButtonX + homeButtonWidth && y > homeButtonY && y < homeButtonY + homeButtonHeight ) {
 
                     Toast.makeText(getContext(), "Return to MainMenu", Toast.LENGTH_SHORT).show();
                     Intent intent_EndDay = new Intent(getContext(), MainMenuActivity.class);

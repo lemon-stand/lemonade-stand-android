@@ -22,7 +22,10 @@ import java.util.List;
 
 
 /**
- *  Main Activity Class that allows the user to login and read playerdata
+ *  Lemonade Stand Application
+ *
+ *  Start state -> Main Activity
+ *  Main Activity Class that starts the Splash Screen Activity
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -35,9 +38,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        //go to splash screen from start
-        Intent i = new Intent(MainActivity.this, SplashScreenActivity.class);
-        MainActivity.this.startActivity(i);
+        //Main Activity calls Splash Screen Activity
+        Intent intent_SplashScreen = new Intent(MainActivity.this, SplashScreenActivity.class);
+
+        //start Intent of Splash Screen which leads into the Login System Activity
+        MainActivity.this.startActivity(intent_SplashScreen);
 
     }
 }

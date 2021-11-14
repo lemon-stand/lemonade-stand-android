@@ -87,6 +87,9 @@ public class SingleplayerView2 extends View {
 
 
 
+
+
+
     public SingleplayerView2(Context context) {
         super(context);
 
@@ -318,7 +321,7 @@ public class SingleplayerView2 extends View {
                     getContext().startActivity(intent_EndDay);
 
                 }
-                if( x > homeButtonX && x < homeButtonY + homeButtonWidth && y > homeButtonY && y < homeButtonY + homeButtonHeight ) {
+                if( x > homeButtonX && x < homeButtonX + homeButtonWidth && y > homeButtonY && y < homeButtonY + homeButtonHeight ) {
 
                     //set true to display request.
                     //dont pause game??

@@ -1,68 +1,95 @@
 package com.example.a219_lemonade_stand;
 
-import androidx.appcompat.app.AppCompatActivity;
 
+/**     Import Libraries   **/
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+
+/**
+ *  Splash Screen Activity Class
+ *
+ *  Loads in any required details and checks for permissions
+ *  Allows the user to accept or deny permissions
+ *  Shows a loading bar, background and text
+ *
+ */
 public class SplashScreenActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+    //debugging value, true allows skipping straight to the Main Menu.
+    boolean bool_skipLoginSystem = true;
 
-
-    //starts in splash then moves to main
-
-
-    Thread thread = new Thread(){
-
-
+        /**
+         * OnCreate Function for Any Activity
+         * @param savedInstanceState
+         */
         @Override
-        public void run() {
+        protected void onCreate(Bundle savedInstanceState) {
 
-            try {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_splash_screen);   //splash screen layout
 
-                //Show the screen for 3 seconds
-                sleep(3000);
+            //Splash screen thread which will load mainmenu
+            Thread thread = new Thread() {
 
+                /**
+                 * Function to pre-run function to go through protocols before moving activities
+                 */
+                @Override
+                public void run() {
 
-                //initiate permissions and loader
+                    //try function will run through init loader to check for permissions.
+                    try {
 
-                Intent i = new Intent(SplashScreenActivity.this, InitLoader.class);
-                SplashScreenActivity.this.startActivity(i);
-                System.out.println("perms accepted");
-
-
-            } catch(Exception e) {
-
-                e.printStackTrace();
-
-            } finally {
-
-                //change from going straight into the mainmenu activity, go into the loginmenu activity(?)
-                // yes, change from going straight into mainmenu to go into loginmenu
+                        sleep(3000);     //Show the screen for 3 seconds
 
 
-                Intent mainIntent = new Intent(SplashScreenActivity.this, LoginSystemActivity.class);
-                startActivity(mainIntent);
+                        //initiate intent for permissions and loader
+                        Intent intent_initLoader = new Intent(SplashScreenActivity.this, InitLoader.class);
+
+                        //SplashScreen activity moves activity to init loader
+                        SplashScreenActivity.this.startActivity(intent_initLoader);
 
 
-            }
+                        System.out.println("perms accepted");   //legacy code, to be removed...
+
+
+                    } catch(Exception e) {
+
+                        e.printStackTrace();     //print error in stack
+
+                    } finally {
+
+                        //Initialize intent to go from the Splash screen to the Login System Activity
+                        Intent intent_PostSplash = new Intent(SplashScreenActivity.this, LoginSystemActivity.class);
+
+                        //debugging to skip straight to the main menu
+                        if(bool_skipLoginSystem == true) {
+                            intent_PostSplash = new Intent(SplashScreenActivity.this, MainMenuActivity.class);
+                        }
+
+                        //start Post-Splash Activity
+                        startActivity(intent_PostSplash);
+
+
+                    }
+                }
+            };
+
+            //start thread
+            thread.start();
+
+
         }
-    };
 
-    thread.start();
-
-
-
-    }
-
+    /**
+     * Thread onPause Function
+     */
     @Override
     protected void onPause() {
         super.onPause();
 
-        finish();
+        finish(); //finish activity
     }
 }

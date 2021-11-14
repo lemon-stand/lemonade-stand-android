@@ -2,18 +2,27 @@ package com.example.a219_lemonade_stand;
 
 public class GameObject {
 
-    public int lemons;
-    public int sugar;
-    public int water;
-    public int money;
+    public int inital_lemons = 1000;
+    public int inital_sugar =  300;
+    public int inital_water =  1000;
+    public int inital_money =  6000;
+
+
+    public static int lemons = 0;
+    public static int sugar = 0;
+    public static int water = 0;
+    public static int money = 5000;
 
     public GameObject()
     {
-        lemons = 999;
-        sugar = 100;
-        water = 1000;
-        money = 200;
+
+
+
+
     }
+
+
+
     // 1 = prep stage, 2 = sell stage
     int gameStatus = 1;
 
@@ -45,6 +54,18 @@ public class GameObject {
     public void buyLemons()
     {
         lemons += 15;
+        money -= 5;
+    }
+
+    public void buySugar()
+    {
+        sugar += 20;
+        money -= 100;
+    }
+
+    public void buyWater()
+    {
+        water += 100;
         money -= 5;
     }
 

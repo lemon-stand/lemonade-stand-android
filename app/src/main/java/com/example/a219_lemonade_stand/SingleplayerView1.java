@@ -35,6 +35,10 @@ public class SingleplayerView1 extends View {
     private Bitmap unscaledrecipepricing;
     private int rpX , rpY , rpWidth = 300, rpHeight = 300;
 
+    private Bitmap storeButton;
+    private Bitmap unscaledstore;
+    private int storeX , storeY , storeWidth = 300, storeHeight = 300;
+
 
     private Bitmap unscaledknife;
     private Bitmap knife;
@@ -88,6 +92,9 @@ public class SingleplayerView1 extends View {
 
         unscaledrecipepricing = BitmapFactory.decodeResource(getResources(), R.drawable.recipeicon);
         recipepricingButton = Bitmap.createScaledBitmap(unscaledrecipepricing, rpWidth, rpHeight, false);
+
+        unscaledstore = BitmapFactory.decodeResource(getResources(), R.drawable.store_icon);
+        storeButton = Bitmap.createScaledBitmap(unscaledstore, storeWidth, storeHeight, false);
 
 
         unscaledknife = BitmapFactory.decodeResource(getResources(), R.drawable.knife);
@@ -179,6 +186,11 @@ public class SingleplayerView1 extends View {
         rpY = canvas.getHeight() - recipepricingButton.getHeight() - 20;
         canvas.drawBitmap(recipepricingButton, rpX, rpY, null);
 
+
+        storeX = 700;
+        storeY = canvas.getHeight() - 600;
+        canvas.drawBitmap(storeButton, storeX, storeY, null);
+
         canvas.drawBitmap(homeButton, homeButtonX, homeButtonY, null);
 
         if(touch)  {
@@ -216,6 +228,16 @@ public class SingleplayerView1 extends View {
 
                 }
 
+                if( x > storeX && x < storeX + storeWidth && y > storeY && y < storeY + storeHeight )  {
+
+                    Toast.makeText(getContext(), "Go to Recipe/Pricing State", Toast.LENGTH_SHORT).show();
+                    Intent intent_RP = new Intent(getContext(), StoreActivity.class);
+                    intent_RP.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    getContext().startActivity(intent_RP);
+
+                }
+
+
                 if( x > arrowX && x < arrowX + arrowWidth && y > arrowY && y < arrowY + arrowHeight ) {
                     arrowClicked = true;
 
@@ -225,7 +247,7 @@ public class SingleplayerView1 extends View {
                     getContext().startActivity(intent_StartDay);
 
                 }
-                if( x > homeButtonX && x < homeButtonY + homeButtonWidth && y > homeButtonY && y < homeButtonY + homeButtonHeight ) {
+                if( x > homeButtonX && x < homeButtonX + homeButtonWidth && y > homeButtonY && y < homeButtonY + homeButtonHeight ) {
 
                     Toast.makeText(getContext(), "Return to MainMenu", Toast.LENGTH_SHORT).show();
                     Intent intent_EndDay = new Intent(getContext(), MainMenuActivity.class);
