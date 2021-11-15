@@ -18,8 +18,25 @@ public class StoreView extends View {
     private Bitmap unscaledhome;
     private int homeButtonX = 20, homeButtonY = 20, homeButtonWidth = 200, homeButtonHeight = 200;
 
-    private int iconSizeWidth = 300;
-    private int iconSizeHeight = 400;
+
+    private Bitmap increment1b;
+    private Bitmap unscaledi1;
+    private int i1bX = 50, i1bY = 700, i1bWidth = 100, i1bHeight = 100;
+
+    private Bitmap increment5b;
+    private Bitmap unscaledi5;
+    private int i5bX = 200, i5bX2 =750, i5bY = 700, i5bWidth = 100, i5bHeight = 100;
+
+    private Bitmap increment10b;
+    private Bitmap unscaledi10;
+    private int i10bX = 400, i10bX2 = 900, i10bY = 700, i10bWidth = 100, i10bHeight = 100;
+
+    private Bitmap increment50b;
+    private Bitmap unscaledi50;
+    private int i50bX = 600, i50bY = 700, i50bWidth = 100, i50bHeight = 100;
+
+    private int iconSizeWidth = 150;
+    private int iconSizeHeight = 200;
 
     private Bitmap lemonsIcon;
     private Bitmap unscaledlemons;
@@ -60,6 +77,19 @@ public class StoreView extends View {
         unscaledwater = BitmapFactory.decodeResource(getResources(), R.drawable.water);
         waterIcon = Bitmap.createScaledBitmap(unscaledwater, iconSizeWidth, iconSizeHeight, false);
 
+        unscaledi1 = BitmapFactory.decodeResource(getResources(), R.drawable.plus_icon);
+        increment1b = Bitmap.createScaledBitmap(unscaledi1, i1bWidth, i1bHeight, false);
+
+        unscaledi5 = BitmapFactory.decodeResource(getResources(), R.drawable.plus_icon5);
+        increment5b = Bitmap.createScaledBitmap(unscaledi5, i5bWidth, i5bHeight, false);
+
+        unscaledi10 = BitmapFactory.decodeResource(getResources(), R.drawable.plus_icon10);
+        increment10b = Bitmap.createScaledBitmap(unscaledi10, i10bWidth, i10bHeight, false);
+
+        unscaledi50 = BitmapFactory.decodeResource(getResources(), R.drawable.plus_icon50);
+        increment50b = Bitmap.createScaledBitmap(unscaledi50, i50bWidth, i50bHeight, false);
+
+
         scorePaint.setColor(Color.BLACK);
         scorePaint.setTextSize(70);
         scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
@@ -85,16 +115,35 @@ public class StoreView extends View {
         canvasHeight = canvas.getHeight();
 
         lemonsX = 100;
-        waterX = 400;
-        sugarX = 700;
+        waterX = 500;
+        sugarX = 800;
 
-        lemonsY = (canvasHeight/2) - 200;
-        sugarY = (canvasHeight/2) - 200;
-        waterY = (canvasHeight/2) - 200;
+        lemonsY = 500;
+        sugarY =  500;
+        waterY =  500;
 
+
+        canvas.drawText("Fresh lemons", lemonsX, lemonsY, scorePaint);
         canvas.drawBitmap(lemonsIcon, lemonsX, lemonsY, null);
+
+        canvas.drawBitmap(increment1b, i1bX, i1bY, null);
+        canvas.drawBitmap(increment5b, i5bX, i5bY, null);
+
+
+        canvas.drawText("Tap water", waterX, waterY, scorePaint);
         canvas.drawBitmap(waterIcon, waterX, waterY, null);
+
+        canvas.drawBitmap(increment10b, i10bX, i10bY, null);
+        canvas.drawBitmap(increment50b, i50bX, i50bY, null);
+
+
+        canvas.drawText("Honey", sugarX, sugarY,  scorePaint);
         canvas.drawBitmap(sugarIcon, sugarX, sugarY, null);
+
+        canvas.drawBitmap(increment5b, i5bX2, i5bY, null);
+        canvas.drawBitmap(increment10b, i10bX2, i10bY, null);
+
+
 
         canvas.drawText(lemonstock, stockImageX, stockImageY+50, scorePaint);
         canvas.drawText(waterstock, stockImageX, stockImageY+ 150, scorePaint);

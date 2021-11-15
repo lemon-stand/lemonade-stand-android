@@ -11,10 +11,14 @@ public class GameObject {
     public static int lemons = 0;
     public static int sugar = 0;
     public static int water = 0;
-    public static int money = 5000;
+    public static double money = 5000;
+
+    private Recipe recipeObj = new Recipe();
+    private Pricing pricingObj = new Pricing();
 
     public GameObject()
     {
+
 
 
 
@@ -46,7 +50,7 @@ public class GameObject {
         return lemons;
     }
 
-    public int getMoney(){
+    public double getMoney(){
         return money;
     }
 
@@ -71,10 +75,77 @@ public class GameObject {
 
     public void useLemons()
     {
-        lemons -= 5;
-        sugar -= 2;
-        water -= 5;
-        money +=20;
+        recipeObj.useRecipe();
+        pricingObj.usePricing();
+
+    }
+
+    public double getPPC(){
+
+        return pricingObj.getPricingpercup();
+    }
+
+
+    public class Recipe {
+
+        private int use_lemons = -5;
+        private  int use_sugar = -2;
+        private int use_water = -10;
+
+        public Recipe() {
+
+
+        }
+
+        public void useRecipe() {
+
+            lemons = (lemons + use_lemons);
+            sugar = (sugar + use_sugar);
+            water = (water + use_water);
+
+        }
+
+
+    }
+
+    public class Pricing {
+
+
+        private double pricingpercup = 20;
+        private double increment = 0.2;
+
+        public Pricing() {
+
+
+        }
+
+        public void usePricing() {
+
+            money = (money + pricingpercup);
+        }
+
+        public void decreasePricingIncrement() {
+
+            pricingpercup = (pricingpercup - increment);
+
+            //check for negative or less than a minimum
+
+        }
+
+        public void increasePricingIncrement() {
+
+            pricingpercup = (pricingpercup + increment);
+
+            //maybe issue standard warning when asking for expensive cup
+
+        }
+
+        public double getPricingpercup() {
+
+            return pricingpercup;
+        }
+
+
     }
 
 

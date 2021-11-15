@@ -1,4 +1,13 @@
+/**
+ * Lemonade Stand - Singleplayer View 1
+ * 19129576
+ * come219
+ */
 package com.example.a219_lemonade_stand;
+
+/**
+ *  Import Libraries
+ */
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,6 +20,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+/**
+ * Singleplayer View 1 Class
+ * Soon to change name to Campaign to better suit name and not confuse the game as being
+ * local only or as a serparate stand-alone game
+ *
+ * Game state describes the moment where the player can see their previous return,
+ * they can also directly see their stock and recipes, they have access to change the recipe or stock,
+ * finally the player can choose to start the game state and sell some lemons! yay!
+ */
 public class SingleplayerView1 extends View {
 
     private Bitmap seller;
@@ -19,6 +37,8 @@ public class SingleplayerView1 extends View {
     private String lemonstock = "lemons: ";
     private String waterstock = "water: ";
     private String sugarstock = "sugar: ";
+
+    private String forecastString = "Forecast: windy 20 degress";   //implement forecost on the state
 
     private String s_Revenue = "Revenue: ";
     private String s_Overhead = "Overhead: ";
@@ -30,6 +50,10 @@ public class SingleplayerView1 extends View {
     private Bitmap locationImage;
     private Bitmap unscaledlLcationImage;
     private int locationImageX , locationImageY , locationImageWidth = 500, locationImageHeight = 300;
+
+    private Bitmap changeserverbutton;
+    private Bitmap unscaledserver;
+    private int changeserverX , changeserverY , changeserverWidth = 500, changeserverHeight = 300;
 
     private Bitmap recipepricingButton;
     private Bitmap unscaledrecipepricing;
@@ -52,6 +76,11 @@ public class SingleplayerView1 extends View {
     private Bitmap unscaledcooler;
     private Bitmap cooler;
     private int coolerX , coolerY , coolerWidth = 200, coolerHeight = 200;
+
+    private int forecastX , forecastY , forecastWidth = 300, forecastHeight = 300;
+    private Bitmap unscaledforecast;
+    private Bitmap forecast;
+
 
     private int arrowX , arrowY , arrowWidth = 300, arrowHeight = 300;
     private Bitmap unscaledarrow;
@@ -80,11 +109,18 @@ public class SingleplayerView1 extends View {
     GameObject sp1GameObject = new GameObject();
 
 
-
-
-
+    /**
+     * SingleplayerView1 Constructor Function that assigns all the objects to their attributes,
+     *                   ready to be used by the canvas
+     * @param context
+     */
     public SingleplayerView1(Context context) {
         super(context);
+
+
+        unscaledserver = BitmapFactory.decodeResource(getResources(), R.drawable.changeservericon);
+        changeserverbutton = Bitmap.createScaledBitmap(unscaledserver, changeserverWidth, changeserverHeight, false);
+
 
 
         unscaledhome = BitmapFactory.decodeResource(getResources(), R.drawable.lemonlogo);
@@ -114,6 +150,9 @@ public class SingleplayerView1 extends View {
         goarrow = Bitmap.createScaledBitmap(unscaledarrow, arrowWidth, arrowHeight, false);
 
 
+        unscaledforecast = BitmapFactory.decodeResource(getResources(), R.drawable.forecast_icon);
+        forecast = Bitmap.createScaledBitmap(unscaledforecast, forecastWidth, forecastHeight, false);
+
 
         unscaledlLcationImage = BitmapFactory.decodeResource(getResources(), R.drawable.location1);
         locationImage = Bitmap.createScaledBitmap(unscaledlLcationImage,  locationImageWidth, locationImageHeight, false);
@@ -131,6 +170,10 @@ public class SingleplayerView1 extends View {
 
     }
 
+    /**
+     * View onDraw Function
+     * @param canvas
+     */
     @Override
     protected void onDraw(Canvas canvas) {
 
@@ -176,6 +219,17 @@ public class SingleplayerView1 extends View {
         canvas.drawText(sugarstock, 40, 1500, scorePaint);
         canvas.drawText("Recipe(s): ", 40, 1600, scorePaint);
 
+
+        changeserverX = (canvas.getWidth()/2) - 100;
+        changeserverY = canvas.getHeight() - changeserverHeight - 20;
+        canvas.drawBitmap(changeserverbutton, changeserverX, changeserverY, null);
+
+
+
+        forecastX = canvas.getWidth() - forecast.getWidth() - 20;
+        forecastY = canvas.getHeight() - 1000;
+        canvas.drawBitmap(forecast, forecastX, forecastY, null);
+        canvas.drawText(forecastString, forecastX- 200, forecastY + forecastHeight + 50, scorePaint);
 
 
         arrowX = canvas.getWidth() - goarrow.getWidth() - 20;
