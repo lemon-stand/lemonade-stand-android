@@ -11,7 +11,7 @@ public class GameObject {
     public static int lemons = 0;
     public static int sugar = 0;
     public static int water = 0;
-    public static double money = 5000;
+    public static double Balance = 5000;
 
     private Recipe recipeObj = new Recipe();
     private Pricing pricingObj = new Pricing();
@@ -50,27 +50,24 @@ public class GameObject {
         return lemons;
     }
 
-    public double getMoney(){
-        return money;
-    }
 
 
     public void buyLemons()
     {
         lemons += 15;
-        money -= 5;
+        Balance -= 5;
     }
 
     public void buySugar()
     {
         sugar += 20;
-        money -= 100;
+        Balance -= 100;
     }
 
     public void buyWater()
     {
         water += 100;
-        money -= 5;
+        Balance -= 5;
     }
 
     public void useLemons()
@@ -83,6 +80,10 @@ public class GameObject {
     public double getPPC(){
 
         return pricingObj.getPricingpercup();
+    }
+
+    public double getBalance(){
+        return Balance;
     }
 
 
@@ -121,7 +122,7 @@ public class GameObject {
 
         public void usePricing() {
 
-            money = (money + pricingpercup);
+            Balance = (Balance + pricingpercup);
         }
 
         public void decreasePricingIncrement() {

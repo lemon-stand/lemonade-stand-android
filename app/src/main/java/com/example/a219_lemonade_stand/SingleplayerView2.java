@@ -15,12 +15,30 @@ import java.util.Random;
 
 public class SingleplayerView2 extends View {
 
+
+
+
     private Bitmap buyer[] = new Bitmap[2];
     private int buyerX;
     private int buyerY;
     private int buyerSpeed;
     private int buyerXStep;
     private int buyerYStep;
+
+
+
+
+    private Bitmap buyer2[] = new Bitmap[2];
+    private int buyerX2;
+    private int buyerY2;
+    private int buyerSpeed2;
+    private int buyerXStep2;
+    private int buyerYStep2;
+
+
+    /////////////
+
+
 
     private int rainX;
     private int rainY;
@@ -76,9 +94,10 @@ public class SingleplayerView2 extends View {
     private String weathertext = "39\u00B0";
 
 
-    private String lemonstock = "Lemons: 10";
-    private String waterstock = "Water: 90";
-    private String sugarstock = "Sugar: 30";
+    private String lemonstock = "Lemons: null g.";
+    private String waterstock = "Water: null ml.";
+    private String sugarstock = "Sugar: null g.";
+    private String s_Balance = "Balance: $ null";
 
     private int money;
 
@@ -98,6 +117,9 @@ public class SingleplayerView2 extends View {
 
         buyer[0] = BitmapFactory.decodeResource(getResources(), R.drawable.buyerpic1);
         buyer[1] = BitmapFactory.decodeResource(getResources(), R.drawable.buyerpic2);
+
+        buyer2[0] = BitmapFactory.decodeResource(getResources(), R.drawable.buyerpic1);
+        buyer2[1] = BitmapFactory.decodeResource(getResources(), R.drawable.buyerpic2);
 
         unscaledbg = BitmapFactory.decodeResource(getResources(), R.drawable.location1);
         backgroundImage = Bitmap.createScaledBitmap(unscaledbg, 1000, 1600, false);
@@ -130,6 +152,10 @@ public class SingleplayerView2 extends View {
         sellerY = 500;
         buyerX = 0;
         buyerY = 900;
+
+        buyerX2 = 300;
+        buyerY2 = 600;
+
         money = 0;
         gametime = 10000;
 
@@ -192,7 +218,12 @@ public class SingleplayerView2 extends View {
         s_gametime = s_hours + ":" + s_minutes;
 
 
-        canvas.drawText("Money: " + money, (canvasWidth/2)- 400, 100 , scorePaint);
+        s_Balance = "Balance: $ " + sp2GameObject.getBalance();
+        int i_BalX = (canvasWidth/2)- 400;
+        int i_BalY = 100;
+
+
+        canvas.drawText(s_Balance, i_BalX, i_BalY , scorePaint);
         canvas.drawText("Temp: " + weathertext, (canvasWidth/2), 200, scorePaint);
         canvas.drawText("Time: " + s_gametime , (canvasWidth/2), 100, scorePaint);
 
@@ -256,9 +287,44 @@ public class SingleplayerView2 extends View {
 
 
         }
-        if(customerpurchasechecker(sellerX, sellerY))
-        {
-            money = money +=10;
+
+
+        Random random2 = new Random();
+        int number3 = random.nextInt(2 - -1) + -1;
+        int number4 = random.nextInt(2 - -1) + -1;
+        buyerSpeed2 = 3;
+
+        buyerYStep2 = buyerYStep2 + buyerSpeed2*number3;
+        buyerXStep2 = buyerXStep2 + buyerSpeed2*number4;
+
+
+        buyerY2 = buyerY2 + buyerYStep2;
+
+        buyerX2 = buyerX2 + buyerXStep2;
+
+
+        if(buyerY2 < minBuyerY){
+            buyerY2 = maxBuyerY;
+        }
+        if(buyerY2 > maxBuyerY){
+            buyerY2 = minBuyerY;
+        }
+
+        if(buyerX2 < minBuyerX){
+            buyerX2 = maxBuyerX;
+        }
+        if(buyerX2 > maxBuyerX){
+            buyerX2 = minBuyerX;
+        }
+
+
+        canvas.drawBitmap(buyer2[0], buyerX2,  buyerY2,  null);
+
+
+
+
+        if(customerpurchasechecker(sellerX, sellerY)) {
+
             sp2GameObject.useLemons();
         }
 
@@ -269,7 +335,7 @@ public class SingleplayerView2 extends View {
             rainX = (int) Math.floor(Math.random() * (canvasWidth - 0)) + 0;
         }
 
-        canvas.drawLine(rainX, rainY, rainX+15, rainY+25, rainPaint);
+        //canvas.drawLine(rainX, rainY, rainX+15, rainY+25, rainPaint);
 
 
         minutes++;
@@ -294,6 +360,10 @@ public class SingleplayerView2 extends View {
     public boolean customerpurchasechecker(int x, int y) {
 
         if(buyerX < x && x < (buyerX + buyer[0].getWidth()) && buyerY < y && y < (buyerY + buyer[0].getHeight())) {
+
+            return true;
+        }
+        if(buyerX2 < x && x < (buyerX2 + buyer2[0].getWidth()) && buyerY2 < y && y < (buyerY2 + buyer2[0].getHeight())) {
 
             return true;
         }

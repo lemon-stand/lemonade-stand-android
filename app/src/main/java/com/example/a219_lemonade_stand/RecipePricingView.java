@@ -65,7 +65,7 @@ public class RecipePricingView extends View {
         unscaledIncrement = BitmapFactory.decodeResource(getResources(), R.drawable.plus_icon);
         incrementButton = Bitmap.createScaledBitmap(unscaledIncrement, 100, 100, false);
 
-        s_currentBalance = "" + recipePricingGameObject.getMoney();
+        s_currentBalance = "" + recipePricingGameObject.getBalance();
 
         scorePaint.setColor(Color.BLACK);
         scorePaint.setTextSize(70);

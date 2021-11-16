@@ -6,6 +6,29 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 
+
+/**
+ *
+ *
+ *
+ *
+ * settings where you can toggle to censor all private datavalues
+ * such as the balance and how much stock... maybe email or profile name
+ *
+ * links to profile activity??
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+
+
+
+
+
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
