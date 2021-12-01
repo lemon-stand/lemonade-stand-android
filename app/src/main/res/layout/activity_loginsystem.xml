@@ -71,20 +71,36 @@
         android:text="Login"
         tools:visibility="visible" />
 
-<ImageView
-    android:id="@+id/loginscreenimageview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_alignParentTop="true"
-    android:layout_centerInParent="true"
-    android:layout_marginTop="107dp"
-    android:visibility="visible"
-    tools:ignore="MissingConstraints"
-    tools:layout_editor_absoluteX="55dp"
-    tools:layout_editor_absoluteY="225dp"
-    tools:visibility="visible" />
 
-<ImageView
+    <Button
+        android:id="@+id/bcreateacc"
+        android:layout_width="150dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:onClick="send_text"
+        android:text="create account"
+        app:layout_anchor="@+id/revealtext"
+        app:layout_anchorGravity="top|center"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/loginscreenimageview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="107dp"
+        android:visibility="visible"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="225dp"
+        tools:visibility="visible" />
+
+    <ImageView
     android:id="@+id/LogoView"
     android:layout_width="141dp"
     android:layout_height="115dp"
@@ -98,7 +114,7 @@
     tools:visibility="visible" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/bserver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"

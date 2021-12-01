@@ -8,10 +8,10 @@ public class GameObject {
     public int inital_money =  6000;
 
 
-    public static int lemons = 0;
-    public static int sugar = 0;
-    public static int water = 0;
-    public static double Balance = 5000;
+    private static int lemons = 0;
+    private static int sugar = 0;
+    private static int water = 0;
+    private static double Balance = 5000;
 
     private Recipe recipeObj = new Recipe();
     private Pricing pricingObj = new Pricing();
@@ -19,7 +19,9 @@ public class GameObject {
     public GameObject()
     {
 
-
+        if(lemons == -1) {
+            //lemons = inital_lemons;
+        }
 
 
 

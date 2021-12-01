@@ -65,7 +65,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                         Intent intent_PostSplash = new Intent(SplashScreenActivity.this, LoginSystemActivity.class);
 
                         //debugging to skip straight to the main menu
-                        if(bool_skipLoginSystem == true) {
+                        if(bool_skipLoginSystem == false) {
                             intent_PostSplash = new Intent(SplashScreenActivity.this, MainMenuActivity.class);
                         }
 

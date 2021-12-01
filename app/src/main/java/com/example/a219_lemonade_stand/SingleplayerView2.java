@@ -102,7 +102,7 @@ public class SingleplayerView2 extends View {
     private int money;
 
 
-    GameObject sp2GameObject = new GameObject();
+    private static GameObject sp2GameObject = new GameObject();
 
 
 

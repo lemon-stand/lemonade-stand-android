@@ -277,14 +277,14 @@ public class SingleplayerView1 extends View {
 
                     Toast.makeText(getContext(), "Go to Recipe/Pricing State", Toast.LENGTH_SHORT).show();
                     Intent intent_RP = new Intent(getContext(), RecipePricingActivity.class);
-                    intent_RP.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    //intent_RP.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     getContext().startActivity(intent_RP);
 
                 }
 
                 if( x > storeX && x < storeX + storeWidth && y > storeY && y < storeY + storeHeight )  {
 
-                    Toast.makeText(getContext(), "Go to Recipe/Pricing State", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "store", Toast.LENGTH_SHORT).show();
                     Intent intent_RP = new Intent(getContext(), StoreActivity.class);
                     intent_RP.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     getContext().startActivity(intent_RP);

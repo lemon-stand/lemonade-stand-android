@@ -33,6 +33,8 @@ public class LoginSystemActivity extends AppCompatActivity {
     private EditText eUsername;
     private EditText ePassword;
     private Button eLogin;
+
+    private Button b_createAccount;
     private TextView reveal;    // used to help display playerdata.txt
     boolean isValid = false;    //boolean variable for checking login
 
@@ -61,7 +63,7 @@ public class LoginSystemActivity extends AppCompatActivity {
 
     //ipconfig ipv4
     //private static String ip = "191.168.";
-    private static String ip = "191.168.0.10";
+    private static String ip = "192.168.0.10";
 
 
     

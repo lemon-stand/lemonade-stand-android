@@ -160,7 +160,7 @@ public class RecipePricingView extends View {
 
                     Toast.makeText(getContext(), "Return to MainMenu", Toast.LENGTH_SHORT).show();
                     Intent intent_EndDay = new Intent(getContext(), MainMenuActivity.class);
-                    intent_EndDay.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    //intent_EndDay.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                     getContext().startActivity(intent_EndDay);
 
