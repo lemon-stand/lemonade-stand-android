@@ -7,6 +7,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -17,37 +18,47 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.a219_lemonade_stand.databinding.ActivityMarketBinding;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MarketActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMarketBinding binding;
+    private Handler handler = new Handler();
+    private final static long Interval = 30;
 
-    private ImageView logo;
 
+    private MarketView marketState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_market);
 
 
-        logo = (ImageView) findViewById(R.id.blogo);
-        logo.setOnClickListener(new View.OnClickListener() {
+        //getSupportActionBar().hide();
 
-            /**
-             * Function to return boolean value based on user data.
-             * @param v
-             */
+
+        marketState = new MarketView(this);
+
+        //game state
+        setContentView(marketState);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
-            public void onClick(View v) {
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
 
-                Intent i = new Intent(MarketActivity.this, MainMenuActivity.class);
-                MarketActivity.this.startActivity(i);
-
+                        marketState.invalidate();
+                    }
+                });
             }
-        });
+        }, 0, Interval);
+
 
     }
+
+
 
 
 }

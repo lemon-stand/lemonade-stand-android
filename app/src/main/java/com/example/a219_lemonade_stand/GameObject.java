@@ -13,6 +13,7 @@ public class GameObject {
     private static int water = 0;
     private static double Balance = 5000;
 
+
     private Recipe recipeObj = new Recipe();
     private Pricing pricingObj = new Pricing();
 
@@ -84,16 +85,54 @@ public class GameObject {
         return pricingObj.getPricingpercup();
     }
 
+    public double getrecipeprofit(){
+
+        double profit = pricingObj.getPricingpercup() -+ (-1 * (use_lemons + use_sugar + use_water));
+
+        return profit;
+    }
+
+
+    public double getrecipecost() {
+        double totalcost = -1*(use_lemons + use_sugar + use_water);
+        return totalcost;
+    }
+
     public double getBalance(){
         return Balance;
     }
 
+    private int use_lemons = -5;
+    private  int use_sugar = -2;
+    private int use_water = -10;
+
+    public void changeUseLemons(int val) {
+
+        use_lemons = use_lemons + val;
+    }
+    public void changeUseSugar(int val) {
+
+        use_sugar = use_sugar +  val;
+    }
+    public void changeUseWater(int val) {
+        use_water = use_water + val;
+    }
+
+    public int getUseLemons(){
+        return use_lemons;
+    }
+    public int getUseSugar() {
+        return use_sugar;
+    }
+    public int getUseWater() {
+        return use_water;
+    }
+
+
 
     public class Recipe {
 
-        private int use_lemons = -5;
-        private  int use_sugar = -2;
-        private int use_water = -10;
+
 
         public Recipe() {
 

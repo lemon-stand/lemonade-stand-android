@@ -40,11 +40,19 @@ public class RecipePricingView extends View {
     private String s_PricingPerCup = "";
     private String s_profitwrecipe = "";
     private String s_recipecost = "";
+    private double playerbalance = 0;
+    private double pricingpcup = 0;
+    private double profitwrecip = 0;
+    private double recipecost = 0;
+
 
 
     private String s_lemonsPerCup = "";
     private String s_sugarPerCup = "";
     private String s_waterPerCup = "";
+    private int lemonspcup = 0;
+    private int sugarpercup = 0;
+    private int waterpercup = 0;
 
     private String s_flavours = "";
     private String s_effects = "";
@@ -83,25 +91,37 @@ public class RecipePricingView extends View {
         canvasWidth = canvas.getWidth();
         canvasHeight = canvas.getHeight();
 
+        playerbalance = recipePricingGameObject.getBalance();
+        s_currentBalance = " " + playerbalance;
+
         canvas.drawText("Balance: $" + s_currentBalance, (canvasWidth/2) -200, 100, scorePaint);
 
 
         canvas.drawText("PRICING",(canvasWidth/2), 200, scorePaint);
 
-        s_PricingPerCup = "$" + recipePricingGameObject.getPPC() + " per cup";
-
+        pricingpcup = recipePricingGameObject.getPPC();
+        s_PricingPerCup = "$" + pricingpcup + " per cup";
         canvas.drawText(s_PricingPerCup, (canvasWidth/2) -250, 400, scorePaint);
 
 
-        s_profitwrecipe = "Profit w/ Recipe: $2";
+        profitwrecip = recipePricingGameObject.getrecipeprofit();
+        s_profitwrecipe = "Profit w/ Recipe: $" + profitwrecip;
         canvas.drawText(s_profitwrecipe, (canvasWidth/2) -400, 600, scorePaint);
 
-        s_recipecost = "Recipe cost per cup: $0.2";
+
+        recipecost = recipePricingGameObject.getrecipecost();
+        s_recipecost = "Recipe cost per cup: $" + recipecost;
         canvas.drawText(s_recipecost, (canvasWidth/2) -400, 800, scorePaint);
 
-        s_lemonsPerCup = "4 Lemons Per Cup";
-        s_sugarPerCup = "2g sugar per cup";
-        s_waterPerCup = "20ml water per cup";
+
+        lemonspcup = recipePricingGameObject.getUseLemons();
+        s_lemonsPerCup = lemonspcup + " Lemons Per Cup";
+
+        sugarpercup = recipePricingGameObject.getUseSugar();
+        s_sugarPerCup = sugarpercup + "g sugar per cup";
+
+        waterpercup = recipePricingGameObject.getUseWater();
+        s_waterPerCup = waterpercup + "ml water per cup";
 
 
         canvas.drawText("RECIPE",(canvasWidth/2), 1000, scorePaint);
