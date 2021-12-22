@@ -12,6 +12,7 @@ import android.widget.Toast;
 public class MarketView extends View {
 
 
+
     private Bitmap homeButton;
     private Bitmap unscaledhome;
     private int homeButtonX = 20, homeButtonY = 20, homeButtonWidth = 200, homeButtonHeight = 200;
