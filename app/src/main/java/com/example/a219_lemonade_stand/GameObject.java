@@ -17,6 +17,51 @@ public class GameObject {
     private Recipe recipeObj = new Recipe();
     private Pricing pricingObj = new Pricing();
 
+    private LStandBusinessAdminObj BusinessAdminObj= new LStandBusinessAdminObj();
+
+
+    /**
+     * business admin object
+     *
+     */
+    public class LStandBusinessAdminObj {
+
+        private long revenue = 0;
+        private long overhead = 0;
+        private long profit = 0;        // maybe range or expected range
+
+
+        //profit = revenue - overhead;
+
+
+
+
+
+
+    }
+
+    //doesnt work
+    public double getRevenue() {
+        return BusinessAdminObj.revenue;
+    }
+
+    // same as
+    public double getOverhead() {
+        //return BusinessAdminObj.overhead;
+        return getrecipecost();
+    }
+
+    //same as - could provide range
+    public double getProfit() {
+        //return BusinessAdminObj.profit;
+        return getrecipeprofit();
+    }
+
+
+    /**
+     *
+     * Main game object
+     */
     public GameObject()
     {
 
@@ -129,7 +174,9 @@ public class GameObject {
     }
 
 
-
+    /**
+     * Recipe class object
+     */
     public class Recipe {
 
 
@@ -150,6 +197,10 @@ public class GameObject {
 
     }
 
+
+    /**
+     * Pricing game object
+     */
     public class Pricing {
 
 
@@ -189,6 +240,17 @@ public class GameObject {
 
 
     }
+
+    //use and change pricing using game object main operation
+
+    public void dodecrement(){
+       pricingObj.decreasePricingIncrement();
+    }
+    public void doincrement() {
+        pricingObj.increasePricingIncrement();
+    }
+
+
 
 
 

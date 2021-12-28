@@ -183,6 +183,12 @@ public class SingleplayerView1 extends View {
         waterstock = "Water: " + sp1GameObject.getWater();
         sugarstock = "Sugar: " + sp1GameObject.getSugar();
 
+
+       s_Revenue = "Revenue/Total Return: $" + sp1GameObject.getRevenue();
+       s_Overhead = "Overhead/Cost: $" + sp1GameObject.getOverhead();
+       s_Profit = "Expected Profit: $" + sp1GameObject.getProfit();
+
+
         profileX = canvas.getWidth() - seller.getWidth() - 20;
         profileY = 20;
 

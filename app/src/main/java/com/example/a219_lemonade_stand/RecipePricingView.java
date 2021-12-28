@@ -28,6 +28,9 @@ public class RecipePricingView extends View {
     private int incrementX = (canvasWidth/2) + 900;
     private int incrementY = 0;
 
+    private int changebuttonheight = 100;
+    private int changebuttonwidth = 100;
+
 
 
     private Bitmap decrementButton;
@@ -38,6 +41,12 @@ public class RecipePricingView extends View {
 
     private String s_currentBalance = "";
     private String s_PricingPerCup = "";
+
+    private int pricingpercup_x = 100;
+    private int pricingpercup_y =300;
+
+
+
     private String s_profitwrecipe = "";
     private String s_recipecost = "";
     private double playerbalance = 0;
@@ -100,7 +109,9 @@ public class RecipePricingView extends View {
         canvas.drawText("PRICING",(canvasWidth/2), 200, scorePaint);
 
         pricingpcup = recipePricingGameObject.getPPC();
-        s_PricingPerCup = "$" + pricingpcup + " per cup";
+        s_PricingPerCup = "$" + pricingpcup + " per cup:: ";
+
+
         canvas.drawText(s_PricingPerCup, (canvasWidth/2) -250, 400, scorePaint);
 
 
@@ -139,10 +150,22 @@ public class RecipePricingView extends View {
 
 
 
+
+
         decrementY = 400 - 100;
         incrementY = 400 - 100;
-        canvas.drawBitmap(decrementButton, decrementX, decrementY, null);
-        canvas.drawBitmap(incrementButton, incrementX, incrementY, null);
+
+        int a = incrementX;
+        int b = incrementY;
+
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(a);
+        System.out.println(b);
+
+
+        canvas.drawBitmap(decrementButton, pricingpercup_x, pricingpercup_y, null);
+        canvas.drawBitmap(incrementButton,  incrementX, incrementY, null);
 
 
 
@@ -185,6 +208,17 @@ public class RecipePricingView extends View {
                     getContext().startActivity(intent_EndDay);
 
                 }
+
+                if( x > pricingpercup_x && x < pricingpercup_x + changebuttonwidth && y > pricingpercup_y && y < pricingpercup_y + changebuttonheight ) {
+
+                    recipePricingGameObject.dodecrement();
+
+                }
+
+
+
+
+
                 return true;
         }
 
