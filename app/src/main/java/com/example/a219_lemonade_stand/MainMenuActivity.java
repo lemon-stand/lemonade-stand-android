@@ -47,7 +47,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
         //game state
         setContentView(MainMenuV);
-        Timer timer = new Timer();
+        /*Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -59,7 +59,7 @@ public class MainMenuActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 0, Interval);
+        }, 0, Interval);*/
 
     }
 }

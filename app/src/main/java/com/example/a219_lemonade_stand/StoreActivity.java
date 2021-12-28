@@ -26,6 +26,7 @@ public class StoreActivity extends AppCompatActivity {
 
         //game state
         setContentView(StoreV);
+
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override

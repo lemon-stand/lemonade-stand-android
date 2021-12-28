@@ -42,7 +42,7 @@ public class SingleplayerActivity2 extends AppCompatActivity {
 
         //game state
         setContentView(spgame2);
-        Timer timer = new Timer();
+       Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {

@@ -12,6 +12,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,6 +31,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+
 
 public class LoginSystemActivity extends AppCompatActivity {
 
@@ -61,11 +74,57 @@ public class LoginSystemActivity extends AppCompatActivity {
 
     String message = "";
 
+
+
+
+    ///     https://developer.android.com/training/volley/simple
+
+    /// http://localhost:8080/api/v1/player
+    /// [{"id":1,"name":"Rick","dob":"2000-01-05","email":"Rick@morty.com"},{"id":2,"name":"alexis","dob":"2004-09-21","email":"alexis@gmail.com"}]
+
+
+    //  https://www.youtube.com/watch?v=y2xtLqP8dSQ&ab_channel=CodinginFlows
+
+
     //ipconfig ipv4
     //private static String ip = "191.168.";
     private static String ip = "192.168.0.10";
 
+    RequestQueue queue = Volley.newRequestQueue(LoginSystemActivity.this);
 
+    public void checkURL() {
+
+        String url = "http://localhost:8080/api/v1/player";
+
+//        //JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url,
+//
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        String playerName = "";
+//                        try {
+//
+//                            JSONArray jsonArray = response.getJSONArray("players");
+//
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//
+//                            //doesnt exist
+//
+//                            //
+//                        }
+//                        Toast.makeText(LoginSystemActivity.this, "Something wrong.", Toast.LENGTH_SHORT);
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//        });
+
+
+    }
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +148,12 @@ public class LoginSystemActivity extends AppCompatActivity {
         ePassword = findViewById(R.id.etPassword);
         eLogin =  findViewById(R.id.bLogin);
         reveal = (TextView) findViewById(R.id.revealtext);
+
+
+
+
+
+
 
         /**
          * Function to read player data file text and allocate the data into the appropriate strings

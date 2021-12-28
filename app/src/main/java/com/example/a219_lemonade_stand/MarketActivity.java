@@ -41,7 +41,7 @@ public class MarketActivity extends AppCompatActivity {
 
         //game state
         setContentView(marketState);
-        Timer timer = new Timer();
+        /*Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -53,7 +53,7 @@ public class MarketActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 0, Interval);
+        }, 0, Interval);*/
 
 
     }
