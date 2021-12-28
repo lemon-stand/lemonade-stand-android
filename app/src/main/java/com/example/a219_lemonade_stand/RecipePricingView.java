@@ -195,6 +195,7 @@ public class RecipePricingView extends View {
         float x = event.getX();
         float y = event.getY();
 
+
         switch(event.getAction()) {
             case MotionEvent.ACTION_DOWN:
 
