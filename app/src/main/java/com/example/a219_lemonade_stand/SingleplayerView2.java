@@ -124,7 +124,7 @@ public class SingleplayerView2 extends View {
         unscaledbg = BitmapFactory.decodeResource(getResources(), R.drawable.location1);
         backgroundImage = Bitmap.createScaledBitmap(unscaledbg, 1000, 1600, false);
 
-        unscaledhome = BitmapFactory.decodeResource(getResources(), R.drawable.lemonlogo);
+        unscaledhome = BitmapFactory.decodeResource(getResources(), R.drawable.homebutton);
         homeButton = Bitmap.createScaledBitmap(unscaledhome, homeButtonWidth, homeButtonHeight, false);
 
         unscaledstall = BitmapFactory.decodeResource(getResources(), R.drawable.lemonadestandstall);

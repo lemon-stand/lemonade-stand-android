@@ -65,7 +65,7 @@ public class StoreView extends View {
     public StoreView(Context context){
         super(context);
 
-        unscaledhome = BitmapFactory.decodeResource(getResources(), R.drawable.lemonlogo);
+        unscaledhome = BitmapFactory.decodeResource(getResources(), R.drawable.homebutton);
         homeButton = Bitmap.createScaledBitmap(unscaledhome, homeButtonWidth, homeButtonHeight, false);
 
         unscaledlemons = BitmapFactory.decodeResource(getResources(), R.drawable.lemons);

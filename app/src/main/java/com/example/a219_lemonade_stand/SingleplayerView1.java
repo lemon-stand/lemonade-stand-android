@@ -123,7 +123,7 @@ public class SingleplayerView1 extends View {
 
 
 
-        unscaledhome = BitmapFactory.decodeResource(getResources(), R.drawable.lemonlogo);
+        unscaledhome = BitmapFactory.decodeResource(getResources(), R.drawable.homebutton);
         homeButton = Bitmap.createScaledBitmap(unscaledhome, homeButtonWidth, homeButtonHeight, false);
 
         unscaledrecipepricing = BitmapFactory.decodeResource(getResources(), R.drawable.recipeicon);

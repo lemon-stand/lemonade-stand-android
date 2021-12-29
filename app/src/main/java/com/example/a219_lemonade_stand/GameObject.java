@@ -1,5 +1,7 @@
 package com.example.a219_lemonade_stand;
 
+import static java.lang.Math.abs;
+
 public class GameObject {
 
     public int inital_lemons = 1000;
@@ -147,9 +149,9 @@ public class GameObject {
         return Balance;
     }
 
-    private int use_lemons = -5;
-    private  int use_sugar = -2;
-    private int use_water = -10;
+    private static int use_lemons = 5;
+    private  static int use_sugar = 2;
+    private static int use_water = 10;
 
     public void changeUseLemons(int val) {
 
@@ -163,15 +165,12 @@ public class GameObject {
         use_water = use_water + val;
     }
 
-    public int getUseLemons(){
-        return use_lemons;
+    public int getUseLemons(){ return use_lemons; }
+    public int getUseSugar() { return use_sugar;
     }
-    public int getUseSugar() {
-        return use_sugar;
-    }
-    public int getUseWater() {
-        return use_water;
-    }
+    public int getUseWater() { return use_water; }
+
+
 
 
     /**

@@ -24,22 +24,22 @@ public class MainMenuView extends View {
     private int spX = 100, spY = 800, spWidth = 400, spHeight = 300;
 
     private Bitmap multiplayer, ump;
-    private int mpX = 700, mpY = 800, mpWidth = 300, mpHeight = 300;
+    private int mpX = 600, mpY = 800, mpWidth = 400, mpHeight = 300;
 
     private Bitmap market, umm;
-    private int marketX = 700, marketY = 1600, marketWidth = 300, marketHeight = 300;
+    private int marketX = 600, marketY = 1600, marketWidth = 400, marketHeight = 300;
 
     private Bitmap store, ust;
-    private int storeX = 200, storeY = 1600, storeWidth = 300, storeHeight = 300;
+    private int storeX = 100, storeY = 1600, storeWidth = 400, storeHeight = 300;
 
     private Bitmap settings, usx;
     private int settingsX = 900, settingsY = 50, settingsWidth = 100, settingsHeight = 100;
 
     private Bitmap button_Inventory, uiv;
-    private int button_InventoryX = 700, button_InventoryY = 1200, button_InventoryWidth = 300, button_InventoryHeight = 300;
+    private int button_InventoryX = 600, button_InventoryY = 1200, button_InventoryWidth = 400, button_InventoryHeight = 300;
 
     private Bitmap button_RecipePricing, urp;
-    private int button_RecipePricingX = 200, button_RecipePricingY = 1200, button_RecipePricingWidth = 300, button_RecipePricingHeight = 300;
+    private int button_RecipePricingX = 100, button_RecipePricingY = 1200, button_RecipePricingWidth = 400, button_RecipePricingHeight = 300;
 
 
     private String s_Player_Name = "Player-name-placeholder";
@@ -48,12 +48,12 @@ public class MainMenuView extends View {
     //goes to profile?
     private Bitmap uav;
     private Bitmap avatar;
-    private int avatarX = 550, avatarY = 300, avatarWidth = 100, avatarHeight = 200;
+    private int avatarX = 600, avatarY = 280, avatarWidth = 200, avatarHeight = 350;
 
 
     private Bitmap ull;
     private Bitmap stall;
-    private int stallX = 350, stallY = 300, stallWidth = 100, stallHeight = 200;
+    private int stallX = 280, stallY = 250, stallWidth = 400, stallHeight = 500;
 
 
 
@@ -71,8 +71,8 @@ public class MainMenuView extends View {
     public MainMenuView(Context context) {
         super(context);
 
-        ubg = BitmapFactory.decodeResource(getResources(), R.drawable.location1);
-        bg = Bitmap.createScaledBitmap(ubg, bgW, bgH, false);
+        //ubg = BitmapFactory.decodeResource(getResources(), R.drawable.location1);
+        //bg = Bitmap.createScaledBitmap(ubg, bgW, bgH, false);
 
         unscaledhome = BitmapFactory.decodeResource(getResources(), R.drawable.lemonlogo);
         homeButton = Bitmap.createScaledBitmap(unscaledhome, homeButtonWidth, homeButtonHeight, false);
@@ -89,7 +89,7 @@ public class MainMenuView extends View {
         market = Bitmap.createScaledBitmap(umm, marketWidth, marketHeight, false);
 
 
-        ust = BitmapFactory.decodeResource(getResources(), R.drawable.store_icon);
+        ust = BitmapFactory.decodeResource(getResources(), R.drawable.storebutton);
         store = Bitmap.createScaledBitmap(ust, storeWidth, storeHeight, false);
 
 
@@ -98,19 +98,19 @@ public class MainMenuView extends View {
         settings = Bitmap.createScaledBitmap(usx, settingsWidth, settingsHeight, false);
 
 
-        uiv = BitmapFactory.decodeResource(getResources(), R.drawable.lemons);
+        uiv = BitmapFactory.decodeResource(getResources(), R.drawable.inventorybutton);
         button_Inventory = Bitmap.createScaledBitmap(uiv, button_InventoryWidth, button_InventoryHeight, false);
 
 
-        urp = BitmapFactory.decodeResource(getResources(), R.drawable.mixture);
+        urp = BitmapFactory.decodeResource(getResources(), R.drawable.recipepricingbutton);
         button_RecipePricing = Bitmap.createScaledBitmap(urp, button_RecipePricingWidth, button_RecipePricingHeight, false);
 
 
-        uav = BitmapFactory.decodeResource(getResources(), R.drawable.sellerpic);
+        uav = BitmapFactory.decodeResource(getResources(), R.drawable.character_james);
         avatar = Bitmap.createScaledBitmap(uav, avatarWidth, avatarHeight, false);
 
 
-        ull = BitmapFactory.decodeResource(getResources(), R.drawable.lemonadestandstall);
+        ull = BitmapFactory.decodeResource(getResources(), R.drawable.stall_icon);
         stall = Bitmap.createScaledBitmap(ull, stallWidth, stallHeight, false);
 
 
@@ -132,10 +132,10 @@ public class MainMenuView extends View {
         canvasWidth = canvas.getWidth();
         canvasHeight = canvas.getHeight();
 
-        canvas.drawBitmap(bg, bgX, bgY, null);
+        //canvas.drawBitmap(bg, bgX, bgY, null);
 
         s_Player_Name = "" + mmPlayer.getS_PString();
-        s_Player_Balance = "Bal: $" + mmGameObject.getBalance();
+        s_Player_Balance = "Balance: $" + mmGameObject.getBalance();
 
 
         canvas.drawText(s_Player_Name, 300, 100, scorePaint);
@@ -146,18 +146,18 @@ public class MainMenuView extends View {
         canvas.drawBitmap(multiplayer, mpX, mpY, null);
 
         canvas.drawBitmap(market, marketX, marketY, null);
-        canvas.drawText("Market", marketX, marketY, scorePaint);
+        //canvas.drawText("Market", marketX, marketY, scorePaint);
 
         canvas.drawBitmap(store, storeX, storeY, null);
-        canvas.drawText("Store", storeX, storeY, scorePaint);
+        //canvas.drawText("Store", storeX, storeY, scorePaint);
 
         canvas.drawBitmap(settings, settingsX, settingsY, null);
 
         canvas.drawBitmap(button_Inventory, button_InventoryX, button_InventoryY, null);
-        canvas.drawText("Inventory", button_InventoryX, button_InventoryY, scorePaint);
+        //canvas.drawText("Inventory", button_InventoryX, button_InventoryY, scorePaint);
 
         canvas.drawBitmap(button_RecipePricing, button_RecipePricingX, button_RecipePricingY, null);
-        canvas.drawText("Recipe/Pricing", button_RecipePricingX, button_RecipePricingY, scorePaint);
+        //canvas.drawText("Recipe/Pricing", button_RecipePricingX, button_RecipePricingY, scorePaint);
 
         canvas.drawBitmap(avatar, avatarX, avatarY, null);
         canvas.drawBitmap(stall, stallX, stallY, null);

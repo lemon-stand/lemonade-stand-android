@@ -42,8 +42,11 @@ public class RecipePricingView extends View {
     private String s_currentBalance = "";
     private String s_PricingPerCup = "";
 
-    private int pricingpercup_x = 100;
-    private int pricingpercup_y =300;
+    private int dec_pricingpercup_x = 100;
+    private int dec_pricingpercup_y = 300;
+
+    private int inc_pricingpercup_x = 900;
+    private int inc_pricingpercup_y = 300;
 
 
 
@@ -57,8 +60,30 @@ public class RecipePricingView extends View {
 
 
     private String s_lemonsPerCup = "";
+
+    private int dec_lemonsPerCup_X = 100;
+    private int dec_lemonsPercup_Y = 1000;
+
+    private int inc_lemomnsPerCup_X = 900;
+    private int inc_lemonsPerCup_Y = 1000;
+
+
     private String s_sugarPerCup = "";
+
+    private int dec_sugarPerCup_x = 100;
+    private int dec_sugarPerCup_y = 1200;
+
+    private int inc_sugarPerCup_x = 900;
+    private int inc_sugarPerCup_y = 1200;
+
     private String s_waterPerCup = "";
+
+    private int dec_waterPerCup_x = 100;
+    private int dec_waterPerCup_y = 1400;
+
+    private int inc_waterPerCup_x = 900;
+    private int inc_waterPerCup_y = 1400;
+
     private int lemonspcup = 0;
     private int sugarpercup = 0;
     private int waterpercup = 0;
@@ -67,13 +92,14 @@ public class RecipePricingView extends View {
     private String s_effects = "";
 
     private Paint scorePaint = new Paint();
+    private Paint flavorPaint = new Paint();
 
     GameObject recipePricingGameObject = new GameObject();
 
     public RecipePricingView(Context context) {
         super(context);
 
-        unscaledhome = BitmapFactory.decodeResource(getResources(), R.drawable.lemonlogo);
+        unscaledhome = BitmapFactory.decodeResource(getResources(), R.drawable.homebutton);
         homeButton = Bitmap.createScaledBitmap(unscaledhome, homeButtonWidth, homeButtonHeight, false);
 
         unscaledDecrement = BitmapFactory.decodeResource(getResources(), R.drawable.minus_icon);
@@ -89,6 +115,12 @@ public class RecipePricingView extends View {
         scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
         scorePaint.setAntiAlias(true);
 
+        flavorPaint.setColor(Color.BLACK);
+        flavorPaint.setTextSize(30);
+        flavorPaint.setTypeface(Typeface.DEFAULT_BOLD);
+        flavorPaint.setAntiAlias(true);
+
+
 
 
 
@@ -100,89 +132,141 @@ public class RecipePricingView extends View {
         canvasWidth = canvas.getWidth();
         canvasHeight = canvas.getHeight();
 
+        //player balance
         playerbalance = recipePricingGameObject.getBalance();
         s_currentBalance = " " + playerbalance;
-
         canvas.drawText("Balance: $" + s_currentBalance, (canvasWidth/2) -200, 100, scorePaint);
+
+
 
 
         canvas.drawText("PRICING",(canvasWidth/2), 200, scorePaint);
 
+        //pricing per cup text
         pricingpcup = recipePricingGameObject.getPPC();
         s_PricingPerCup = "$" + pricingpcup + " per cup:: ";
-
-
         canvas.drawText(s_PricingPerCup, (canvasWidth/2) -250, 400, scorePaint);
 
+        //Pricing per cup buttons
+        canvas.drawBitmap(decrementButton, dec_pricingpercup_x, dec_pricingpercup_y, null);
+        canvas.drawBitmap(incrementButton,  inc_pricingpercup_x, inc_pricingpercup_y, null);
 
+
+        //profit with recipe text
         profitwrecip = recipePricingGameObject.getrecipeprofit();
         s_profitwrecipe = "Profit w/ Recipe: $" + profitwrecip;
         canvas.drawText(s_profitwrecipe, (canvasWidth/2) -400, 600, scorePaint);
 
-
+        //recipe cost text
         recipecost = recipePricingGameObject.getrecipecost();
         s_recipecost = "Recipe cost per cup: $" + recipecost;
         canvas.drawText(s_recipecost, (canvasWidth/2) -400, 800, scorePaint);
 
 
-        lemonspcup = recipePricingGameObject.getUseLemons();
-        s_lemonsPerCup = lemonspcup + " Lemons Per Cup";
 
-        sugarpercup = recipePricingGameObject.getUseSugar();
-        s_sugarPerCup = sugarpercup + "g sugar per cup";
 
-        waterpercup = recipePricingGameObject.getUseWater();
-        s_waterPerCup = waterpercup + "ml water per cup";
+
+        s_flavours = "Flavour: q"; //sweet normal
+        s_effects = "Effect: q";    //happy normal
+
+
+        int forumla;
+        double waterportion, sugarportion, lemonsportion;
+
+        forumla = ( (int) recipePricingGameObject.getUseLemons() + recipePricingGameObject.getUseSugar() + (recipePricingGameObject.getUseWater() /10) );
+
+        waterportion = (recipePricingGameObject.getUseWater()) / forumla  ;
+        sugarportion  = recipePricingGameObject.getUseSugar() / forumla ;
+        lemonsportion  = recipePricingGameObject.getUseLemons() / forumla ;
+
+
+        if( waterportion == 0.5) {
+            s_flavours = " Normal ";
+            s_effects = " Normal ";
+        }
+
+         if( waterportion > 0.6) {
+            s_flavours = " Watery ";
+            s_effects = "Refreshed ";
+        }
+         if( waterportion < 0.4) {
+            s_flavours = " Dry ";
+            s_effects = " Cheated ";
+        }
+
+         if( sugarportion > 0.6) {
+            s_flavours = " Sweet ";
+            s_effects = " Regenerated ";
+        }
+         if( sugarportion < 0.4) {
+            s_flavours = " Dry ";
+            s_effects = " Cheated ";
+        }
+
+         if( sugarportion == 0.5) {
+            s_flavours = " Normal ";
+            s_effects = " Normal ";
+        }
+
+         if( lemonsportion > 0.6) {
+            s_flavours = " Great ";
+            s_effects = " Rejuvenated ";
+        }
+         if( lemonsportion < 0.4) {
+            s_flavours = " Flavourless ";
+            s_effects = " Okay ";
+        }
+
+         if( sugarportion == 0.5) {
+            s_flavours = " Normal ";
+            s_effects = " Normal ";
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         canvas.drawText("RECIPE",(canvasWidth/2), 1000, scorePaint);
 
+        //flavour and effects
+
+        canvas.drawText(s_flavours, (canvasWidth/2) -450, 1800, flavorPaint);
+        canvas.drawText(s_effects, (canvasWidth/2) +50, 1800, flavorPaint);
+
+
+        // lemons per cup buttons, text
+        lemonspcup = (int) recipePricingGameObject.getUseLemons();
+        s_lemonsPerCup = lemonspcup + " Lemons Per Cup";
         canvas.drawText(s_lemonsPerCup, (canvasWidth/2) -250, 1100, scorePaint);
+        canvas.drawBitmap(decrementButton, dec_lemonsPerCup_X, dec_lemonsPercup_Y, null);
+        canvas.drawBitmap(incrementButton, inc_lemomnsPerCup_X, inc_lemonsPerCup_Y, null);
+
+
+        //  sugar per cup buttons, text
+        sugarpercup = recipePricingGameObject.getUseSugar();
+        s_sugarPerCup = sugarpercup + "g sugar per cup";
         canvas.drawText(s_sugarPerCup, (canvasWidth/2) -250, 1300, scorePaint);
+        canvas.drawBitmap(decrementButton, dec_sugarPerCup_x, dec_sugarPerCup_y, null);
+        canvas.drawBitmap(incrementButton, inc_sugarPerCup_x, inc_sugarPerCup_y, null);
+
+        //water per cup buttons, text
+        waterpercup = recipePricingGameObject.getUseWater();
+        s_waterPerCup = waterpercup + "ml water per cup";
         canvas.drawText(s_waterPerCup, (canvasWidth/2) -250, 1500, scorePaint);
-
-
-        s_flavours = "Flavour: sweet";
-        s_effects = "Effect: happy";
-        canvas.drawText(s_flavours, (canvasWidth/2) -450, 1800, scorePaint);
-        canvas.drawText(s_effects, (canvasWidth/2) +50, 1800, scorePaint);
-
-
-
-
-
-
-        decrementY = 400 - 100;
-        incrementY = 400 - 100;
-
-        int a = incrementX;
-        int b = incrementY;
-
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(a);
-        System.out.println(b);
-
-
-        canvas.drawBitmap(decrementButton, pricingpercup_x, pricingpercup_y, null);
-        canvas.drawBitmap(incrementButton,  incrementX, incrementY, null);
-
-
-
-        decrementY = 1100 - 100;
-        incrementY = 1100 - 100;
-        canvas.drawBitmap(decrementButton, decrementX, decrementY, null);
-        canvas.drawBitmap(incrementButton, incrementX, incrementY, null);
-
-        decrementY = 1300 - 100;
-        incrementY = 1300 - 100;
-        canvas.drawBitmap(decrementButton, decrementX, decrementY, null);
-        canvas.drawBitmap(incrementButton, incrementX, incrementY, null);
-
-        decrementY = 1500 - 100;
-        incrementY = 1500 - 100;
-        canvas.drawBitmap(decrementButton, decrementX, decrementY, null);
-        canvas.drawBitmap(incrementButton, incrementX, incrementY, null);
+        canvas.drawBitmap(decrementButton, dec_waterPerCup_x, dec_waterPerCup_y, null);
+        canvas.drawBitmap(incrementButton, inc_waterPerCup_x, inc_waterPerCup_y, null);
 
 
         canvas.drawBitmap(homeButton, homeButtonX, homeButtonY, null);
@@ -210,11 +294,53 @@ public class RecipePricingView extends View {
 
                 }
 
-                if( x > pricingpercup_x && x < pricingpercup_x + changebuttonwidth && y > pricingpercup_y && y < pricingpercup_y + changebuttonheight ) {
+                if( x > dec_pricingpercup_x && x < dec_pricingpercup_x + changebuttonwidth && y > dec_pricingpercup_y && y < dec_pricingpercup_y + changebuttonheight ) {
 
                     recipePricingGameObject.dodecrement();
 
                 }
+
+                if( x > inc_pricingpercup_x && x < inc_pricingpercup_x + changebuttonwidth && y > inc_pricingpercup_y && y < inc_pricingpercup_y + changebuttonheight ) {
+
+                    recipePricingGameObject.doincrement();
+
+                }
+
+                if( x > dec_lemonsPerCup_X && x < dec_lemonsPerCup_X + changebuttonwidth && y > dec_lemonsPercup_Y && y < dec_lemonsPercup_Y + changebuttonheight ) {
+
+                    recipePricingGameObject.changeUseLemons(-1);
+
+                }
+
+                if( x > inc_lemomnsPerCup_X && x < inc_lemomnsPerCup_X + changebuttonwidth && y > inc_lemonsPerCup_Y && y < inc_lemonsPerCup_Y + changebuttonheight ) {
+
+                    recipePricingGameObject.changeUseLemons(+1);
+
+                }
+                if( x > dec_sugarPerCup_x && x < dec_sugarPerCup_x + changebuttonwidth && y > dec_sugarPerCup_y && y < dec_sugarPerCup_y + changebuttonheight ) {
+
+                    recipePricingGameObject.changeUseSugar(-1);
+
+                }
+
+                if( x > inc_sugarPerCup_x && x < inc_sugarPerCup_x + changebuttonwidth && y > inc_sugarPerCup_y && y < inc_sugarPerCup_y + changebuttonheight ) {
+
+                    recipePricingGameObject.changeUseSugar(+1);
+
+                }
+
+                if( x > dec_waterPerCup_x && x < dec_waterPerCup_x + changebuttonwidth && y > dec_waterPerCup_y && y < dec_waterPerCup_y + changebuttonheight ) {
+
+                    recipePricingGameObject.changeUseWater(-4);
+
+                }
+
+                if( x > inc_waterPerCup_x && x < inc_waterPerCup_x + changebuttonwidth && y > inc_waterPerCup_y && y < inc_waterPerCup_y + changebuttonheight ) {
+
+                    recipePricingGameObject.changeUseWater(+4);
+
+                }
+
 
 
 
