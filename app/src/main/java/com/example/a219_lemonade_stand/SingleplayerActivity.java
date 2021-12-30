@@ -50,7 +50,7 @@ public class SingleplayerActivity extends AppCompatActivity {
 
         //game state
         setContentView(spgame1);
-        /*Timer timer = new Timer();
+        Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -62,7 +62,7 @@ public class SingleplayerActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 0, Interval);*/
+        }, 0, Interval);
 
 
     }

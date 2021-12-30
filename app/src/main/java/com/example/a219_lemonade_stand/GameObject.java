@@ -1,6 +1,10 @@
 package com.example.a219_lemonade_stand;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.floor;
+import static java.lang.Math.random;
+
+import java.util.Random;
 
 public class GameObject {
 
@@ -20,6 +24,30 @@ public class GameObject {
     private Pricing pricingObj = new Pricing();
 
     private LStandBusinessAdminObj BusinessAdminObj= new LStandBusinessAdminObj();
+
+    //temp can be between -2 and 30
+    private int temperature;
+
+    //0 none, 1 rain, 2 snow, 3 windy
+    private int weatherstate;
+
+    //1/5 of rain
+    private boolean chanceofRain;
+
+    //1/2 of snow
+    private boolean chanceofSnow;
+
+    public int getTemperature(){
+        return temperature;
+    }
+
+    public int getWeatherState() {
+        return weatherstate;
+    }
+
+
+
+
 
 
     /**
@@ -59,6 +87,11 @@ public class GameObject {
         return getrecipeprofit();
     }
 
+    public static int generatRandomPositiveNegitiveValue(int max , int min) {
+        //Random rand = new Random();
+        int ii = -min + (int) (Math.random() * ((max - (-min)) + 1));
+        return ii;
+    }
 
     /**
      *
@@ -70,6 +103,50 @@ public class GameObject {
         if(lemons == -1) {
             //lemons = inital_lemons;
         }
+
+
+        temperature = generatRandomPositiveNegitiveValue(30, -2);
+
+        //check for rain
+        int rainchance = new Random().nextInt((7 - 1) + 1 ) + 1;
+
+        //check for rain
+
+        int snowchance = new Random().nextInt((2 - 1) + 1 ) + 1;
+
+        if(rainchance == 1) {
+            chanceofRain = true;
+        }
+        else {
+            chanceofRain = false;
+        }
+
+        if(snowchance == 2) {
+            chanceofSnow = true;
+        } else {
+            chanceofSnow = false;
+        }
+
+        weatherstate = 0;
+
+        if(temperature <= 14) {
+            weatherstate = 3;
+        }
+
+        if(chanceofRain == true) {
+            weatherstate = 1;
+
+            if (chanceofSnow == true) {
+                if(temperature <= 2) {
+                    weatherstate = 2;
+                }
+
+            }
+
+        }
+
+
+
 
 
 
@@ -141,7 +218,7 @@ public class GameObject {
 
 
     public double getrecipecost() {
-        double totalcost = -1*(use_lemons + use_sugar + use_water);
+        double totalcost = (use_lemons + use_sugar + use_water);
         return totalcost;
     }
 

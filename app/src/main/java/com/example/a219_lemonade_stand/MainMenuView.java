@@ -68,8 +68,51 @@ public class MainMenuView extends View {
     GameObject mmGameObject = new GameObject();
     Player mmPlayer = new Player();
 
+    private int avatarChoice;
+
     public MainMenuView(Context context) {
         super(context);
+
+
+
+
+
+        mmPlayer.readFromFile(context);
+
+        scorePaint.setColor(Color.BLACK);
+        scorePaint.setTextSize(50);
+        scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
+        scorePaint.setAntiAlias(true);
+
+        avatarChoice = 0;
+
+        //mmplayer get value to determine character...............
+        avatarChoice = mmPlayer.getCharacterDesign();
+
+
+        if(avatarChoice == 0) {
+            uav = BitmapFactory.decodeResource(getResources(), R.drawable.character_bob);
+
+        }
+        if(avatarChoice == 1) {
+            uav = BitmapFactory.decodeResource(getResources(), R.drawable.character_james);
+
+        }
+        if(avatarChoice == 2) {
+            uav = BitmapFactory.decodeResource(getResources(), R.drawable.character_edna);
+
+        }
+        if(avatarChoice == 3) {
+            uav = BitmapFactory.decodeResource(getResources(), R.drawable.character_don);
+
+        }
+
+
+        avatar = Bitmap.createScaledBitmap(uav, avatarWidth, avatarHeight, false);
+
+
+
+
 
         //ubg = BitmapFactory.decodeResource(getResources(), R.drawable.location1);
         //bg = Bitmap.createScaledBitmap(ubg, bgW, bgH, false);
@@ -106,21 +149,10 @@ public class MainMenuView extends View {
         button_RecipePricing = Bitmap.createScaledBitmap(urp, button_RecipePricingWidth, button_RecipePricingHeight, false);
 
 
-        uav = BitmapFactory.decodeResource(getResources(), R.drawable.character_james);
-        avatar = Bitmap.createScaledBitmap(uav, avatarWidth, avatarHeight, false);
 
 
         ull = BitmapFactory.decodeResource(getResources(), R.drawable.stall_icon);
         stall = Bitmap.createScaledBitmap(ull, stallWidth, stallHeight, false);
-
-
-
-        mmPlayer.readFromFile(context);
-
-        scorePaint.setColor(Color.BLACK);
-        scorePaint.setTextSize(50);
-        scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
-        scorePaint.setAntiAlias(true);
 
 
     }

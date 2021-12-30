@@ -38,48 +38,59 @@ public class SingleplayerView1 extends View {
     private String waterstock = "water: ";
     private String sugarstock = "sugar: ";
 
-    private String forecastString = "Forecast: windy 20 degress";   //implement forecost on the state
+    private String forecastString = "Forecast:";   //implement forecost on the state
 
     private String s_Revenue = "Revenue: ";
     private String s_Overhead = "Overhead: ";
     private String s_Profit = "Profit: ";
 
     private Paint scorePaint = new Paint();
+    private Paint scorePaint2 = new Paint();
 
 
     private Bitmap locationImage;
     private Bitmap unscaledlLcationImage;
     private int locationImageX , locationImageY , locationImageWidth = 500, locationImageHeight = 300;
 
-    private Bitmap changeserverbutton;
-    private Bitmap unscaledserver;
-    private int changeserverX , changeserverY , changeserverWidth = 500, changeserverHeight = 300;
+    //private Bitmap changeserverbutton;
+    //private Bitmap unscaledserver;
+    //private int changeserverX , changeserverY , changeserverWidth = 500, changeserverHeight = 300;
 
     private Bitmap recipepricingButton;
     private Bitmap unscaledrecipepricing;
-    private int rpX , rpY , rpWidth = 300, rpHeight = 300;
+    private int rpX = 50, rpY = 800, rpWidth = 300, rpHeight = 250;
+
 
     private Bitmap storeButton;
     private Bitmap unscaledstore;
-    private int storeX , storeY , storeWidth = 300, storeHeight = 300;
+    private int storeX = 50, storeY = 1200, storeWidth = 300, storeHeight = 250;
+
 
 
     private Bitmap unscaledknife;
-    private Bitmap knife;
-    private int knifeX , knifeY , knifeWidth = 200, knifeHeight = 200;
+
+
+    private Bitmap slot1;
+    private int slot1X = 100 , slot1Y =400 , slotWidth = 200, slotHeight = 200;
 
 
     private Bitmap slot3;
-    private int slot3X , slot3Y , slot3Width = 200, slot3Height = 200;
+    private int slot3X = 800, slot3Y =400 , slot3Width = 200, slot3Height = 200;
 
 
     private Bitmap unscaledcooler;
-    private Bitmap cooler;
-    private int coolerX , coolerY , coolerWidth = 200, coolerHeight = 200;
+    private Bitmap slot2;
 
-    private int forecastX , forecastY , forecastWidth = 300, forecastHeight = 300;
+    private int slot2X = 400, slot2Y= 400;
+
+    private int forecastX =50, forecastY =1700, forecastWidth = 250, forecastHeight = 200;
     private Bitmap unscaledforecast;
     private Bitmap forecast;
+
+    private int weather_iconX =380, weather_iconY =1700, weather_iconWidth = 200, weather_icon_Height = 200;
+    private Bitmap unscaledweathericon;
+    private Bitmap weathericon;
+    private int weatherselect;
 
 
     private int arrowX , arrowY , arrowWidth = 300, arrowHeight = 300;
@@ -96,17 +107,35 @@ public class SingleplayerView1 extends View {
 
 
 
+    private Bitmap emptyslot;
+    private Bitmap unscaledemptyslot;
+
 
     private boolean touch = false;
 
 
+    private Bitmap uinventmgment;
+    private Bitmap inventmgmente;
+    private int inventmgmtX = 50, inventmgmtY = 450, inventmgmtWidth = 980, inventmgmtHeight = 1500;
 
 
 
+    private Bitmap usave;
+    private Bitmap save_icon;
 
+    private Bitmap uexit;
+    private Bitmap exit_icon;
+
+    private int avatarChoice;
 
 
     GameObject sp1GameObject = new GameObject();
+
+    Player sp1Player = new Player();
+
+    private String player_string_inventory ="";
+
+    private static boolean showInventoryManagement =false;
 
 
     /**
@@ -118,32 +147,149 @@ public class SingleplayerView1 extends View {
         super(context);
 
 
-        unscaledserver = BitmapFactory.decodeResource(getResources(), R.drawable.changeservericon);
-        changeserverbutton = Bitmap.createScaledBitmap(unscaledserver, changeserverWidth, changeserverHeight, false);
 
+
+
+
+        scorePaint.setColor(Color.MAGENTA);
+        scorePaint.setTextSize(70);
+        scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
+        scorePaint.setAntiAlias(true);
+
+        scorePaint2.setColor(Color.BLACK);
+        scorePaint2.setTextSize(50);
+        scorePaint2.setTypeface(Typeface.DEFAULT_BOLD);
+        scorePaint2.setAntiAlias(true);
+
+
+
+        avatarChoice = 0;
+
+        //mmplayer get value to determine character...............
+        avatarChoice = sp1Player.getCharacterDesign();
+
+
+        if(avatarChoice == 0) {
+            unscaledseller = BitmapFactory.decodeResource(getResources(), R.drawable.character_bob);
+
+        }
+        if(avatarChoice == 1) {
+            unscaledseller = BitmapFactory.decodeResource(getResources(), R.drawable.character_james);
+
+        }
+        if(avatarChoice == 2) {
+            unscaledseller = BitmapFactory.decodeResource(getResources(), R.drawable.character_edna);
+
+        }
+        if(avatarChoice == 3) {
+            unscaledseller = BitmapFactory.decodeResource(getResources(), R.drawable.character_don);
+
+        }
+
+        seller = Bitmap.createScaledBitmap(unscaledseller, profileWidth, profileHeight, false);
+
+
+        weatherselect = 0;
+
+        int sp_weatherstate = sp1GameObject.getWeatherState();
+
+        weatherselect = sp_weatherstate;
+
+        if(weatherselect == 0) {
+            unscaledweathericon = BitmapFactory.decodeResource(getResources(), R.drawable.sunny_icon);
+        }
+        if(weatherselect == 2) {
+            unscaledweathericon = BitmapFactory.decodeResource(getResources(), R.drawable.snowy_icon);
+        }
+        if(weatherselect == 3) {
+            unscaledweathericon = BitmapFactory.decodeResource(getResources(), R.drawable.windy_icon);
+        }
+        if(weatherselect == 1) {
+            unscaledweathericon = BitmapFactory.decodeResource(getResources(), R.drawable.rainy_icon);
+        }
+        weathericon = Bitmap.createScaledBitmap(unscaledweathericon, weather_iconWidth, weather_icon_Height, false);
 
 
         unscaledhome = BitmapFactory.decodeResource(getResources(), R.drawable.homebutton);
         homeButton = Bitmap.createScaledBitmap(unscaledhome, homeButtonWidth, homeButtonHeight, false);
 
-        unscaledrecipepricing = BitmapFactory.decodeResource(getResources(), R.drawable.recipeicon);
+        unscaledrecipepricing = BitmapFactory.decodeResource(getResources(), R.drawable.recipepricingbutton);
         recipepricingButton = Bitmap.createScaledBitmap(unscaledrecipepricing, rpWidth, rpHeight, false);
 
-        unscaledstore = BitmapFactory.decodeResource(getResources(), R.drawable.store_icon);
+        unscaledstore = BitmapFactory.decodeResource(getResources(), R.drawable.storebutton);
         storeButton = Bitmap.createScaledBitmap(unscaledstore, storeWidth, storeHeight, false);
 
 
+
+
+        unscaledemptyslot = BitmapFactory.decodeResource(getResources(), R.drawable.empty_icon);
         unscaledknife = BitmapFactory.decodeResource(getResources(), R.drawable.knife);
-        knife = Bitmap.createScaledBitmap(unscaledknife, knifeWidth, knifeHeight, false);
-
-        slot3 = Bitmap.createScaledBitmap(unscaledknife, slot3Width, slot3Height, false);
-
         unscaledcooler = BitmapFactory.decodeResource(getResources(), R.drawable.icecooler);
-        cooler = Bitmap.createScaledBitmap(unscaledcooler, coolerWidth, coolerHeight, false);
+
+        player_string_inventory = sp1Player.getSelectedInvent();
 
 
-        unscaledseller = BitmapFactory.decodeResource(getResources(), R.drawable.sellerpic);
-        seller = Bitmap.createScaledBitmap(unscaledseller, profileWidth, profileHeight, false);
+        char invent1_choice = player_string_inventory.charAt(0);
+
+        //slot1 = Bitmap.createScaledBitmap(unscaledemptyslot, slotWidth, slotHeight, false);
+
+
+        switch(invent1_choice) {
+            case 'K':
+                slot1 = Bitmap.createScaledBitmap(unscaledknife, slotWidth, slotHeight, false);
+                break;
+            case 'Z':
+                slot1 = Bitmap.createScaledBitmap(unscaledemptyslot, slotWidth, slotHeight, false);
+                break;
+            case 'C':
+                slot1 = Bitmap.createScaledBitmap(unscaledcooler, slotWidth, slotHeight, false);
+                break;
+
+        }
+
+        char invent2_choice = player_string_inventory.charAt(1);
+
+        switch(invent2_choice) {
+            case 'K':
+                slot2 = Bitmap.createScaledBitmap(unscaledknife, slotWidth, slotHeight, false);
+                break;
+            case 'Z':
+                slot2 = Bitmap.createScaledBitmap(unscaledemptyslot, slotWidth, slotHeight, false);
+                break;
+            case 'C':
+                slot2 = Bitmap.createScaledBitmap(unscaledcooler, slotWidth, slotHeight, false);
+                break;
+
+        }
+
+
+        char invent3_choice = player_string_inventory.charAt(2);
+
+        //slot3 = Bitmap.createScaledBitmap(unscaledemptyslot, slot3Width, slot3Height, false);
+
+
+        switch(invent3_choice) {
+            case 'K':
+                slot3 = Bitmap.createScaledBitmap(unscaledknife, slotWidth, slotHeight, false);
+                break;
+            case 'Z':
+                slot3 = Bitmap.createScaledBitmap(unscaledemptyslot, slotWidth, slotHeight, false);
+                break;
+            case 'C':
+                slot3 = Bitmap.createScaledBitmap(unscaledcooler, slotWidth, slotHeight, false);
+                break;
+
+        }
+
+
+        usave = BitmapFactory.decodeResource(getResources(), R.drawable.save_icon);
+        save_icon = Bitmap.createScaledBitmap(usave, 500, 300, false);
+
+
+        uexit = BitmapFactory.decodeResource(getResources(), R.drawable.exit_icon);
+        exit_icon = Bitmap.createScaledBitmap(uexit, 500, 300, false);
+
+
 
 
         unscaledarrow = BitmapFactory.decodeResource(getResources(), R.drawable.goarrow);
@@ -157,14 +303,12 @@ public class SingleplayerView1 extends View {
         unscaledlLcationImage = BitmapFactory.decodeResource(getResources(), R.drawable.location1);
         locationImage = Bitmap.createScaledBitmap(unscaledlLcationImage,  locationImageWidth, locationImageHeight, false);
 
+        uinventmgment = BitmapFactory.decodeResource(getResources(), R.drawable.inventory_icon);
+        inventmgmente = Bitmap.createScaledBitmap(uinventmgment, inventmgmtWidth, inventmgmtHeight, false);
 
 
-        scorePaint.setColor(Color.MAGENTA);
-        scorePaint.setTextSize(70);
-        scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
-        scorePaint.setAntiAlias(true);
-
-
+        //unscaledserver = BitmapFactory.decodeResource(getResources(), R.drawable.changeservericon);
+        //changeserverbutton = Bitmap.createScaledBitmap(unscaledserver, changeserverWidth, changeserverHeight, false);
 
 
 
@@ -200,68 +344,92 @@ public class SingleplayerView1 extends View {
         canvas.drawBitmap(locationImage, locationImageX, locationImageY, null);
 
 
-        coolerX = (canvas.getWidth() /2 ) + (coolerWidth/2) + 100;
-        coolerY = 450;
-
-        knifeX = (canvas.getWidth() /2 ) - (knifeWidth/2);
-        knifeY = 450;
-
-        slot3X = (canvas.getWidth() /2 ) - (slot3Width/2) - 300;
-        slot3Y = 450;
 
         canvas.drawBitmap(slot3, slot3X, slot3Y, null);
-        canvas.drawBitmap(cooler, coolerX, coolerY, null);
-        canvas.drawBitmap(knife, knifeX, knifeY, null);
+        canvas.drawBitmap(slot2, slot2X, slot2Y, null);
+        canvas.drawBitmap(slot1, slot1X, slot1Y, null);
 
 
-        canvas.drawText("PREVIOUS RETURN", 40, 750, scorePaint);
-        canvas.drawText(s_Revenue, 40, 850, scorePaint);
-        canvas.drawText(s_Overhead, 40, 950, scorePaint);
-        canvas.drawText(s_Profit, 40, 1050, scorePaint);
+        canvas.drawText("PREVIOUS RETURN", 400, 750, scorePaint2);
+        canvas.drawText(s_Revenue, 400, 850, scorePaint2);
+        canvas.drawText(s_Overhead, 400, 950, scorePaint2);
+        canvas.drawText(s_Profit, 400, 1050, scorePaint2);
 
-        canvas.drawText("CURRENT STOCK", 40, 1200, scorePaint);
-        canvas.drawText(lemonstock, 40, 1300, scorePaint);
-        canvas.drawText(waterstock, 40, 1400, scorePaint);
-        canvas.drawText(sugarstock, 40, 1500, scorePaint);
-        canvas.drawText("Recipe(s): ", 40, 1600, scorePaint);
-
-
-        changeserverX = (canvas.getWidth()/2) - 100;
-        changeserverY = canvas.getHeight() - changeserverHeight - 20;
-        canvas.drawBitmap(changeserverbutton, changeserverX, changeserverY, null);
+        canvas.drawText("CURRENT STOCK", 400, 1200, scorePaint2);
+        canvas.drawText(lemonstock, 400, 1300, scorePaint2);
+        canvas.drawText(waterstock, 400, 1400, scorePaint2);
+        canvas.drawText(sugarstock, 400, 1500, scorePaint2);
 
 
+        //changeserverX = (canvas.getWidth()/2) - 100;
+        //changeserverY = canvas.getHeight() - changeserverHeight - 20;
+        //canvas.drawBitmap(changeserverbutton, changeserverX, changeserverY, null);
 
-        forecastX = canvas.getWidth() - forecast.getWidth() - 20;
-        forecastY = canvas.getHeight() - 1000;
+
         canvas.drawBitmap(forecast, forecastX, forecastY, null);
-        canvas.drawText(forecastString, forecastX- 200, forecastY + forecastHeight + 50, scorePaint);
+        canvas.drawText(forecastString, 50, 1600, scorePaint2);
+
+
+
+        int temp_text = sp1GameObject.getTemperature();
+
+        int weathercheckstring = sp1GameObject.getWeatherState();
+        String weatherString = "s";
+        if(weathercheckstring == 0) {
+            weatherString = "Sunny";
+        }
+        if(weathercheckstring == 1) {
+            weatherString = "Rainy";
+        }
+        if(weathercheckstring == 2) {
+            weatherString = "Snowy";
+        }
+        if(weathercheckstring == 3) {
+            weatherString = "Windy";
+        }
+
+
+
+
+        canvas.drawText("" + weatherString, 430, 1650, scorePaint2);
+
+        canvas.drawText("" + temp_text, 600, 1800, scorePaint2);
+        canvas.drawBitmap(weathericon, weather_iconX, weather_iconY, null);
+
+
 
 
         arrowX = canvas.getWidth() - goarrow.getWidth() - 20;
         arrowY = canvas.getHeight() - goarrow.getHeight() - 20;
         canvas.drawBitmap(goarrow, arrowX, arrowY, null);
 
-        rpX = 20;
-        rpY = canvas.getHeight() - recipepricingButton.getHeight() - 20;
+
         canvas.drawBitmap(recipepricingButton, rpX, rpY, null);
 
 
-        storeX = 700;
-        storeY = canvas.getHeight() - 600;
+
         canvas.drawBitmap(storeButton, storeX, storeY, null);
 
         canvas.drawBitmap(homeButton, homeButtonX, homeButtonY, null);
 
-        if(touch)  {
+
+
+
+
+        //inventory management screen
+        if(showInventoryManagement)  {
+
+
+            canvas.drawBitmap(inventmgmente, inventmgmtX, inventmgmtY, null);
+            canvas.drawBitmap(exit_icon, 550, 1600, null);
+            canvas.drawBitmap(save_icon, 50, 1600, null);
+
 
 
         }
-        else {
 
 
 
-        }
 
 
 
@@ -295,6 +463,33 @@ public class SingleplayerView1 extends View {
                     intent_RP.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     getContext().startActivity(intent_RP);
 
+                }
+
+
+                // if touch the area where the items are
+                if( x > slot1X && x < slot3X + slotWidth && y > slot1Y && y < slot3Y + slotHeight ) {
+
+                    showInventoryManagement = true;
+
+                }
+
+                if(showInventoryManagement == true) {
+
+                    //do actions here
+
+
+
+                    //if save
+                    if( x > 50 && x < 50 + 500 && y > 1600 && y < 1600 + 300 ) {
+
+                        Toast.makeText(getContext(), "Saved!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    // if exit
+                    if( x > 550 && x < 550 + 500 && y > 1600 && y < 1600 + 300 ) {
+
+                        showInventoryManagement = false;
+                    }
                 }
 
 

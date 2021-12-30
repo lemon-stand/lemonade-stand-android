@@ -20,15 +20,44 @@ public class Player {
     private int water ;
     private int money ;
 
+    private static int int_characterDesign;
+
 
     public static String s_PlayerString = "NULL";
     public String getS_PString(){ return s_PlayerString; };
 
+
+    public String player_inventory = "";
+    public String selected_inventory = "";
+
+    public String getSelectedInvent() {
+
+        return selected_inventory;
+    }
+
     public Player() {
 
 
+        //0 = bob , 1 james, 2 edna
+        int_characterDesign =0;
+
+        //k = knife, c= cooler, z = empty, a = adboard
+        player_inventory = "KCZZZZZZ";
+        selected_inventory = player_inventory.substring(0, 3);
 
 
+
+
+
+
+
+
+
+
+    }
+
+    public int getCharacterDesign() {
+     return int_characterDesign;
     }
 
     private void writeToFile(String data,Context context) {
