@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,7 +17,6 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -31,48 +33,27 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class LoginSystemActivity extends AppCompatActivity {
 
 
+
     //Declaring Views & Variables:
 
-    //Images
-    private ImageView logo;
-    private ImageView loginscreenimage;
 
-    //Define variables which will be used to login.
-    private EditText eUsername;
-    private EditText ePassword;
-    private Button eLogin;
+    private Handler handler = new Handler();
+    private final static long Interval = 30;
 
-    private Button b_createAccount;
-    private TextView reveal;    // used to help display playerdata.txt
-    boolean isValid = false;    //boolean variable for checking login
-
-    //admin user. and pass.
-    String adminUsername = "admin";
-    String adminPassword = "12345";
-
-    //Current temp variables for functionality
-    String stringsplittemp = "";
-    String usertemp = "";
-    String passtemp = "";
-
-
-    private boolean initCheck = false;
-
-    private String usernameInput;
-
-
-    private static Socket s;
-    //private static ServerSocket ss;
-    //private static InputStreamReader osr;
-    //private static BufferedReader br;
-    private static PrintWriter printWriter;
-
-    String message = "";
 
 
 
@@ -90,7 +71,8 @@ public class LoginSystemActivity extends AppCompatActivity {
     //private static String ip = "191.168.";
     private static String ip = "192.168.0.10";
 
-    RequestQueue queue = Volley.newRequestQueue(LoginSystemActivity.this);
+    //RequestQueue queue = Volley.newRequestQueue(LoginSystemActivity.this);
+
 
     public void checkURL() {
 
@@ -125,39 +107,101 @@ public class LoginSystemActivity extends AppCompatActivity {
 
 
     }
-    
+
+
+    String URL = "http://192.168.0.12:8080/api/v1/player";
+    private LoginSystemActivityView lsView;
+
+   // private Player lsap = new Player();
+
+    private void showKeyboard(EditText _editText) {
+
+        //InputMethodManger
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_loginsystem);
+        getSupportActionBar().hide();
 
-        //Referencing xml elements
+       /* RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonObjectRequest objectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                URL,
+                null, //what it returns
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e("Rest response", response.toString());
+                        lsap.setPlayertuple(response.toString());
+                        System.out.println("success");
 
-        //login screen background image
-        loginscreenimage = (ImageView) findViewById(R.id.loginscreenimageview);
-        loginscreenimage.setImageResource(R.drawable.lemonadestandloginscreen);
-        loginscreenimage.setImageAlpha(30);
 
-        //logo image
-        logo = (ImageView) findViewById(R.id.LogoView);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Rest response", error.toString());
+                        System.out.println("fail");
+                    }
+                }
+        );*/
+        //requestQueue.add(objectRequest);
+
+        lsView = new LoginSystemActivityView(this);
+
+        setContentView(lsView);
+
+        //set soft mode
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+        //show key
+        if(lsView.returneUser() == true){
+            //showKeyboard(editText);
+        }
+
+        if(lsView.returneUser() == false){
+
+        }
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        lsView.invalidate();
+                    }
+                });
+            }
+        }, 0, Interval);
+
+
+
+
+        /*//logo image
+        //logo = (ImageView) findViewById(R.id.LogoView);
         logo.setImageResource(R.drawable.lemonlogo);
 
         //Username and password elements
         eUsername = findViewById(R.id.etUsername);
         ePassword = findViewById(R.id.etPassword);
         eLogin =  findViewById(R.id.bLogin);
-        reveal = (TextView) findViewById(R.id.revealtext);
+        reveal = (TextView) findViewById(R.id.revealtext);*/
 
 
 
 
 
 
-
-        /**
+/*
+        *//**
          * Function to read player data file text and allocate the data into the appropriate strings
-         */
+         *//*
         try {
             InputStream instream = openFileInput("app/src/main/java/com/example/a219_lemonade_stand/playerdata.txt");
             if (instream != null)
@@ -193,16 +237,16 @@ public class LoginSystemActivity extends AppCompatActivity {
         //reveal text set
         reveal.setText(stringsplittemp + "trying to print username and password");
 
-        /**
+        *//**
          *Function to compare user input with login data, and to prove authenticity.
          *
-         */
+         *//*
         eLogin.setOnClickListener(new View.OnClickListener() {
 
-            /**
+            *//**
              * Function to return boolean value based on user data.
              * @param v
-             */
+             *//*
             @Override
             public void onClick(View v) {
 
@@ -241,9 +285,9 @@ public class LoginSystemActivity extends AppCompatActivity {
 
     }
 
-    /**
+    *//**
      * send text to view?
-     */
+     *//*
     public void send_text(View v) {
 
         message = eUsername.getText().toString();
@@ -255,9 +299,9 @@ public class LoginSystemActivity extends AppCompatActivity {
 
     }
 
-    /**
+    *//**
      * class myTask
-     */
+     *//*
     class myTask extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -284,12 +328,12 @@ public class LoginSystemActivity extends AppCompatActivity {
         }
     }
 
-    /**
+    *//**
      * Function to validate user input and return a boolean value.
      * @param name      Variable for username
      * @param password  Variable for password
      * @return          Returns boolean value
-     */
+     *//*
     private boolean validate(String name, String password){
 
         if
@@ -305,7 +349,7 @@ public class LoginSystemActivity extends AppCompatActivity {
         }
         else {
             return false;
-        }
+        }*/
 
     }
 

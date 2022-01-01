@@ -42,7 +42,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     //try function will run through init loader to check for permissions.
                     try {
 
-                        sleep(3000);     //Show the screen for 3 seconds
+                        sleep(1500);     //Show the screen for 3 seconds
 
 
                         //initiate intent for permissions and loader

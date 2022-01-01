@@ -10,6 +10,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Player {
 
@@ -27,23 +34,92 @@ public class Player {
     public String getS_PString(){ return s_PlayerString; };
 
 
-    public String player_inventory = "";
-    public String selected_inventory = "";
+    public static String player_inventory = "KCZZZZZZZ";
+    //public static String selected_inventory = "";
+    public static String selected_inventory = player_inventory.substring(0, 3);
+
+    public void setSelectedInvent(String _inventory) {
+        selected_inventory = _inventory;
+    }
 
     public String getSelectedInvent() {
 
         return selected_inventory;
     }
 
+    public String getFullInvent() {
+        return player_inventory;
+    }
+    private static String player_tuple = "";
+
+    public void setPlayertuple(String tuple) {
+        player_tuple = tuple;
+    }
+
+    public String getPlayertuple() {
+
+
+        return player_tuple;
+    }
+
     public Player() {
 
 
         //0 = bob , 1 james, 2 edna
-        int_characterDesign =0;
+        int_characterDesign =3;
 
         //k = knife, c= cooler, z = empty, a = adboard
-        player_inventory = "KCZZZZZZ";
-        selected_inventory = player_inventory.substring(0, 3);
+        //player_inventory = "KCZZZZZZZ";
+        //selected_inventory = player_inventory.substring(0, 3);
+
+        //http://192.168.0.12:8080/api/v1/
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.0.12:8080/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+        Call<List<Post>> call = jsonPlaceHolderApi.getPosts();
+
+        call.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+
+                if(!response.isSuccessful()) {
+                    System.out.println("code:" + response.code());
+                    return;
+                }
+
+                List<Post> posts = response.body();
+
+                for(Post post : posts ) {
+
+                    int bo = 0;
+
+                    String content = "";
+                    content+="ID: " + post.getId() + "\n";
+                    content+="Name: " + post.getName() + "\n";
+                    content+="dob: " + post.getDob() + "\n";
+                    content+="email: " + post.getEmail() + "\n";
+
+                    player_tuple =content;
+                    if(bo == 0){
+                        setPlayertuple(content);
+
+                        System.out.println(content);
+                    }
+                    bo++;
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                System.out.println("error" + t.getMessage());
+            }
+        });
+
 
 
 
@@ -132,3 +208,13 @@ public class Player {
 
 
 }
+
+
+
+
+
+
+
+//////////
+///
+///
