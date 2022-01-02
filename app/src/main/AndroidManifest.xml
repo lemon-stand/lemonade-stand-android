@@ -16,40 +16,40 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.219lemonadestand">
         <activity
-            android:name=".SettingsActivity"
+            android:name=".MainmenuSystem.SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name=".StoreActivity"
+            android:name=".GameEngineSystem.EconomySystem.StoreActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginSystemActivity"
+            android:name=".LoginSystem.LoginSystemActivity"
             android:exported="false" />
         <activity
-            android:name=".RecipePricingActivity"
+            android:name=".GameEngineSystem.RecipePricingActivity"
             android:exported="false" />
         <activity
-            android:name=".SingleplayerActivity2"
+            android:name=".GameEngineSystem.CampaignSystem.SingleplayerActivity2"
             android:exported="false" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".CoreComponents.ThreadingSystem.SplashScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".InitLoader"
+            android:name=".CoreComponents.InitLoader"
             android:exported="false" />
         <activity
-            android:name=".MarketActivity"
+            android:name=".GameEngineSystem.EconomySystem.MarketActivity"
             android:exported="true"
             android:label="@string/title_activity_market"
             android:theme="@style/Theme.219lemonadestand.NoActionBar" />
         <activity
-            android:name=".SingleplayerActivity"
+            android:name=".GameEngineSystem.CampaignSystem.SingleplayerActivity"
             android:exported="true" />
         <activity
-            android:name=".MainMenuActivity"
+            android:name=".MainmenuSystem.MainMenuActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".CoreComponents.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.219lemonadestand.NoActionBar">
             <intent-filter>

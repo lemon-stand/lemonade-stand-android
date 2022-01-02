@@ -3,7 +3,7 @@
  * 19129576
  * come219
  */
-package com.example.a219_lemonade_stand;
+package com.example.a219_lemonade_stand.GameEngineSystem.CampaignSystem;
 
 /**
  *  Import Libraries
@@ -19,6 +19,13 @@ import android.graphics.Typeface;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
+
+import com.example.a219_lemonade_stand.GameEngineSystem.GameObject;
+import com.example.a219_lemonade_stand.MainmenuSystem.MainMenuActivity;
+import com.example.a219_lemonade_stand.GameEngineSystem.Player;
+import com.example.a219_lemonade_stand.R;
+import com.example.a219_lemonade_stand.GameEngineSystem.RecipePricingActivity;
+import com.example.a219_lemonade_stand.GameEngineSystem.EconomySystem.StoreActivity;
 
 /**
  * Singleplayer View 1 Class

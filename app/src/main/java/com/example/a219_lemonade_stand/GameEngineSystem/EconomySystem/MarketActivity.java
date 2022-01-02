@@ -1,25 +1,10 @@
-package com.example.a219_lemonade_stand;
+package com.example.a219_lemonade_stand.GameEngineSystem.EconomySystem;
 
-import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
-import android.view.View;
-import android.widget.ImageView;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.a219_lemonade_stand.databinding.ActivityMarketBinding;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MarketActivity extends AppCompatActivity {
 

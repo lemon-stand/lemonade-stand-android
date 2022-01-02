@@ -1,9 +1,6 @@
-package com.example.a219_lemonade_stand;
-
-import static androidx.core.content.ContextCompat.getSystemService;
+package com.example.a219_lemonade_stand.LoginSystem;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -12,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,16 +16,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonPlaceHolderApi;
+import com.example.a219_lemonade_stand.GameEngineSystem.Player;
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.Post;
+import com.example.a219_lemonade_stand.R;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.MalformedURLException;
 import java.net.Socket;
-import java.net.URL;
 import java.util.List;
 
 import retrofit2.Call;

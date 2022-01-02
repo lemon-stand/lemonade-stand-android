@@ -1,4 +1,4 @@
-package com.example.a219_lemonade_stand;
+package com.example.a219_lemonade_stand.GameEngineSystem.EconomySystem;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,9 @@ import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
+
+import com.example.a219_lemonade_stand.MainmenuSystem.MainMenuActivity;
+import com.example.a219_lemonade_stand.R;
 
 public class MarketView extends View {
 

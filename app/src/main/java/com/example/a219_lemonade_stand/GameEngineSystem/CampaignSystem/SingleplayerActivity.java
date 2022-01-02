@@ -1,27 +1,9 @@
-package com.example.a219_lemonade_stand;
+package com.example.a219_lemonade_stand.GameEngineSystem.CampaignSystem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.example.a219_lemonade_stand.databinding.ActivityMarketBinding;
 
 import java.util.Timer;
 import java.util.TimerTask;

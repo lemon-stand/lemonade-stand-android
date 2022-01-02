@@ -1,10 +1,12 @@
-package com.example.a219_lemonade_stand;
+package com.example.a219_lemonade_stand.MainmenuSystem;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
+
+import com.example.a219_lemonade_stand.R;
 
 
 /**

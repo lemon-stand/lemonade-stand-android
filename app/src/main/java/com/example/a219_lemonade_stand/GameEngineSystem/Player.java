@@ -1,7 +1,11 @@
-package com.example.a219_lemonade_stand;
+package com.example.a219_lemonade_stand.GameEngineSystem;
 
 import android.content.Context;
 import android.util.Log;
+
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonPlaceHolderApi;
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.Post;
+import com.example.a219_lemonade_stand.R;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -9,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.nio.charset.Charset;
 import java.util.List;
 
 import retrofit2.Call;

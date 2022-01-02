@@ -1,4 +1,4 @@
-package com.example.a219_lemonade_stand;
+package com.example.a219_lemonade_stand.GameEngineSystem.CampaignSystem;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,7 +11,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
+import com.example.a219_lemonade_stand.GameEngineSystem.GameObject;
+import com.example.a219_lemonade_stand.GameEngineSystem.Player;
+import com.example.a219_lemonade_stand.R;
+
 import java.util.Random;
 
 public class SingleplayerView2 extends View {

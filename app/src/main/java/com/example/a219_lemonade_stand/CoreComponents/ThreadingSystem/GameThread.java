@@ -1,4 +1,4 @@
-package com.example.a219_lemonade_stand;
+package com.example.a219_lemonade_stand.CoreComponents.ThreadingSystem;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -14,6 +14,8 @@ import android.os.Message;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
+
+import com.example.a219_lemonade_stand.R;
 
 public abstract class GameThread extends Thread {
     //Different mMode states

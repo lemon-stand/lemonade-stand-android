@@ -1,4 +1,4 @@
-package com.example.a219_lemonade_stand;
+package com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem;
 
 import java.util.List;
 

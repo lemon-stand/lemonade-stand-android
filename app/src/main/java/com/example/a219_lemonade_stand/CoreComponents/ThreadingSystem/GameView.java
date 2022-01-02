@@ -1,4 +1,4 @@
-package com.example.a219_lemonade_stand;
+package com.example.a219_lemonade_stand.CoreComponents.ThreadingSystem;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -13,6 +13,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.a219_lemonade_stand.CoreComponents.ThreadingSystem.GameThread;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback, SensorEventListener {
     private volatile GameThread thread;

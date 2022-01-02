@@ -1,10 +1,15 @@
-package com.example.a219_lemonade_stand;
+package com.example.a219_lemonade_stand.CoreComponents.ThreadingSystem;
 
 
 /**     Import Libraries   **/
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.a219_lemonade_stand.CoreComponents.InitLoader;
+import com.example.a219_lemonade_stand.LoginSystem.LoginSystemActivity;
+import com.example.a219_lemonade_stand.MainmenuSystem.MainMenuActivity;
+import com.example.a219_lemonade_stand.R;
 
 
 /**
