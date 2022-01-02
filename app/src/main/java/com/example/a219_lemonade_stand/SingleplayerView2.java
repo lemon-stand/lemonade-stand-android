@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.Random;
 
 public class SingleplayerView2 extends View {
@@ -18,23 +19,54 @@ public class SingleplayerView2 extends View {
 
 
 
-    private Bitmap buyer[] = new Bitmap[2];
-    private int buyerX;
-    private int buyerY;
-    private int buyerSpeed;
-    private int buyerXStep;
-    private int buyerYStep;
+
+
+
+    private Bitmap buyer[][] = new Bitmap[2][3];
+    private static int buyerX[] = new int[3];
+    private static int buyerY[] = new int[3];
+    private static int buyerSpeed[] = new int[3];
+    private static int buyerXStep[] = new int[3];
+    private static int buyerYStep[] = new int[3];
+
+        private int initbuyerstep1X,initbuyerstep1Y , initbuyerstep2X, initbuyerstep2Y;
+        private int initcheck =0;
+
+
+    private Bitmap buyer2[][] = new Bitmap[2][3];
+    private static int buyerX2[] = new int[3];
+    private static int buyerY2[] = new int[3];
+    private static int buyerSpeed2[] = new int[3];
+    private static int buyerXStep2[] = new int[3];
+    private static int buyerYStep2[] = new int[3];
 
 
 
 
-    private Bitmap buyer2[] = new Bitmap[2];
-    private int buyerX2;
-    private int buyerY2;
-    private int buyerSpeed2;
-    private int buyerXStep2;
-    private int buyerYStep2;
+    //
+    private static int changebuyer1X[] = new int[3];
 
+    Random chance = new Random();
+    private static int o2tchance[] = new int[3];
+
+
+    ///
+    Random random = new Random();
+    static int number[] = new int[3];
+    static int number2[] =new int[3];
+
+    ///////////////////////////////////////
+
+    static int changebuyer2X[] = new int[3];
+
+    Random chance2 = new Random();
+    static int o2tchance2[] = new int[3];
+
+
+    ///
+    Random random2 = new Random();
+    static int number3[] = new int[3];
+    static int number4[] = new int[3];
 
     /////////////
 
@@ -104,34 +136,193 @@ public class SingleplayerView2 extends View {
 
     private static GameObject sp2GameObject = new GameObject();
 
+    private static Player sp2Player = new Player();
+    private int avatarChoice;
+
+
+    private Bitmap lemonstandbg, ulemonstandbg;
+
+
+    private Bitmap ustreet, street_map, upark, park_map, suburb_map, usuburb;
+
+    private int locationcheck = 1;
+
+    ///
+    ///
 
 
 
+    private int weather_iconX =380, weather_iconY =1700, weather_iconWidth = 200, weather_icon_Height = 200;
+    private Bitmap unscaledweathericon;
+    private Bitmap weathericon;
+    private int weatherselect;
+
+
+    ////
+    ///
+
+
+
+
+
+    private String player_string_inventory ="";
+
+
+    private Bitmap unscaledknife;
+    private Bitmap unscaledcooler;
+
+    private Bitmap emptyslot;
+    private Bitmap unscaledemptyslot;
+
+    private Bitmap slot1;
+    private int slot1X = 300 , slot1Y =1650 , slotWidth = 100, slotHeight = 100;
+
+
+    private Bitmap slot3;
+    private int slot3X = 300, slot3Y =1750;
+
+
+
+    private Bitmap slot2;
+    private int slot2X = 300, slot2Y= 1850;
 
 
     public SingleplayerView2(Context context) {
         super(context);
 
+        unscaledemptyslot = BitmapFactory.decodeResource(getResources(), R.drawable.empty_icon);
+        unscaledknife = BitmapFactory.decodeResource(getResources(), R.drawable.knife);
+        unscaledcooler = BitmapFactory.decodeResource(getResources(), R.drawable.icecooler);
+
+
+        player_string_inventory = sp2Player.getSelectedInvent();
+
+        char invent1_choice = player_string_inventory.charAt(0);
+        slot1 = Bitmap.createScaledBitmap(unscaledemptyslot, slotWidth, slotHeight, false);
+
+
+        switch(invent1_choice) {
+            case 'K':
+                slot1 = Bitmap.createScaledBitmap(unscaledknife, slotWidth, slotHeight, false);
+                break;
+            case 'Z':
+                slot1 = Bitmap.createScaledBitmap(unscaledemptyslot, slotWidth, slotHeight, false);
+                break;
+            case 'C':
+                slot1 = Bitmap.createScaledBitmap(unscaledcooler, slotWidth, slotHeight, false);
+                break;
+
+        }
+
+
+        char invent2_choice = player_string_inventory.charAt(1);
+        slot2 = Bitmap.createScaledBitmap(unscaledemptyslot, slotWidth, slotHeight, false);
+
+        switch(invent2_choice) {
+            case 'K':
+                slot2 = Bitmap.createScaledBitmap(unscaledknife, slotWidth, slotHeight, false);
+                break;
+            case 'Z':
+                slot2 = Bitmap.createScaledBitmap(unscaledemptyslot, slotWidth, slotHeight, false);
+                break;
+            case 'C':
+                slot2 = Bitmap.createScaledBitmap(unscaledcooler, slotWidth, slotHeight, false);
+                break;
+
+        }
+
+
+        char invent3_choice = player_string_inventory.charAt(2);
+        slot3 = Bitmap.createScaledBitmap(unscaledemptyslot, slotWidth, slotHeight, false);
+
+        switch(invent3_choice) {
+            case 'K':
+                slot3 = Bitmap.createScaledBitmap(unscaledknife, slotWidth, slotHeight, false);
+                break;
+            case 'Z':
+                slot3 = Bitmap.createScaledBitmap(unscaledemptyslot, slotWidth, slotHeight, false);
+                break;
+            case 'C':
+                slot3 = Bitmap.createScaledBitmap(unscaledcooler, slotWidth, slotHeight, false);
+                break;
+
+        }
 
 
 
-        buyer[0] = BitmapFactory.decodeResource(getResources(), R.drawable.buyerpic1);
-        buyer[1] = BitmapFactory.decodeResource(getResources(), R.drawable.buyerpic2);
 
-        buyer2[0] = BitmapFactory.decodeResource(getResources(), R.drawable.buyerpic1);
-        buyer2[1] = BitmapFactory.decodeResource(getResources(), R.drawable.buyerpic2);
 
-        unscaledbg = BitmapFactory.decodeResource(getResources(), R.drawable.location1);
-        backgroundImage = Bitmap.createScaledBitmap(unscaledbg, 1000, 1600, false);
 
-        unscaledhome = BitmapFactory.decodeResource(getResources(), R.drawable.homebutton);
+
+
+
+
+
+        ustreet = BitmapFactory.decodeResource(getResources(), R.drawable.street_level_icon);
+        street_map = Bitmap.createScaledBitmap(ustreet,  1100, 2000, false);
+
+        upark = BitmapFactory.decodeResource(getResources(), R.drawable.park_level_icon);
+        park_map = Bitmap.createScaledBitmap(upark,  1100, 2000, false);
+
+        usuburb = BitmapFactory.decodeResource(getResources(), R.drawable.suburban_level_icon);
+        suburb_map = Bitmap.createScaledBitmap(usuburb,  1100, 2000, false);
+
+
+
+        ulemonstandbg = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+        lemonstandbg = Bitmap.createScaledBitmap(ulemonstandbg, 1100, 2000, false);
+
+
+        avatarChoice = 0;
+        avatarChoice = sp2Player.getCharacterDesign();
+
+        if(avatarChoice == 0) {
+            unscaledseller = BitmapFactory.decodeResource(getResources(), R.drawable.character_bob);
+
+        }
+        if(avatarChoice == 1) {
+            unscaledseller = BitmapFactory.decodeResource(getResources(), R.drawable.character_james);
+
+        }
+        if(avatarChoice == 2) {
+            unscaledseller = BitmapFactory.decodeResource(getResources(), R.drawable.character_edna);
+
+        }
+        if(avatarChoice == 3) {
+            unscaledseller = BitmapFactory.decodeResource(getResources(), R.drawable.character_don);
+
+        }
+
+        seller = Bitmap.createScaledBitmap(unscaledseller, 300, 300, false);
+
+
+        for(int i = 0; i < buyer.length; i++) {
+
+            buyer[i][0] = BitmapFactory.decodeResource(getResources(), R.drawable.buyerpic1);
+            buyer[i][0] = BitmapFactory.decodeResource(getResources(), R.drawable.buyerpic2);
+
+            buyer2[i][0] = BitmapFactory.decodeResource(getResources(), R.drawable.buyerpic1);
+            buyer2[i][0] = BitmapFactory.decodeResource(getResources(), R.drawable.buyerpic2);
+
+        }
+
+
+
+
+
+
+
+       // unscaledbg = BitmapFactory.decodeResource(getResources(), R.drawable.location1);
+       // backgroundImage = Bitmap.createScaledBitmap(unscaledbg, 1000, 1600, false);
+
+        unscaledhome = BitmapFactory.decodeResource(getResources(), R.drawable.menubutton);
         homeButton = Bitmap.createScaledBitmap(unscaledhome, homeButtonWidth, homeButtonHeight, false);
 
-        unscaledstall = BitmapFactory.decodeResource(getResources(), R.drawable.lemonadestandstall);
-        stall = Bitmap.createScaledBitmap(unscaledstall, 300, 300, false);
+        unscaledstall = BitmapFactory.decodeResource(getResources(), R.drawable.stall_icon);
+        stall = Bitmap.createScaledBitmap(unscaledstall, 500, 700, false);
 
-        unscaledseller = BitmapFactory.decodeResource(getResources(), R.drawable.sellerpic);
-        seller = Bitmap.createScaledBitmap(unscaledseller, 300, 300, false);
+
+
 
         unscaledstockimage = BitmapFactory.decodeResource(getResources(), R.drawable.stockimage);
         stockimage = Bitmap.createScaledBitmap(unscaledstockimage, stockImageWidth, stockImageHeight, false);
@@ -139,7 +330,7 @@ public class SingleplayerView2 extends View {
         unscaledffbutton = BitmapFactory.decodeResource(getResources(), R.drawable.ffbuton);
         ffbutton = Bitmap.createScaledBitmap(unscaledffbutton, ffWidth, ffHeight, false);
 
-        scorePaint.setColor(Color.BLACK);
+        scorePaint.setColor(Color.WHITE);
         scorePaint.setTextSize(70);
         scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
         scorePaint.setAntiAlias(true);
@@ -147,20 +338,52 @@ public class SingleplayerView2 extends View {
         rainPaint.setColor(Color.CYAN);
         rainPaint.setAntiAlias(false);
 
+        weatherselect = 0;
 
-        sellerX = 600;
-        sellerY = 500;
-        buyerX = 0;
-        buyerY = 900;
+        int sp_weatherstate = sp2GameObject.getWeatherState();
 
-        buyerX2 = 300;
-        buyerY2 = 600;
+        weatherselect = sp_weatherstate;
+
+        if(weatherselect == 0) {
+            unscaledweathericon = BitmapFactory.decodeResource(getResources(), R.drawable.sunny_icon);
+        }
+        if(weatherselect == 2) {
+            unscaledweathericon = BitmapFactory.decodeResource(getResources(), R.drawable.snowy_icon);
+        }
+        if(weatherselect == 3) {
+            unscaledweathericon = BitmapFactory.decodeResource(getResources(), R.drawable.windy_icon);
+        }
+        if(weatherselect == 1) {
+            unscaledweathericon = BitmapFactory.decodeResource(getResources(), R.drawable.rainy_icon);
+        }
+        weathericon = Bitmap.createScaledBitmap(unscaledweathericon, weather_iconWidth, weather_icon_Height, false);
+
+
+
+
+        for(int i = 0; i <= buyer.length; i++) {
+
+            buyerX[i] = 0;
+            buyerY[i] = 900;
+
+            buyerX2[i] = 1100;
+            buyerY2[i] = 900;
+
+        }
+
+
+        sellerX = 550;
+        sellerY = 950;
+
+
 
         money = 0;
         gametime = 10000;
 
         hours = 9;
         minutes = 0;
+
+        initcheck ++;
 
 
 
@@ -171,6 +394,7 @@ public class SingleplayerView2 extends View {
 
         super.onDraw(canvas);
 
+        canvas.drawBitmap(lemonstandbg, 0, 0, null);
 
         lemonstock = "Lemons: " + sp2GameObject.getLemons();
         waterstock = "Water: " + sp2GameObject.getWater();
@@ -183,12 +407,27 @@ public class SingleplayerView2 extends View {
         ffX = canvas.getWidth() - ffbutton.getWidth() - 20;
         ffY = canvas.getHeight() - ffbutton.getHeight() - 20;
 
-        stockImageX =  20;
-        stockImageY = canvas.getHeight() - ffbutton.getHeight() - 20;
 
-        canvas.drawBitmap(stockimage, stockImageX, stockImageY, null);
 
-        canvas.drawBitmap(backgroundImage, 0, 50, null);
+       // canvas.drawBitmap(backgroundImage, 0, 50, null);
+
+
+        //locationcheck = sp2GameObject.getSellLocation();
+        locationcheck = 0;
+
+        if(locationcheck == 0) {
+            canvas.drawBitmap(street_map, 0, 0, null);
+
+        }
+        if(locationcheck == 1) {
+            canvas.drawBitmap(park_map, 0, 0, null);
+
+        }
+        if(locationcheck == 2) {
+            canvas.drawBitmap(suburb_map, 0, 0, null);
+
+        }
+
 
 
         if(minutes>=60) {
@@ -219,63 +458,249 @@ public class SingleplayerView2 extends View {
 
 
         s_Balance = "Balance: $ " + sp2GameObject.getBalance();
-        int i_BalX = (canvasWidth/2)- 400;
+        int i_BalX = 400;
         int i_BalY = 100;
 
+        int temp_text = sp2GameObject.getTemperature();
 
-        canvas.drawText(s_Balance, i_BalX, i_BalY , scorePaint);
-        canvas.drawText("Temp: " + weathertext, (canvasWidth/2), 200, scorePaint);
-        canvas.drawText("Time: " + s_gametime , (canvasWidth/2), 100, scorePaint);
+        int weathercheckstring = sp2GameObject.getWeatherState();
+        String weatherString = "s";
+        if(weathercheckstring == 0) {
+            weatherString = "Sunny";
+        }
+        if(weathercheckstring == 1) {
+            weatherString = "Rainy";
+        }
+        if(weathercheckstring == 2) {
+            weatherString = "Snowy";
+        }
+        if(weathercheckstring == 3) {
+            weatherString = "Windy";
+        }
 
-        canvas.drawText(lemonstock, stockImageX, stockImageY+50, scorePaint);
-        canvas.drawText(waterstock, stockImageX, stockImageY+ 150, scorePaint);
-        canvas.drawText(sugarstock, stockImageX, stockImageY + 250, scorePaint);
-
-        canvas.drawBitmap(stall, 200, 500, null);
-        canvas.drawBitmap(seller, sellerX, sellerY, null);
-
-        canvas.drawBitmap(homeButton, homeButtonX, homeButtonY, null);
-        canvas.drawBitmap(ffbutton, ffX, ffY, null);
 
 
-        int minBuyerY = 300;
-        int maxBuyerY = canvasHeight + buyer[0].getHeight();
+/////
+        // buyer
+        /////
+
+
+
+        int minBuyerY = 600;
+        int maxBuyerY = canvasHeight + buyer[1][0].getHeight();
 
         int minBuyerX = 0;
-        int maxBuyerX = canvasWidth + buyer[0].getWidth();
+        int maxBuyerX = canvasWidth + buyer[1][0].getWidth();
 
 
-        Random random=new Random();
-        int number = random.nextInt(2 - -1) + -1;
-        int number2 = random.nextInt(2 - -1) + -1;
-        buyerSpeed = 3;
-
-        buyerYStep = buyerYStep + buyerSpeed*number;
-        buyerXStep = buyerXStep + buyerSpeed*number2;
+        for(int i = 0; i <= buyer.length-1; i++) {
 
 
-        buyerY = buyerY + buyerYStep;
+            changebuyer1X[i] = 1;
 
-        buyerX = buyerX + buyerXStep;
+            o2tchance[i] = chance.nextInt(3) + -1;
 
 
-        if(buyerY < minBuyerY){
-            buyerY = maxBuyerY;
+
+            if (buyerX[i] >= 800) {
+
+                if (changebuyer1X[i] == 1) {
+
+
+                    if (o2tchance[i] == 1) {
+                        changebuyer1X[i] = 1;
+                    }
+
+                    if (o2tchance[i] >= 2) {
+                        changebuyer1X[i] = -1;
+
+                    }
+
+                }
+
+
+            }
+
+
+
+            number[i]= random.nextInt(3 - -1) + -1;
+
+
+            number2[i] = random.nextInt(3 - -1) + -1;
+
+
+            buyerSpeed[i] = 3;
+
+            buyerYStep[i] = buyerYStep[i] + buyerSpeed[i] * number[i];
+
+            if (initcheck >= 2) {
+                initbuyerstep1Y = buyerYStep[i];
+            }
+            if (initcheck >= 2) {
+                initbuyerstep1X = buyerXStep[i] * changebuyer1X[i];
+            }
+
+
+            buyerXStep[i] = buyerXStep[i] + buyerSpeed[i] * number2[i];
+
+
+            buyerY[i] = buyerY[i] + buyerYStep[i];
+
+            buyerX[i] = buyerX[i] + buyerXStep[i];
+
+
+            if (buyerY[i] < minBuyerY) {
+                //buyerY = maxBuyerY;
+                buyerX[i] = 0;
+                buyerY[i] = 900;
+                buyerYStep[i] = initbuyerstep1Y;
+                buyerXStep[i] = initbuyerstep1X;
+
+                buyerSpeed[i] = 3;
+                changebuyer1X[i] = 1;
+            }
+            if (buyerY[i] > maxBuyerY) {
+                //buyerY = minBuyerY;
+                buyerX[i] = 0;
+                buyerY[i] = 1000;
+                buyerYStep[i] = initbuyerstep1Y;
+                buyerXStep[i] = initbuyerstep1X;
+
+                buyerSpeed[i] = 3;
+                changebuyer1X[i] = 1;
+            }
+
+            if (buyerX[i] < minBuyerX) {
+                //buyerX = maxBuyerX;
+                buyerX[i] = 0;
+                buyerY[i] = 1000;
+                buyerYStep[i] = initbuyerstep1Y;
+                buyerXStep[i] = initbuyerstep1X;
+
+                buyerSpeed[i] = 3;
+                changebuyer1X[i] = 1;
+            }
+            if (buyerX[i] > maxBuyerX) {
+                //buyerX = minBuyerX;
+                buyerX[i] = 0;
+                buyerY[i] = 1000;
+                buyerYStep[i] = initbuyerstep1Y;
+                buyerXStep[i] = initbuyerstep1X;
+
+                buyerSpeed[i] = 3;
+                changebuyer1X[i] = 1;
+            }
+
+
+            canvas.drawBitmap(buyer[i][0], buyerX[i],  buyerY[i],  null);
+
         }
-        if(buyerY > maxBuyerY){
-            buyerY = minBuyerY;
+
+
+
+        for(int i = 0; i <= buyer2.length -1; i++) {
+
+            changebuyer2X[i] = -1;
+
+            o2tchance2[i] = chance2.nextInt(3) + -1;
+
+            if (buyerX[i] <= 400) {
+
+                if (changebuyer2X[i] == -1) {
+
+
+                    if (o2tchance2[i] == 1) {
+                        changebuyer2X[i] = 1;
+                    }
+
+                    if (o2tchance2[i] >= 2) {
+                        changebuyer2X[i] = -1;
+
+                    }
+
+                }
+
+
+            }
+
+
+
+                   number3[i] = random2.nextInt(3 - -1) + -1;
+
+                    number4[i] = random2.nextInt(3 - -1) + -1;
+
+                    buyerSpeed2[i] = 3;
+
+            buyerYStep2[i] = buyerYStep2[i] + buyerSpeed2[i] * number3[i];
+
+            if (initcheck >= 2) {
+                initbuyerstep2Y = buyerYStep2[i];
+            }
+            if (initcheck >= 2) {
+                initbuyerstep2X = buyerXStep2[i] * changebuyer2X[i];
+            }
+
+            buyerXStep2[i] = buyerXStep2[i] + buyerSpeed2[i] * number4[i];
+
+            buyerY2[i] = buyerY2[i] + buyerYStep2[i];
+
+            buyerX2[i] = buyerX2[i] - buyerXStep2[i];
+
+
+            if (buyerY2[i] < minBuyerY) {
+                //buyerY2 = maxBuyerY;
+                buyerX2[i] = 1100;
+                buyerY2[i] = 900;
+                buyerYStep2[i] = initbuyerstep2Y;
+                buyerXStep2[i] = initbuyerstep2X;
+
+                buyerSpeed2[i] = 3;
+                changebuyer2X[i] = 1;
+            }
+            if (buyerY2[i] > maxBuyerY) {
+                //buyerY2 = minBuyerY;
+                buyerX2[i] = 1100;
+                buyerY2[i] = 900;
+                buyerYStep2[i] = initbuyerstep2Y;
+                buyerXStep2[i] = initbuyerstep2X;
+
+                buyerSpeed2[i] = 3;
+                changebuyer2X[i] = 1;
+            }
+
+            if (buyerX2[i] < minBuyerX) {
+                //buyerX2 = maxBuyerX;
+                buyerX2[i] = 1100;
+                buyerY2[i] = 900;
+                buyerYStep2[i] = initbuyerstep2Y;
+                buyerXStep2[i] = initbuyerstep2X;
+
+                buyerSpeed2[i] = 3;
+                changebuyer2X[i] = 1;
+            }
+            if (buyerX2[i] > maxBuyerX) {
+                //buyerX2 = minBuyerX;
+                buyerX2[i] = 1100;
+                buyerY2[i] = 900;
+                buyerYStep2[i] = initbuyerstep2Y;
+                buyerXStep2[i] = initbuyerstep2X;
+
+                buyerSpeed2[i] = 3;
+                changebuyer2X[i] = 1;
+            }
+
+            canvas.drawBitmap(buyer2[i][0], buyerX2[i],  buyerY2[i],  null);
+
         }
 
-        if(buyerX < minBuyerX){
-            buyerX = maxBuyerX;
-        }
-        if(buyerX > maxBuyerX){
-            buyerX = minBuyerX;
-        }
 
 
 
-        canvas.drawBitmap(buyer[0], buyerX,  buyerY,  null);
+
+        ///
+
+
+
 
         if(touch)  {
 
@@ -287,40 +712,6 @@ public class SingleplayerView2 extends View {
 
 
         }
-
-
-        Random random2 = new Random();
-        int number3 = random.nextInt(2 - -1) + -1;
-        int number4 = random.nextInt(2 - -1) + -1;
-        buyerSpeed2 = 3;
-
-        buyerYStep2 = buyerYStep2 + buyerSpeed2*number3;
-        buyerXStep2 = buyerXStep2 + buyerSpeed2*number4;
-
-
-        buyerY2 = buyerY2 + buyerYStep2;
-
-        buyerX2 = buyerX2 + buyerXStep2;
-
-
-        if(buyerY2 < minBuyerY){
-            buyerY2 = maxBuyerY;
-        }
-        if(buyerY2 > maxBuyerY){
-            buyerY2 = minBuyerY;
-        }
-
-        if(buyerX2 < minBuyerX){
-            buyerX2 = maxBuyerX;
-        }
-        if(buyerX2 > maxBuyerX){
-            buyerX2 = minBuyerX;
-        }
-
-
-        canvas.drawBitmap(buyer2[0], buyerX2,  buyerY2,  null);
-
-
 
 
         if(customerpurchasechecker(sellerX, sellerY)) {
@@ -353,19 +744,58 @@ public class SingleplayerView2 extends View {
 
         }
 
+        stockImageX =  20;
+        stockImageY = canvas.getHeight() - ffbutton.getHeight() - 20;
+
+
+        ///////
+        canvas.drawBitmap(slot3, slot3X, slot3Y, null);
+        canvas.drawBitmap(slot2, slot2X, slot2Y, null);
+        canvas.drawBitmap(slot1, slot1X, slot1Y, null);
+
+        canvas.drawBitmap(stockimage, stockImageX, stockImageY, null);
+
+        canvas.drawBitmap(weathericon, weather_iconX, weather_iconY, null);
+
+        canvas.drawText(s_Balance, i_BalX, i_BalY , scorePaint);
+        canvas.drawText("Temp: " + weatherString, 430, 1650, scorePaint);
+        canvas.drawText("" + temp_text, 600, 1800, scorePaint);
+        canvas.drawText("Time: " + s_gametime , 600, 200, scorePaint);
+
+        canvas.drawText(lemonstock, stockImageX, stockImageY+50, scorePaint);
+        canvas.drawText(waterstock, stockImageX, stockImageY+ 150, scorePaint);
+        canvas.drawText(sugarstock, stockImageX, stockImageY + 250, scorePaint);
+
+
+        canvas.drawBitmap(seller, sellerX, sellerY, null);
+        canvas.drawBitmap(stall, 250, 850, null);
+
+        canvas.drawBitmap(homeButton, homeButtonX, homeButtonY, null);
+        canvas.drawBitmap(ffbutton, ffX, ffY, null);
+
+
+
+
+
+
+
 
 
     }
 
     public boolean customerpurchasechecker(int x, int y) {
 
-        if(buyerX < x && x < (buyerX + buyer[0].getWidth()) && buyerY < y && y < (buyerY + buyer[0].getHeight())) {
+        for(int i = 0; i <= buyer2.length; i++) {
 
-            return true;
+
+            if(buyerX[i] < x && x < (buyerX[i] + buyer[1][0].getWidth()) && buyerY[i] < y && y < (buyerY[i] + buyer[1][0].getHeight())) {
+
+                return true;
+            }
+            if(buyerX2[i] < x && x < (buyerX2[i] + buyer2[1][0].getWidth()) && buyerY2[i] < y && y < (buyerY2[i] + buyer2[1][0].getHeight())) {
+
+                return true;
         }
-        if(buyerX2 < x && x < (buyerX2 + buyer2[0].getWidth()) && buyerY2 < y && y < (buyerY2 + buyer2[0].getHeight())) {
-
-            return true;
         }
 
         return false;

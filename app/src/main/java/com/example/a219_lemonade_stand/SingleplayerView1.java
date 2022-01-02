@@ -195,6 +195,9 @@ public class SingleplayerView1 extends View {
 
     private static String newSelect = "";
 
+    private Bitmap lemonstandbg, ulemonstandbg;
+
+
     /**canvas.drawBitmap(im_slot1, im_slot1X, im_slot_1Y, null);
      canvas.drawBitmap(im_slot2, im_slot2X, im_slot_2Y, null);
      canvas.drawBitmap(im_slot3, im_slot3X, im_slot_3Y, null);
@@ -206,6 +209,8 @@ public class SingleplayerView1 extends View {
         super(context);
 
 
+        ulemonstandbg = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+        lemonstandbg = Bitmap.createScaledBitmap(ulemonstandbg, 1100, 2000, false);
 
 
 
@@ -215,7 +220,7 @@ public class SingleplayerView1 extends View {
         scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
         scorePaint.setAntiAlias(true);
 
-        scorePaint2.setColor(Color.BLACK);
+        scorePaint2.setColor(Color.WHITE);
         scorePaint2.setTextSize(50);
         scorePaint2.setTypeface(Typeface.DEFAULT_BOLD);
         scorePaint2.setAntiAlias(true);
@@ -573,6 +578,8 @@ public class SingleplayerView1 extends View {
 
         super.onDraw(canvas);
 
+        canvas.drawBitmap(lemonstandbg, 0, 0, null);
+
         lemonstock = "Lemons: " + sp1GameObject.getLemons();
         waterstock = "Water: " + sp1GameObject.getWater();
         sugarstock = "Sugar: " + sp1GameObject.getSugar();
@@ -592,6 +599,8 @@ public class SingleplayerView1 extends View {
         locationImageX = (canvas.getWidth() /2 ) - (locationImageWidth/2);
         locationImageY = 20;
 
+        locationcheck = sp1GameObject.getSellLocation();
+
         if(locationcheck == 0) {
             canvas.drawBitmap(locationImage, locationImageX, locationImageY, null);
 
@@ -610,7 +619,7 @@ public class SingleplayerView1 extends View {
         canvas.drawBitmap(slot2, slot2X, slot2Y, null);
         canvas.drawBitmap(slot1, slot1X, slot1Y, null);
 
-
+        canvas.drawText("Balance $: xxx", 50, 650, scorePaint2);
         canvas.drawText("PREVIOUS RETURN", 400, 750, scorePaint2);
         canvas.drawText(s_Revenue, 400, 850, scorePaint2);
         canvas.drawText(s_Overhead, 400, 950, scorePaint2);
@@ -637,16 +646,16 @@ public class SingleplayerView1 extends View {
         int weathercheckstring = sp1GameObject.getWeatherState();
         String weatherString = "s";
         if(weathercheckstring == 0) {
-            weatherString = "Sunny";
+            weatherString = "Temp: Sunny";
         }
         if(weathercheckstring == 1) {
-            weatherString = "Rainy";
+            weatherString = "Temp Rainy";
         }
         if(weathercheckstring == 2) {
-            weatherString = "Snowy";
+            weatherString = "Temp: Snowy";
         }
         if(weathercheckstring == 3) {
-            weatherString = "Windy";
+            weatherString = "Temp: Windy";
         }
 
 
@@ -787,18 +796,21 @@ public class SingleplayerView1 extends View {
                     if( x > 300 && x < 300 + locationImageWidth && y > 500 && y < 500 + locationImageHeight ) {
 
                        locationcheck =0;
+                       sp1GameObject.changeSellLocation(0);
 
                     }
 
                     if( x > 300 && x < 300 + locationImageWidth && y > 900 && y < 900 + locationImageHeight ) {
 
                         locationcheck =1;
+                        sp1GameObject.changeSellLocation(1);
 
                     }
 
                     if( x > 300 && x < 300 + locationImageWidth && y > 1300 && y < 1300 + locationImageHeight ) {
 
                         locationcheck =2;
+                        sp1GameObject.changeSellLocation(2);
 
                     }
 

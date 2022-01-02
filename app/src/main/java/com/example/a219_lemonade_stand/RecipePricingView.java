@@ -96,6 +96,8 @@ public class RecipePricingView extends View {
 
     GameObject recipePricingGameObject = new GameObject();
 
+    private Bitmap lemonstandbg, ulemonstandbg;
+
     public RecipePricingView(Context context) {
         super(context);
 
@@ -110,12 +112,16 @@ public class RecipePricingView extends View {
 
         s_currentBalance = "" + recipePricingGameObject.getBalance();
 
-        scorePaint.setColor(Color.BLACK);
+
+        ulemonstandbg = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+        lemonstandbg = Bitmap.createScaledBitmap(ulemonstandbg, 1100, 2000, false);
+
+        scorePaint.setColor(Color.CYAN);
         scorePaint.setTextSize(70);
         scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
         scorePaint.setAntiAlias(true);
 
-        flavorPaint.setColor(Color.BLACK);
+        flavorPaint.setColor(Color.CYAN);
         flavorPaint.setTextSize(30);
         flavorPaint.setTypeface(Typeface.DEFAULT_BOLD);
         flavorPaint.setAntiAlias(true);
@@ -131,6 +137,23 @@ public class RecipePricingView extends View {
         super.onDraw(canvas);
         canvasWidth = canvas.getWidth();
         canvasHeight = canvas.getHeight();
+
+        canvas.drawBitmap(lemonstandbg, 0, 0, null);
+
+
+
+
+
+
+        ////
+        ///     show slots
+
+        ////
+
+
+
+
+
 
         //player balance
         playerbalance = recipePricingGameObject.getBalance();

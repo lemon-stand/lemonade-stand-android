@@ -62,8 +62,12 @@ public class StoreView extends View {
 
     private int stockImageX, stockImageY, stockImageWidth = 300, stockImageHeight = 300;
 
+    private Bitmap lemonstandbg, ulemonstandbg;
+
     public StoreView(Context context){
         super(context);
+
+
 
         unscaledhome = BitmapFactory.decodeResource(getResources(), R.drawable.homebutton);
         homeButton = Bitmap.createScaledBitmap(unscaledhome, homeButtonWidth, homeButtonHeight, false);
@@ -90,11 +94,13 @@ public class StoreView extends View {
         increment50b = Bitmap.createScaledBitmap(unscaledi50, i50bWidth, i50bHeight, false);
 
 
-        scorePaint.setColor(Color.BLACK);
+        scorePaint.setColor(Color.CYAN);
         scorePaint.setTextSize(70);
         scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
         scorePaint.setAntiAlias(true);
 
+        ulemonstandbg = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+        lemonstandbg = Bitmap.createScaledBitmap(ulemonstandbg, 1100, 2000, false);
 
 
 
@@ -103,6 +109,9 @@ public class StoreView extends View {
     protected void onDraw(Canvas canvas) {
 
         super.onDraw(canvas);
+        canvas.drawBitmap(lemonstandbg, 0, 0, null);
+
+        canvas.drawText("Balance: $xxx", (canvasWidth/2) -200, 100, scorePaint);
 
         stockImageX =  20;
         stockImageY = canvas.getHeight() - 500 - 20;

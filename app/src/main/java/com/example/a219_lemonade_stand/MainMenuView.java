@@ -17,6 +17,8 @@ public class MainMenuView extends View {
 
     private int canvasWidth, canvasHeight;
 
+    private Bitmap lemonstandbg, ulemonstandbg;
+
     private Bitmap bg, ubg;
     private int bgX = 0, bgY = 0, bgW = 1100, bgH = 800;
 
@@ -79,7 +81,7 @@ public class MainMenuView extends View {
 
         mmPlayer.readFromFile(context);
 
-        scorePaint.setColor(Color.BLACK);
+        scorePaint.setColor(Color.CYAN);
         scorePaint.setTextSize(50);
         scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
         scorePaint.setAntiAlias(true);
@@ -154,6 +156,9 @@ public class MainMenuView extends View {
         ull = BitmapFactory.decodeResource(getResources(), R.drawable.stall_icon);
         stall = Bitmap.createScaledBitmap(ull, stallWidth, stallHeight, false);
 
+        ulemonstandbg = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+        lemonstandbg = Bitmap.createScaledBitmap(ulemonstandbg, 1100, 2000, false);
+
 
     }
 
@@ -163,6 +168,8 @@ public class MainMenuView extends View {
 
         canvasWidth = canvas.getWidth();
         canvasHeight = canvas.getHeight();
+
+        canvas.drawBitmap(lemonstandbg, 0, 0, null);
 
         //canvas.drawBitmap(bg, bgX, bgY, null);
 

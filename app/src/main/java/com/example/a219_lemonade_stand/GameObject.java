@@ -46,6 +46,16 @@ public class GameObject {
     }
 
 
+    private static int currentSellLocation = 0;
+
+    public int getSellLocation( ) {
+        return currentSellLocation;
+    }
+
+    public void changeSellLocation(int _loc) {
+        currentSellLocation = _loc;
+    }
+
 
 
 
@@ -264,9 +274,9 @@ public class GameObject {
 
         public void useRecipe() {
 
-            lemons = (lemons + use_lemons);
-            sugar = (sugar + use_sugar);
-            water = (water + use_water);
+            lemons = (lemons - use_lemons);
+            sugar = (sugar - use_sugar);
+            water = (water - use_water);
 
         }
 
