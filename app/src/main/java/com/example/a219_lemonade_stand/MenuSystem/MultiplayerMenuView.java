@@ -1,4 +1,4 @@
-package com.example.a219_lemonade_stand.GameEngineSystem.EconomySystem;
+package com.example.a219_lemonade_stand.MenuSystem;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,35 +12,28 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.a219_lemonade_stand.MenuSystem.MainMenuActivity;
 import com.example.a219_lemonade_stand.R;
 
-public class MarketView extends View {
 
-    private Bitmap ulemonstandbg;
-    private Bitmap lemonstandbg;
+
+
+public class MultiplayerMenuView extends View {
 
     private Bitmap homeButton;
     private Bitmap unscaledhome;
     private int homeButtonX = 20, homeButtonY = 20, homeButtonWidth = 200, homeButtonHeight = 200;
     private int canvasWidth, canvasHeight;
 
-    private Bitmap tradingicon;
-    private Bitmap utradingicon;
-    private int tradingiconX = 700, tradingiconY = 1600, tradingiconWidth = 300, tradingiconHeight = 300;
-
-
-
+    private Bitmap ulemonstandbg;
+    private Bitmap lemonstandbg;
 
     private Paint scorePaint = new Paint();
 
-
-    public MarketView(Context context) {
+    public MultiplayerMenuView(Context context) {
         super(context);
 
-
         scorePaint.setColor(Color.CYAN);
-        scorePaint.setTextSize(70);
+        scorePaint.setTextSize(50);
         scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
         scorePaint.setAntiAlias(true);
 
@@ -50,35 +43,34 @@ public class MarketView extends View {
         ulemonstandbg = BitmapFactory.decodeResource(getResources(), R.drawable.background);
         lemonstandbg = Bitmap.createScaledBitmap(ulemonstandbg, 1100, 2000, false);
 
-        utradingicon = BitmapFactory.decodeResource(getResources(), R.drawable.trading_icon);
-        tradingicon = Bitmap.createScaledBitmap(utradingicon, tradingiconWidth, tradingiconHeight, false);
-
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-
         super.onDraw(canvas);
+
         canvasWidth = canvas.getWidth();
         canvasHeight = canvas.getHeight();
 
-       canvas.drawBitmap(lemonstandbg, 0, 0, null);
+        canvas.drawBitmap(lemonstandbg, 0, 0, null);
 
-        canvas.drawText("Market Exchange", 300, 100, scorePaint);
+        canvas.drawText("Multiplayer Menu", 300, 200, scorePaint);
+        canvas.drawText("Deets: server loc, rent status, go status?, total lvl-like info", 50, 400, scorePaint);
 
-        canvas.drawText("Trades", 300, 1800, scorePaint);
+
+        canvas.drawText("Rent", 300, 800, scorePaint); // rent view
+        canvas.drawText("Go", 300, 1200, scorePaint); // mp game view
+        canvas.drawText("Hi-scores", 300, 1500, scorePaint); // hs view
+
+
+
 
 
         canvas.drawBitmap(homeButton, homeButtonX, homeButtonY, null);
-
-        canvas.drawBitmap(tradingicon, tradingiconX, tradingiconY, null);
-
-
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
         float x = event.getX();
         float y = event.getY();
 
@@ -104,6 +96,4 @@ public class MarketView extends View {
 
         return false;
     }
-
-
 }

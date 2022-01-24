@@ -1,4 +1,4 @@
-package com.example.a219_lemonade_stand.MainmenuSystem;
+package com.example.a219_lemonade_stand.MenuSystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 

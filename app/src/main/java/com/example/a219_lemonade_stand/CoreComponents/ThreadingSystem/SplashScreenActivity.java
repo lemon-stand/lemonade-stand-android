@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import com.example.a219_lemonade_stand.CoreComponents.InitLoader;
 import com.example.a219_lemonade_stand.LoginSystem.LoginSystemActivity;
-import com.example.a219_lemonade_stand.MainmenuSystem.MainMenuActivity;
+import com.example.a219_lemonade_stand.MenuSystem.MainMenuActivity;
 import com.example.a219_lemonade_stand.R;
 
 
@@ -70,9 +70,9 @@ public class SplashScreenActivity extends AppCompatActivity {
                         Intent intent_PostSplash = new Intent(SplashScreenActivity.this, LoginSystemActivity.class);
 
                         //debugging to skip straight to the main menu
-                        if(bool_skipLoginSystem == true) {
+                       /* if(bool_skipLoginSystem = false ) {
                             intent_PostSplash = new Intent(SplashScreenActivity.this, MainMenuActivity.class);
-                        }
+                        }*/
 
                         //start Post-Splash Activity
                         startActivity(intent_PostSplash);

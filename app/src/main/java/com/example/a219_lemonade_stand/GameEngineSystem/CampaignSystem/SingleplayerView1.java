@@ -21,7 +21,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.a219_lemonade_stand.GameEngineSystem.GameObject;
-import com.example.a219_lemonade_stand.MainmenuSystem.MainMenuActivity;
+import com.example.a219_lemonade_stand.MenuSystem.MainMenuActivity;
 import com.example.a219_lemonade_stand.GameEngineSystem.Player;
 import com.example.a219_lemonade_stand.R;
 import com.example.a219_lemonade_stand.GameEngineSystem.RecipePricingActivity;

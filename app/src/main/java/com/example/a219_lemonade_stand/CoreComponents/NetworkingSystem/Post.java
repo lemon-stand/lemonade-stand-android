@@ -7,8 +7,34 @@ public class Post {
     private String name ="";
     private String dob = "";
 
+    private String password = "";
+
     @SerializedName("email")
     private String email = "";
+
+    @SerializedName("body")
+    private String text = "";
+
+
+    public Post(String username, String password) {
+
+        this.name = username;
+        this.password = password;
+
+    }
+
+
+    private String accessToken = "";
+    private String refreshToken = "";
+
+
+
+
+    public String getAccessToken() { return accessToken; };
+    public String getRefreshToken() { return refreshToken; };
+
+
+
 
 
     public int getId() {
@@ -26,4 +52,18 @@ public class Post {
     public String getEmail() {
         return email;
     }
+
+    public String getBody() { return text; }
+
+
+
+
+
+
+
+
+
+
+
+
 }

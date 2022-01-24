@@ -2,170 +2,107 @@ package com.example.a219_lemonade_stand.LoginSystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.WindowManager;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonPlaceHolderApi;
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.Post;
+import com.example.a219_lemonade_stand.MenuSystem.MainMenuActivity;
+import com.example.a219_lemonade_stand.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class LoginSystemActivity extends AppCompatActivity {
 
 
-
     //Declaring Views & Variables:
 
+    //Images
+    private ImageView logo;
+    private ImageView loginscreenimage;
 
-    private Handler handler = new Handler();
-    private final static long Interval = 30;
+    //Define variables which will be used to login.
+    private EditText eUsername;
+    private EditText ePassword;
+    private Button eLogin;
 
+    private Button b_createAccount;
+    private TextView reveal;    // used to help display playerdata.txt
+    boolean isValid = false;    //boolean variable for checking login
 
+    //admin user. and pass.
+    String adminUsername = "admin";
+    String adminPassword = "12345";
 
-
-
-    ///     https://developer.android.com/training/volley/simple
-
-    /// http://localhost:8080/api/v1/player
-    /// [{"id":1,"name":"Rick","dob":"2000-01-05","email":"Rick@morty.com"},{"id":2,"name":"alexis","dob":"2004-09-21","email":"alexis@gmail.com"}]
-
-
-    //  https://www.youtube.com/watch?v=y2xtLqP8dSQ&ab_channel=CodinginFlows
-
-
-    //ipconfig ipv4
-    //private static String ip = "191.168.";
-    private static String ip = "192.168.0.10";
-
-    //RequestQueue queue = Volley.newRequestQueue(LoginSystemActivity.this);
-
-
-    public void checkURL() {
-
-        String url = "http://localhost:8080/api/v1/player";
-
-//        //JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url,
-//
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        String playerName = "";
-//                        try {
-//
-//                            JSONArray jsonArray = response.getJSONArray("players");
-//
-//
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//
-//                            //doesnt exist
-//
-//                            //
-//                        }
-//                        Toast.makeText(LoginSystemActivity.this, "Something wrong.", Toast.LENGTH_SHORT);
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
+    //Current temp variables for functionality
+    String stringsplittemp = "";
+    String usertemp = "";
+    String passtemp = "";
 
 
-    }
 
-
-    String URL = "http://192.168.0.12:8080/api/v1/player";
-    private LoginSystemActivityView lsView;
-
-   // private Player lsap = new Player();
-
-    private void showKeyboard(EditText _editText) {
-
-        //InputMethodManger
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSupportActionBar().hide();
+        setContentView(R.layout.activity_loginsystem);
 
-       /* RequestQueue requestQueue = Volley.newRequestQueue(this);
-        JsonObjectRequest objectRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                URL,
-                null, //what it returns
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.e("Rest response", response.toString());
-                        lsap.setPlayertuple(response.toString());
-                        System.out.println("success");
+        //Referencing xml elements
 
+        //login screen background image
+        loginscreenimage = (ImageView) findViewById(R.id.loginscreenimageview);
+        loginscreenimage.setImageResource(R.drawable.lemonadestandloginscreen);
+        loginscreenimage.setImageAlpha(30);
 
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Rest response", error.toString());
-                        System.out.println("fail");
-                    }
-                }
-        );*/
-        //requestQueue.add(objectRequest);
-
-        lsView = new LoginSystemActivityView(this);
-
-        setContentView(lsView);
-
-        //set soft mode
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-
-        //show key
-        if(lsView.returneUser() == true){
-            //showKeyboard(editText);
-        }
-
-        if(lsView.returneUser() == false){
-
-        }
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        lsView.invalidate();
-                    }
-                });
-            }
-        }, 0, Interval);
-
-
-
-
-        /*//logo image
-        //logo = (ImageView) findViewById(R.id.LogoView);
+        //logo image
+        logo = (ImageView) findViewById(R.id.LogoView);
         logo.setImageResource(R.drawable.lemonlogo);
 
         //Username and password elements
         eUsername = findViewById(R.id.etUsername);
         ePassword = findViewById(R.id.etPassword);
         eLogin =  findViewById(R.id.bLogin);
-        reveal = (TextView) findViewById(R.id.revealtext);*/
-
-
+        reveal = (TextView) findViewById(R.id.revealtext);
 
 
 
 
 /*
+
+
         *//**
          * Function to read player data file text and allocate the data into the appropriate strings
          *//*
@@ -202,18 +139,20 @@ public class LoginSystemActivity extends AppCompatActivity {
         passtemp.equals(stringsplittemp);
 
         //reveal text set
-        reveal.setText(stringsplittemp + "trying to print username and password");
+        reveal.setText(stringsplittemp + "trying to print username and password");*/
 
-        *//**
+
+
+        /**
          *Function to compare user input with login data, and to prove authenticity.
          *
-         *//*
+         */
         eLogin.setOnClickListener(new View.OnClickListener() {
 
-            *//**
+            /**
              * Function to return boolean value based on user data.
              * @param v
-             *//*
+             */
             @Override
             public void onClick(View v) {
 
@@ -252,56 +191,57 @@ public class LoginSystemActivity extends AppCompatActivity {
 
     }
 
-    *//**
-     * send text to view?
-     *//*
-    public void send_text(View v) {
-
-        message = eUsername.getText().toString();
-        myTask mt = new myTask();
-        mt.execute();
-
-        Toast.makeText(getApplicationContext(), "Data sent", Toast.LENGTH_LONG).show();
 
 
-    }
-
-    *//**
-     * class myTask
-     *//*
-    class myTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            try {
-                s = new Socket(ip, 5000);       //connect to socket at port 5000
-                printWriter = new PrintWriter((s.getOutputStream()));   //set the outputstream
-                printWriter.write(message); //send the message through the server
-                printWriter.flush();
-                printWriter.close();
-                s.close();
-
-
-
-            } catch(IOException e) {
-
-                e.printStackTrace();
-            }
-
-
-
-            return null;
-        }
-    }
-
-    *//**
+    /**
      * Function to validate user input and return a boolean value.
      * @param name      Variable for username
      * @param password  Variable for password
      * @return          Returns boolean value
-     *//*
+     */
     private boolean validate(String name, String password){
+
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.0.10:8080/api/login/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+        Post post = new Post(name, password);
+
+        Call<Post> call = jsonPlaceHolderApi.createPost(post);
+
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                if(!response.isSuccessful()) {
+                    System.out.println("code:" + response.code());
+                    return;
+                }
+
+                Post postResponse = response.body();
+
+                String content = "";
+                content += "Code: " + response.code() + "\n";
+                content += "access_token: " + postResponse.getAccessToken() + "\n";
+                content += "refresh_token: " + postResponse.getRefreshToken() + "\n";
+
+                Toast.makeText(LoginSystemActivity.this, content, Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                Toast.makeText(LoginSystemActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+
+
 
         if
         ((name.equals(adminUsername) && password.equals(adminPassword))
@@ -316,8 +256,10 @@ public class LoginSystemActivity extends AppCompatActivity {
         }
         else {
             return false;
-        }*/
+        }
 
     }
+
+
 
 }

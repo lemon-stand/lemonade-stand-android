@@ -1,6 +1,7 @@
 package com.example.a219_lemonade_stand.LoginSystem;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -19,7 +20,10 @@ import android.widget.Toast;
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonPlaceHolderApi;
 import com.example.a219_lemonade_stand.GameEngineSystem.Player;
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.Post;
+import com.example.a219_lemonade_stand.MenuSystem.MainMenuActivity;
 import com.example.a219_lemonade_stand.R;
+
+import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil;
 
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -42,14 +46,21 @@ public class LoginSystemActivityView extends View {
     private EditText ePassword;
     private Button eLogin;
 
+    private String userString= "";
+
+    public String getUserString() {
+        return userString;
+    }
+
     private Bitmap uUser;
     private Bitmap bUserText;
     private int b_userX = 50, b_usery = 400, b_entryWidth = 1000, b_entryHeight = 250;
 
     private static boolean edituser = false;
 
-    public boolean returneUser() { return edituser;};
-    public boolean returnePass() { return editpass;};
+
+    public static boolean returneUser() { return edituser;};
+    public static boolean returnePass() { return editpass;};
 
 
     private static boolean editpass = false;
@@ -61,6 +72,9 @@ public class LoginSystemActivityView extends View {
     private Bitmap bLogin;
     private int b_loginX = 300, b_loginY= 1000, b_entry2Width = 500;
 
+
+    private Bitmap bRegister;
+    private int bRegisterX = 300, bRegisterY= 1300, bRegisterHeight = 200;
 
 
 
@@ -114,12 +128,6 @@ public class LoginSystemActivityView extends View {
 
 
 
-
-
-
-
-
-
     private static Boolean checkOnline = false;
 
     private boolean getcheck() {
@@ -150,6 +158,8 @@ public class LoginSystemActivityView extends View {
 
         bLogin = Bitmap.createScaledBitmap(uUser, b_entry2Width, b_entryHeight, false);
 
+        bRegister = Bitmap.createScaledBitmap(uUser, b_entry2Width, bRegisterHeight, false);
+
         uPass = BitmapFactory.decodeResource(getResources(), R.drawable.inventory_icon);
         bPassText = Bitmap.createScaledBitmap(uPass, b_entryWidth, b_entryHeight, false);
 
@@ -163,7 +173,8 @@ public class LoginSystemActivityView extends View {
 
 
 
-        //http://192.168.0.12:8080/api/v1/
+
+       /* //http://192.168.0.12:8080/api/v1/
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.0.12:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -193,7 +204,7 @@ public class LoginSystemActivityView extends View {
                     content+="dob: " + post.getDob() + "\n";
                     content+="email: " + post.getEmail() + "\n";
 
-                    lsav.setPlayertuple(content);
+                    lsav.setChosenPlayerName(content);
                     checkOnline = true;
                     if(content != null){
                         checkOnline = true;
@@ -210,7 +221,7 @@ public class LoginSystemActivityView extends View {
             public void onFailure(Call<List<Post>> call, Throwable t) {
                 System.out.println("error" + t.getMessage());
             }
-        });
+        });*/
 
 
 
@@ -308,6 +319,9 @@ public class LoginSystemActivityView extends View {
         canvas.drawBitmap(bLogin, b_loginX, b_loginY, null);
         canvas.drawText("Login " , b_loginX +150, b_loginY + 150, scorePaint);
 
+        canvas.drawBitmap(bRegister, bRegisterX, bRegisterY, null);
+        canvas.drawText("Register  " , bRegisterX +120, bRegisterY + 120, scorePaint);
+
 
         canvas.drawBitmap(bPassText, b_passX, b_passY, null);
         canvas.drawText("Password: " , b_passX +50, b_passY + 150, scorePaint);
@@ -316,22 +330,8 @@ public class LoginSystemActivityView extends View {
 
 
 
-        /*if(!edituser) { // disable editing password
-            eUsername.setFocusable(false);
-            eUsername.setFocusableInTouchMode(false); // user touches widget on phone with touch screen
-            eUsername.setClickable(false); // user navigates with wheel and selects widget
-
-        }
-        if(edituser){ // enable editing of password
-            eUsername.setFocusable(true);
-            eUsername.setFocusableInTouchMode(true);
-            eUsername.setClickable(true);
-
-
-
-
-        }*/
-
+        //Check there is a connection made for the feedback feature on this view to know its onnline
+        checkOnline = lsav.returnConnetionVariable();
 
         if(getcheck() == false) {
             canvas.drawBitmap(offline_icon, onlineX, onlineY, null);
@@ -360,15 +360,60 @@ public class LoginSystemActivityView extends View {
             case MotionEvent.ACTION_DOWN:
 
 
+                if(edituser == true) {
+                    if(!( x > b_userX && x < b_userX + b_entryWidth && y > b_usery && y < b_usery + b_entryHeight )) {
+                        Toast.makeText(getContext(), "exit out usernam", Toast.LENGTH_SHORT).show();
+                        edituser = false;
+                    }
+                }
+
                 if( x > b_userX && x < b_userX + b_entryWidth && y > b_usery && y < b_usery + b_entryHeight ) {
 
-                    edituser=true;
+                    edituser = true;
                     System.out.print("entering username");
 
                     Toast.makeText(getContext(), "entering usernam", Toast.LENGTH_SHORT).show();
 
                 }
 
+
+                if(editpass == true) {
+                    if( !(x > b_passX && x < b_passX + b_entryWidth && y > b_passY && y < b_passY + b_entryHeight )) {
+
+                        editpass = false;
+
+                        Toast.makeText(getContext(), "leaving pass", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+                if( x > b_passX && x < b_passX + b_entryWidth && y > b_passY && y < b_passY + b_entryHeight ) {
+
+                    editpass = true;
+                    System.out.print("entering pass");
+
+                    Toast.makeText(getContext(), "entering pass", Toast.LENGTH_SHORT).show();
+
+                }
+
+
+                if( x > bRegisterX && x < bRegisterX + b_entryWidth && y > bRegisterY && y < bRegisterY + bRegisterHeight ) {
+
+                    Intent intent_EndDay = new Intent(getContext(), RegisterSystemActivity.class);
+                    //intent_EndDay.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    getContext().startActivity(intent_EndDay);
+
+                }
+
+                if( x > b_loginX && x < b_loginX + b_entryWidth && y > b_loginY && y < b_loginY + bRegisterHeight ) {
+
+                    Intent intent_EndDay = new Intent(getContext(), MainMenuActivity.class);
+                    //intent_EndDay.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    getContext().startActivity(intent_EndDay);
+
+                }
 
 
                 if( x > homeButtonX && x < homeButtonX + homeButtonWidth && y > homeButtonY && y < homeButtonY + homeButtonHeight ) {

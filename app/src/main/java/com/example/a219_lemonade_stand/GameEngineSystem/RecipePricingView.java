@@ -12,8 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.a219_lemonade_stand.GameEngineSystem.GameObject;
-import com.example.a219_lemonade_stand.MainmenuSystem.MainMenuActivity;
+import com.example.a219_lemonade_stand.MenuSystem.MainMenuActivity;
 import com.example.a219_lemonade_stand.R;
 
 public class RecipePricingView extends View {
@@ -53,6 +52,7 @@ public class RecipePricingView extends View {
     private int inc_pricingpercup_y = 300;
 
 
+    private String s_playerbalance = "";
 
     private String s_profitwrecipe = "";
     private String s_recipecost = "";
@@ -99,6 +99,8 @@ public class RecipePricingView extends View {
     private Paint flavorPaint = new Paint();
 
     GameObject recipePricingGameObject = new GameObject();
+
+    Player recipePricingPlayerObject = new Player();
 
     private Bitmap lemonstandbg, ulemonstandbg;
 
@@ -160,8 +162,9 @@ public class RecipePricingView extends View {
 
 
         //player balance
-        playerbalance = recipePricingGameObject.getBalance();
-        s_currentBalance = " " + playerbalance;
+        //playerbalance = recipePricingGameObject.getBalance();     // old way of getting static balance
+        s_playerbalance = recipePricingPlayerObject.s_getPlayerBalance(1);
+        s_currentBalance = " " + s_playerbalance;
         canvas.drawText("Balance: $" + s_currentBalance, (canvasWidth/2) -200, 100, scorePaint);
 
 

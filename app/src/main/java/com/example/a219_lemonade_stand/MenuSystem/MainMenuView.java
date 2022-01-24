@@ -1,4 +1,4 @@
-package com.example.a219_lemonade_stand.MainmenuSystem;
+package com.example.a219_lemonade_stand.MenuSystem;
 
 import android.content.Context;
 import android.content.Intent;
@@ -181,9 +181,21 @@ public class MainMenuView extends View {
 
         //canvas.drawBitmap(bg, bgX, bgY, null);
 
-        s_Player_Name = "" + mmPlayer.getS_PString();
-        s_Player_Balance = "Balance: $" + mmGameObject.getBalance();
 
+        s_Player_Name = "" + mmPlayer.getS_PString();
+        s_Player_Name = "" + mmPlayer.s_getPlayerName(1);
+
+        if((s_Player_Name).isEmpty()) {
+            s_Player_Name = "Name: NA";
+        }
+
+        //s_Player_Balance = "Balance: $" + mmGameObject.getBalance();
+        s_Player_Balance = "" + mmPlayer.s_getPlayerBalance(1);
+
+
+        if((s_Player_Balance).isEmpty()) {
+            s_Player_Balance = "Bal: NA";
+        }
 
         canvas.drawText(s_Player_Name, 300, 100, scorePaint);
         canvas.drawText(s_Player_Balance, 300, 200, scorePaint);
@@ -293,9 +305,10 @@ public class MainMenuView extends View {
 
 
 
+                //multiplayer menu
                 if( x > mpX && x < mpX + mpWidth && y > mpY && y < mpY + mpHeight ) {
 
-                    Intent intent_EndDay = new Intent(getContext(), SingleplayerActivity.class);
+                    Intent intent_EndDay = new Intent(getContext(), MultiplayerMenuActivity.class);
                     intent_EndDay.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                     getContext().startActivity(intent_EndDay);

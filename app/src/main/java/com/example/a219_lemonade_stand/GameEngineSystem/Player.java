@@ -55,8 +55,15 @@ public class Player {
     }
     private static String player_tuple = "";
 
-    public void setPlayertuple(String tuple) {
-        player_tuple = tuple;
+    private static String chosenPlayerName = "";
+    private static String chosenPlayerBalance = "";
+
+    public void setChosenPlayerBalance(String _postTuple) {
+        chosenPlayerBalance = _postTuple;
+    }
+
+    public void setChosenPlayerName(String _postTuple) {
+        chosenPlayerName = _postTuple;
     }
 
     public String getPlayertuple() {
@@ -65,6 +72,31 @@ public class Player {
         return player_tuple;
     }
 
+    public String s_getPlayerName(int _id) {
+
+        _id = 1;
+
+
+        return chosenPlayerName;
+    }
+    public String s_getPlayerBalance(int _id) {
+
+        _id = 1;
+        return  chosenPlayerBalance;
+    }
+
+    private static boolean connectionCheck = false;
+
+    public boolean returnConnetionVariable() {
+
+
+        if(connectionCheck) {
+            return true;
+        }
+
+
+        return connectionCheck;
+    }
     public Player() {
 
 
@@ -97,7 +129,7 @@ public class Player {
 
                 for(Post post : posts ) {
 
-                    int bo = 0;
+
 
                     String content = "";
                     content+="ID: " + post.getId() + "\n";
@@ -105,13 +137,17 @@ public class Player {
                     content+="dob: " + post.getDob() + "\n";
                     content+="email: " + post.getEmail() + "\n";
 
-                    player_tuple =content;
-                    if(bo == 0){
-                        setPlayertuple(content);
+                    player_tuple = content;
+                    connectionCheck = true;
 
-                        System.out.println(content);
+                    if(post.getId() == 1){
+                        //setPlayertuple(content);
+                        setChosenPlayerName(post.getName());
+                        setChosenPlayerBalance("need: stock table dbms");
+
+                        //System.out.println(chosenplayer_tuple);
                     }
-                    bo++;
+
 
                 }
 

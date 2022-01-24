@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.219lemonadestand">
         <activity
-            android:name=".MainmenuSystem.SettingsActivity"
+            android:name=".MenuSystem.SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings" />
         <activity
@@ -25,6 +25,10 @@
         <activity
             android:name=".LoginSystem.LoginSystemActivity"
             android:exported="false" />
+        <activity
+            android:name=".LoginSystem.RegisterSystemActivity"
+            android:exported="false" />
+
         <activity
             android:name=".GameEngineSystem.RecipePricingActivity"
             android:exported="false" />
@@ -46,8 +50,11 @@
             android:name=".GameEngineSystem.CampaignSystem.SingleplayerActivity"
             android:exported="true" />
         <activity
-            android:name=".MainmenuSystem.MainMenuActivity"
+            android:name=".MenuSystem.MainMenuActivity"
             android:exported="true" />
+        <activity
+            android:name=".MenuSystem.MultiplayerMenuActivity"
+            android:exported="false" />
         <activity
             android:name=".CoreComponents.MainActivity"
             android:label="@string/app_name"
