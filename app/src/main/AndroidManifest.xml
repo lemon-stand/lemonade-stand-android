@@ -14,6 +14,7 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/splash_icon"
         android:supportsRtl="true"
+
         android:theme="@style/Theme.219lemonadestand">
         <activity
             android:name=".MenuSystem.SettingsActivity"
@@ -28,7 +29,12 @@
         <activity
             android:name=".LoginSystem.RegisterSystemActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".GameEngineSystem.InventoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GameEngineSystem.EconomySystem.TradingActivity"
+            android:exported="false" />
         <activity
             android:name=".GameEngineSystem.RecipePricingActivity"
             android:exported="false" />

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.a219_lemonade_stand.GameEngineSystem.CampaignSystem.SingleplayerActivity;
 import com.example.a219_lemonade_stand.GameEngineSystem.GameObject;
 import com.example.a219_lemonade_stand.GameEngineSystem.EconomySystem.MarketActivity;
+import com.example.a219_lemonade_stand.GameEngineSystem.InventoryActivity;
 import com.example.a219_lemonade_stand.GameEngineSystem.Player;
 import com.example.a219_lemonade_stand.R;
 import com.example.a219_lemonade_stand.GameEngineSystem.RecipePricingActivity;
@@ -273,7 +274,7 @@ public class MainMenuView extends View {
                 if( x > button_InventoryX && x < button_InventoryX + button_InventoryWidth && y > button_InventoryY && y < button_InventoryY + button_InventoryHeight ) {
 
                     //inventory activity
-                    Intent intent_EndDay = new Intent(getContext(), MainMenuActivity.class);
+                    Intent intent_EndDay = new Intent(getContext(), InventoryActivity.class);
                     intent_EndDay.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                     getContext().startActivity(intent_EndDay);

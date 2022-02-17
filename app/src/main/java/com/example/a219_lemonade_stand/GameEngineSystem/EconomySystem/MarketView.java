@@ -66,7 +66,13 @@ public class MarketView extends View {
 
         canvas.drawText("Market Exchange", 300, 100, scorePaint);
 
-        canvas.drawText("Trades", 300, 1800, scorePaint);
+        canvas.drawText("Market Slot 1", 100, 400, scorePaint);
+        canvas.drawText("Market Slot 2", 100, 800, scorePaint);
+        canvas.drawText("Market Slot 3", 100, 1200, scorePaint);
+
+
+        canvas.drawText("Chat window", 100, 1500, scorePaint);
+        canvas.drawText("Trades", 700, 1500, scorePaint);
 
 
         canvas.drawBitmap(homeButton, homeButtonX, homeButtonY, null);
@@ -95,6 +101,17 @@ public class MarketView extends View {
                     getContext().startActivity(intent_EndDay);
 
                 }
+                if( x > tradingiconX && x < tradingiconX + tradingiconWidth && y > tradingiconY && y < tradingiconY + tradingiconHeight ) {
+
+                    Intent intent_EndDay = new Intent(getContext(), TradingActivity.class);
+                    //intent_EndDay.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    getContext().startActivity(intent_EndDay);
+
+                }
+
+
+
                 return true;
         }
 
