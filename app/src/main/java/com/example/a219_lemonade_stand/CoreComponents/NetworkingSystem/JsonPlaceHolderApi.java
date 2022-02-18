@@ -16,7 +16,14 @@ public interface JsonPlaceHolderApi {
     //comment
     // https://youtu.be/4JGvDUlfk7Y?t=582
 
+    //https://www.youtube.com/watch?v=GP5OyYDu_mU&list=PLrnPJCHvNZuCbuD3xpfKzQWOj3AXybSaM&index=3&ab_channel=CodinginFlow
+
 
     @POST("api/login")
-    Call<Post> createPost(@Body Post post);
+    Call<Post> loginPost(@Body Post post);
+
+
+
+
+
 }

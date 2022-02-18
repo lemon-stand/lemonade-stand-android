@@ -4,9 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class Post {
     private int id;
-    private String name ="";
-    private String dob = "";
 
+
+    @SerializedName("username")
+    private String username ="";
+
+
+
+    @SerializedName("password")
     private String password = "";
 
     @SerializedName("email")
@@ -15,11 +20,12 @@ public class Post {
     @SerializedName("body")
     private String text = "";
 
+    private String dob = "";
 
     public Post(String username, String password) {
 
-        this.name = username;
-        this.password = password;
+        this.username = username;
+        this.username = password;
 
     }
 
@@ -42,7 +48,7 @@ public class Post {
     }
 
     public String getName() {
-        return name;
+        return username;
     }
 
     public String getDob() {
