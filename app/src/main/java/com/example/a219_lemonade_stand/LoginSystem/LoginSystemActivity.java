@@ -64,13 +64,7 @@ public class LoginSystemActivity extends AppCompatActivity {
 
     //admin user. and pass.
     String adminUsername = "admin";
-    String adminPassword = "12345";
-
-    //Current temp variables for functionality
-    String stringsplittemp = "";
-    String usertemp = "";
-    String passtemp = "";
-
+    String adminPassword = "1234";
 
 
 
@@ -173,7 +167,7 @@ public class LoginSystemActivity extends AppCompatActivity {
 
                     //If user input is false.
                     if (!isValid) {
-                        Toast.makeText(LoginSystemActivity.this, "Incorrect details entered.", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginSystemActivity.this, "Incorrect details entered.", Toast.LENGTH_SHORT).show();
                     }
 
                     //If user input is true, sends state to HomePageActivity.
@@ -192,24 +186,29 @@ public class LoginSystemActivity extends AppCompatActivity {
     }
 
 
+    boolean validatecheck;
 
     /**
      * Function to validate user input and return a boolean value.
-     * @param name      Variable for username
+     * @param username      Variable for username
      * @param password  Variable for password
      * @return          Returns boolean value
      */
-    private boolean validate(String name, String password){
+    private boolean validate(String username, String password){
 
+        if (username.equals(adminUsername) && password.equals(adminPassword)) {
+            return true;
+        }
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.10:8080/api/login/")
+                .baseUrl("https://192.168.0.50:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+
         JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-        Post post = new Post(name, password);
+        Post post = new Post(username, password);
 
         Call<Post> call = jsonPlaceHolderApi.createPost(post);
 
@@ -217,7 +216,7 @@ public class LoginSystemActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
                 if(!response.isSuccessful()) {
-                    System.out.println("code:" + response.code());
+                    System.out.println("!!!!!!!!!!code:" + response.code());
                     return;
                 }
 
@@ -227,34 +226,26 @@ public class LoginSystemActivity extends AppCompatActivity {
                 content += "Code: " + response.code() + "\n";
                 content += "access_token: " + postResponse.getAccessToken() + "\n";
                 content += "refresh_token: " + postResponse.getRefreshToken() + "\n";
-
-                Toast.makeText(LoginSystemActivity.this, content, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginSystemActivity.this, "nice connection", Toast.LENGTH_SHORT).show();
+                validatecheck = true;
 
             }
 
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
                 Toast.makeText(LoginSystemActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                validatecheck = false;
 
             }
         });
 
 
 
-
-
-        if
-        ((name.equals(adminUsername) && password.equals(adminPassword))
-        ) {
-            return true;
-        }
-
-        if
-        ((name.equals(usertemp) && password.equals(passtemp))
-        ){
+        if (validatecheck) {
             return true;
         }
         else {
+            //Toast.makeText(LoginSystemActivity.this, "Something happened.", Toast.LENGTH_SHORT).show();
             return false;
         }
 
