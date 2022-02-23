@@ -109,7 +109,7 @@ public class Player {
 
         //http://192.168.0.12:8080/api/v1/
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.12:8080/")
+                .baseUrl("http://192.168.0.50:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

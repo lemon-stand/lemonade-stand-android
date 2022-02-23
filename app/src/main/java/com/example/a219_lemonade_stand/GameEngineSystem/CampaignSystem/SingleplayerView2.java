@@ -25,23 +25,7 @@ public class SingleplayerView2 extends View {
 
 
 
-    private Bitmap buyer[][] = new Bitmap[2][3];
-    private static int buyerX[] = new int[3];
-    private static int buyerY[] = new int[3];
-    private static int buyerSpeed[] = new int[3];
-    private static int buyerXStep[] = new int[3];
-    private static int buyerYStep[] = new int[3];
 
-        private int initbuyerstep1X,initbuyerstep1Y , initbuyerstep2X, initbuyerstep2Y;
-        private int initcheck =0;
-
-
-    private Bitmap buyer2[][] = new Bitmap[2][3];
-    private static int buyerX2[] = new int[3];
-    private static int buyerY2[] = new int[3];
-    private static int buyerSpeed2[] = new int[3];
-    private static int buyerXStep2[] = new int[3];
-    private static int buyerYStep2[] = new int[3];
 
 
 
@@ -153,7 +137,7 @@ public class SingleplayerView2 extends View {
     ///
     ///
 
-
+    int sp_weatherstate = sp2GameObject.getWeatherState();
 
     private int weather_iconX =380, weather_iconY =1700, weather_iconWidth = 200, weather_icon_Height = 200;
     private Bitmap unscaledweathericon;
@@ -163,9 +147,29 @@ public class SingleplayerView2 extends View {
 
     ////
     ///
+    int numberbuyers = 3;
+
+    private Bitmap buyer[][] = new Bitmap[2][numberbuyers];
+    private static int buyerX[] = new int[3];
+    private static int buyerY[] = new int[3];
+    private static int buyerSpeed[] = new int[3];
+    private static int buyerXStep[] = new int[3];
+    private static int buyerYStep[] = new int[3];
+
+    private int initbuyerstep1X,initbuyerstep1Y , initbuyerstep2X, initbuyerstep2Y;
+    private int initcheck =0;
+
+
+    private Bitmap buyer2[][] = new Bitmap[2][numberbuyers];
+    private static int buyerX2[] = new int[3];
+    private static int buyerY2[] = new int[3];
+    private static int buyerSpeed2[] = new int[3];
+    private static int buyerXStep2[] = new int[3];
+    private static int buyerYStep2[] = new int[3];
 
 
 
+    //
 
 
     private String player_string_inventory ="";
@@ -276,6 +280,62 @@ public class SingleplayerView2 extends View {
         lemonstandbg = Bitmap.createScaledBitmap(ulemonstandbg, 1100, 2000, false);
 
 
+
+        weatherselect = 0;
+
+
+
+        weatherselect = sp_weatherstate;
+
+        if(weatherselect == 0) {
+            unscaledweathericon = BitmapFactory.decodeResource(getResources(), R.drawable.sunny_icon);
+        }
+        if(weatherselect == 2) {
+            unscaledweathericon = BitmapFactory.decodeResource(getResources(), R.drawable.snowy_icon);
+        }
+        if(weatherselect == 3) {
+            unscaledweathericon = BitmapFactory.decodeResource(getResources(), R.drawable.windy_icon);
+        }
+        if(weatherselect == 1) {
+            unscaledweathericon = BitmapFactory.decodeResource(getResources(), R.drawable.rainy_icon);
+        }
+        weathericon = Bitmap.createScaledBitmap(unscaledweathericon, weather_iconWidth, weather_icon_Height, false);
+
+
+        int int_temp = sp2GameObject.getTemperature();
+
+        //change number of buyers algorithm based on weather
+        Random rand = new Random();
+        int randompopulation = rand.nextInt((3 - 1) + 1) + 1;
+
+        if(weatherselect ==0) {
+
+            numberbuyers = randompopulation;
+
+        }
+
+            randompopulation = rand.nextInt((2 - 1) + 1) + 1;
+
+        if((weatherselect ==3) || (int_temp < 15)){
+
+            numberbuyers = randompopulation;
+        }
+            randompopulation = 1;
+        if((weatherselect == 1) || (int_temp < 5)){
+
+            numberbuyers = randompopulation;
+        }
+
+
+
+
+
+
+
+
+
+
+
         avatarChoice = 0;
         avatarChoice = sp2Player.getCharacterDesign();
 
@@ -340,26 +400,6 @@ public class SingleplayerView2 extends View {
 
         rainPaint.setColor(Color.CYAN);
         rainPaint.setAntiAlias(false);
-
-        weatherselect = 0;
-
-        int sp_weatherstate = sp2GameObject.getWeatherState();
-
-        weatherselect = sp_weatherstate;
-
-        if(weatherselect == 0) {
-            unscaledweathericon = BitmapFactory.decodeResource(getResources(), R.drawable.sunny_icon);
-        }
-        if(weatherselect == 2) {
-            unscaledweathericon = BitmapFactory.decodeResource(getResources(), R.drawable.snowy_icon);
-        }
-        if(weatherselect == 3) {
-            unscaledweathericon = BitmapFactory.decodeResource(getResources(), R.drawable.windy_icon);
-        }
-        if(weatherselect == 1) {
-            unscaledweathericon = BitmapFactory.decodeResource(getResources(), R.drawable.rainy_icon);
-        }
-        weathericon = Bitmap.createScaledBitmap(unscaledweathericon, weather_iconWidth, weather_icon_Height, false);
 
 
 
