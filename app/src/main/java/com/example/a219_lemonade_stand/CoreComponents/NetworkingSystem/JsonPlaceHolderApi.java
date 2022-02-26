@@ -9,7 +9,7 @@ import retrofit2.http.POST;
 
 public interface JsonPlaceHolderApi {
 
-    @GET("api/v1/player")
+    @GET("api/players")
     Call<List<Post>> getPosts();
 
 
@@ -19,7 +19,7 @@ public interface JsonPlaceHolderApi {
     //https://www.youtube.com/watch?v=GP5OyYDu_mU&list=PLrnPJCHvNZuCbuD3xpfKzQWOj3AXybSaM&index=3&ab_channel=CodinginFlow
 
 
-    @POST("api/login")
+    @GET("api/players")
     Call<Post> loginPost(@Body Post post);
 
 

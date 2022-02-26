@@ -23,6 +23,7 @@ import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonPlace
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonVerifyApi;
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.Post;
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.verifyPost;
+import com.example.a219_lemonade_stand.GameEngineSystem.Player;
 import com.example.a219_lemonade_stand.MenuSystem.MainMenuActivity;
 import com.example.a219_lemonade_stand.R;
 
@@ -68,12 +69,14 @@ public class LoginSystemActivity extends AppCompatActivity {
     String adminUsername = "admin";
     String adminPassword = "1234";
 
+    Player lsAPlayer = new Player();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getPostData();
         setContentView(R.layout.activity_loginsystem);
 
         //Referencing xml elements
@@ -168,7 +171,7 @@ public class LoginSystemActivity extends AppCompatActivity {
                     isValid = validate(inputName, inputPassword);
 
                     //If user input is false.
-                    if (!isValid) {
+                    if(isValid == false) {
                         //Toast.makeText(LoginSystemActivity.this, "Incorrect details entered.", Toast.LENGTH_SHORT).show();
                     }
 
@@ -177,8 +180,18 @@ public class LoginSystemActivity extends AppCompatActivity {
                         Toast.makeText(LoginSystemActivity.this, "Login successful.", Toast.LENGTH_SHORT).show();
                         // setContentView(R.layout.homepage_main);
                         // startActivity(new Intent(MainActivity.this, HomePageActivity.class));
+
+                        //make player data..
+
+                        if(inputName == "admin") {
+
+                        }
+
+
                         Intent i = new Intent(LoginSystemActivity.this, MainMenuActivity.class);
                         LoginSystemActivity.this.startActivity(i);
+
+
                     }
 
                 }
@@ -188,9 +201,79 @@ public class LoginSystemActivity extends AppCompatActivity {
     }
 
 
-    boolean validatecheck;
+
+
+    private void getPostData() {
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.56:8080/")
+
+                //.baseUrl("localhost:8080")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+
+        //Post loginpost = new Post(username, password);
+
+        Call<List<Post>> call = jsonPlaceHolderApi.getPosts();
+
+        call.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if(!response.isSuccessful()) {
+                    System.out.println("code:" + response.code());
+                    isValid = false;
+                    return;
+                }
+
+                List<Post> tempPost = response.body();
+
+
+
+                String content = "";
+                content += "Code: " + response.code() + "\n";
+
+
+                //content += "access_token: " + tempPost.getAccessToken() + "\n";
+                //content += "refresh_token: " + tempPost.getRefreshToken() + "\n";
+
+                //tempAccess = tempPost.getAccessToken();
+                //tempRefresh = tempPost.getRefreshToken();
+
+
+
+
+                Toast.makeText(LoginSystemActivity.this, "nice connection", Toast.LENGTH_SHORT).show();
+                validatecheck = true;
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                Toast.makeText(LoginSystemActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                validatecheck = false;
+
+            }
+        });
+
+//        JsonVerifyApi jsonVerifyApi = retrofit.create(JsonVerifyApi.class);
+//        verifyPost postResponse = new verifyPost(tempAccess, tempRefresh);
+//        Call<verifyPost> recall = jsonVerifyApi.verifyPost(postResponse);
+
+    }
+
+    private boolean validatecheck;
 
     String tempAccess, tempRefresh;
+
+    private void tempPost_setPlayerFromLogin(String player) {
+        lsAPlayer.setChosenPlayerName(player);
+
+    }
 
     /**
      * Function to validate user input and return a boolean value.
@@ -203,74 +286,20 @@ public class LoginSystemActivity extends AppCompatActivity {
         System.out.println(username+ ", " + password);
 
         if (username.equals(adminUsername) && password.equals(adminPassword)) {
+            System.out.println("Admin login");
+            isValid = true;
             return true;
         }
 
+        tempPost_setPlayerFromLogin(username);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://192.168.1.56:8080/")
-
-                //.baseUrl("localhost:8080")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-
-        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-
-
-        Post loginpost = new Post(username, password);
-
-        Call<Post> call = jsonPlaceHolderApi.loginPost(loginpost);
-
-        call.enqueue(new Callback<Post>() {
-            @Override
-            public void onResponse(Call<Post> call, Response<Post> response) {
-                if(!response.isSuccessful()) {
-                    System.out.println("code:" + response.code());
-                    return;
-                }
-
-                Post tempPost = response.body();
-
-
-
-                String content = "";
-                content += "Code: " + response.code() + "\n";
-
-
-                content += "access_token: " + tempPost.getAccessToken() + "\n";
-                content += "refresh_token: " + tempPost.getRefreshToken() + "\n";
-
-                tempAccess = tempPost.getAccessToken();
-                tempRefresh = tempPost.getRefreshToken();
-
-
-
-
-                Toast.makeText(LoginSystemActivity.this, "nice connection", Toast.LENGTH_SHORT).show();
-                validatecheck = true;
-
-            }
-
-            @Override
-            public void onFailure(Call<Post> call, Throwable t) {
-                Toast.makeText(LoginSystemActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                validatecheck = false;
-
-            }
-        });
-
-        JsonVerifyApi jsonVerifyApi = retrofit.create(JsonVerifyApi.class);
-        verifyPost postResponse = new verifyPost(tempAccess, tempRefresh);
-        Call<verifyPost> recall = jsonVerifyApi.verifyPost(postResponse);
-
-
-        if (validatecheck) {
-
+        if(validatecheck) {
+            isValid = true;
             System.out.println("Validatation check is true");
             return true;
         }
         else {
+            isValid = false;
             //Toast.makeText(LoginSystemActivity.this, "Something happened.", Toast.LENGTH_SHORT).show();
             return false;
         }

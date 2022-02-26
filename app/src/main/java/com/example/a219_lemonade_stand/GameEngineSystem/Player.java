@@ -23,12 +23,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Player {
 
-    private int playerid;
+    private long playerid =1;
 
-    private int lemons;
-    private int sugar ;
-    private int water ;
-    private int money ;
+    private long lemons;
+    private long shiny_lemons;
+    private long honey;
+    private long sugar;
+    private long water;
+    private long money_balance;
+
+    public long getID(){
+        return playerid;
+    }
 
     private static int int_characterDesign;
 
@@ -106,67 +112,7 @@ public class Player {
         //k = knife, c= cooler, z = empty, a = adboard
         //player_inventory = "KCZZZZZZZ";
         //selected_inventory = player_inventory.substring(0, 3);
-
-        //http://192.168.0.12:8080/api/v1/
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.50:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-        Call<List<Post>> call = jsonPlaceHolderApi.getPosts();
-
-        call.enqueue(new Callback<List<Post>>() {
-            @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-
-                if(!response.isSuccessful()) {
-                    System.out.println("code:" + response.code());
-                    return;
-                }
-
-                List<Post> posts = response.body();
-
-                for(Post post : posts ) {
-
-
-
-                    String content = "";
-                    content+="ID: " + post.getId() + "\n";
-                    content+="Name: " + post.getName() + "\n";
-                    content+="dob: " + post.getDob() + "\n";
-                    content+="email: " + post.getEmail() + "\n";
-
-                    player_tuple = content;
-                    connectionCheck = true;
-
-                    if(post.getId() == 1){
-                        //setPlayertuple(content);
-                        setChosenPlayerName(post.getName());
-                        setChosenPlayerBalance("need: stock table dbms");
-
-                        //System.out.println(chosenplayer_tuple);
-                    }
-
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-                System.out.println("error" + t.getMessage());
-            }
-        });
-
-
-
-
-
-
-
-
-
+        
 
 
     }
@@ -234,7 +180,7 @@ public class Player {
 
     }
 
-    public int returnLemonStock() {
+    public long returnLemonStock() {
 
         return lemons;
     }

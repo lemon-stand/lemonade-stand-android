@@ -12,14 +12,25 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonPlaceHolderApi;
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.Post;
 import com.example.a219_lemonade_stand.GameEngineSystem.CampaignSystem.SingleplayerActivity;
 import com.example.a219_lemonade_stand.GameEngineSystem.GameObject;
 import com.example.a219_lemonade_stand.GameEngineSystem.EconomySystem.MarketActivity;
 import com.example.a219_lemonade_stand.GameEngineSystem.InventoryActivity;
 import com.example.a219_lemonade_stand.GameEngineSystem.Player;
+import com.example.a219_lemonade_stand.LoginSystem.LoginSystemActivity;
 import com.example.a219_lemonade_stand.R;
 import com.example.a219_lemonade_stand.GameEngineSystem.RecipePricingActivity;
 import com.example.a219_lemonade_stand.GameEngineSystem.EconomySystem.StoreActivity;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainMenuView extends View {
@@ -81,9 +92,71 @@ public class MainMenuView extends View {
 
     private int avatarChoice;
 
+
+    private void getPostData() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.56:8080/")
+
+                //.baseUrl("localhost:8080")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+
+        //Post loginpost = new Post(username, password);
+
+        Call<List<Post>> call = jsonPlaceHolderApi.getPosts();
+
+        call.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if(!response.isSuccessful()) {
+                    System.out.println("code:" + response.code());
+
+
+                }
+
+                List<Post> tempPost = response.body();
+
+                String content = "";
+                content += "Code: " + response.code() + "\n";
+
+                for(Post post : tempPost) {
+
+
+                    if(post.getName().equals(mmPlayer.s_getPlayerName(1))){
+
+                        mmPlayer.setChosenPlayerBalance("" + post.getBalance());
+                        System.out.println("Balance print:" + post.getBalance());
+                    }
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+
+
+
+            }
+        });
+
+
+    }
+
     public MainMenuView(Context context) {
         super(context);
 
+
+
+
+        getPostData();
 
 
 
@@ -184,19 +257,22 @@ public class MainMenuView extends View {
 
 
         s_Player_Name = "" + mmPlayer.getS_PString();
-        s_Player_Name = "" + mmPlayer.s_getPlayerName(1);
+
 
         if((s_Player_Name).isEmpty()) {
             s_Player_Name = "Name: NA";
         }
+        s_Player_Name = "$: " + mmPlayer.s_getPlayerName(1) + " #" + mmPlayer.getID();
 
-        //s_Player_Balance = "Balance: $" + mmGameObject.getBalance();
-        s_Player_Balance = "" + mmPlayer.s_getPlayerBalance(1);
+
 
 
         if((s_Player_Balance).isEmpty()) {
-            s_Player_Balance = "Bal: NA";
+            s_Player_Balance = "Bal.: NA";
         }
+
+        //s_Player_Balance = "Balance: $" + mmGameObject.getBalance();
+        s_Player_Balance = "Bal.:" + mmPlayer.s_getPlayerBalance(1);
 
         canvas.drawText(s_Player_Name, 300, 100, scorePaint);
         canvas.drawText(s_Player_Balance, 300, 200, scorePaint);
