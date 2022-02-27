@@ -252,6 +252,7 @@ public class SingleplayerView1 extends View {
                     //if(post.getName().equals(sp1Player.s_getPlayerName(1))){
 
                         sp1Player.setChosenPlayerBalance("" + post.getBalance());
+                        sp1Player.setPlayer_ID(post.getId());
                         System.out.println("Balance print:" + post.getBalance());
 
 

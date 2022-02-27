@@ -30,12 +30,12 @@ public class MainActivity extends AppCompatActivity {
 
         // NOTE : change class back to splash when threading is ok!
         // Or change from the target to mainmenuactivity
-        //Intent intent_SplashScreen = new Intent(MainActivity.this, MainMenuActivity.class);
+        Intent intent_SplashScreen = new Intent(MainActivity.this, MainMenuActivity.class);
         //Intent intent_SplashScreen = new Intent(MainActivity.this, RegisterSystemActivity.class);
 
 
         //Main Activity calls Splash Screen Activity
-        Intent intent_SplashScreen = new Intent(MainActivity.this, LoginSystemActivity.class);
+        //Intent intent_SplashScreen = new Intent(MainActivity.this, LoginSystemActivity.class);
 
         //start Intent of Splash Screen which leads into the Login System Activity
         MainActivity.this.startActivity(intent_SplashScreen);

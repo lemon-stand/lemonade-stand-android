@@ -130,6 +130,7 @@ public class MainMenuView extends View {
                     if(post.getName().equals(mmPlayer.s_getPlayerName(1))){
 
                         mmPlayer.setChosenPlayerBalance("" + post.getBalance());
+                        mmPlayer.setPlayer_ID(post.getId());
                         System.out.println("Balance print:" + post.getBalance());
 
 

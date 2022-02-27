@@ -184,9 +184,11 @@ public class LoginSystemActivity extends AppCompatActivity {
                         //make player data..
 
                         if(inputName == "admin") {
+                            lsAPlayer.setPlayer_ID(0);
 
                         }
 
+                        tempPost_setPlayerFromLogin(inputName);
 
                         Intent i = new Intent(LoginSystemActivity.this, MainMenuActivity.class);
                         LoginSystemActivity.this.startActivity(i);

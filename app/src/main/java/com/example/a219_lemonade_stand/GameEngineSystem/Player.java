@@ -21,19 +21,37 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
+/**
+ * Player Class that contains the storage for the player
+ *
+ * able to hold the stock, (ordered) inventory of the player
+ * able to set new stock values or new ordered inventory
+ *
+ * Designed to be used throughout the system to retrieve and define new data.
+ *
+ */
 public class Player {
 
-    private long playerid =1;
+
+    /**
+     * Player attritbutes
+     */
+    private long playerid = 0;
 
     private long lemons;
-
-
-
     private long shiny_lemons;
     private long honey;
     private long sugar;
     private long water;
     private long money_balance;
+
+
+    /**
+     *  Player getter methods to return specific attributes
+     *
+     * @return
+     */
 
     public long getID(){
         return playerid;
@@ -61,44 +79,14 @@ public class Player {
     }
 
 
+    /**
+     * Setters code for setting specific player attribute values and variables
+     */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private static int int_characterDesign;
-
-
-    public static String s_PlayerString = "NULL";
-    public String getS_PString(){ return s_PlayerString; };
-
-
-    public static String player_inventory = "KCZZZZZZZ";
-    //public static String selected_inventory = "";
-    public static String selected_inventory = player_inventory.substring(0, 3);
-
-    public void setSelectedInvent(String _inventory) {
-        selected_inventory = _inventory;
+    public void setPlayer_ID(long _id) {
+        playerid = _id;
     }
 
-    public String getSelectedInvent() {
-
-        return selected_inventory;
-    }
-
-    public String getFullInvent() {
-        return player_inventory;
-    }
-    private static String player_tuple = "";
 
     private static String chosenPlayerName = "";
     private static String chosenPlayerBalance = "";
@@ -120,24 +108,6 @@ public class Player {
     }
 
 
-
-
-
-
-
-
-    public String getPlayertuple() {
-
-
-        return player_tuple;
-    }
-
-
-
-
-
-
-
     public String s_getPlayerName(int _id) {
 
         _id = 1;
@@ -151,6 +121,10 @@ public class Player {
         return  chosenPlayerBalance;
     }
 
+
+    /**
+     * Potentially unused networking connection code
+     */
     private static boolean connectionCheck = false;
 
     public boolean returnConnetionVariable() {
@@ -165,18 +139,26 @@ public class Player {
     }
 
 
-
-
-
-
-
-
-
+    /**
+     *  Player Class Constructor
+     *
+     *
+     *
+     */
     public Player() {
 
 
         //0 = bob , 1 james, 2 edna
-        int_characterDesign =3;
+        int_characterDesign = 1;    //default user
+
+        if((chosenPlayerName.equals("admin")) || (chosenPlayerName.equals("Admin")) ){
+            setChosenPlayerBalance("999999999");
+            int_characterDesign = 2;
+        }
+
+        if(chosenPlayerName.equals("Bob")) {
+            int_characterDesign = 0;
+        }
 
         //k = knife, c= cooler, z = empty, a = adboard
         //player_inventory = "KCZZZZZZZ";
@@ -186,14 +168,61 @@ public class Player {
 
     }
 
-
-
+    private static int int_characterDesign;
 
 
     public int getCharacterDesign() {
      return int_characterDesign;
     }
 
+
+
+    /**
+     *
+     *      OLD GAME CODE FOR PARSING INVENTORY & PLAYER TUPLE
+     *      Cannot be removed yet until it has been purged
+     *
+     */
+
+    public static String s_PlayerString = "NULL";
+    public String getS_PString(){ return s_PlayerString; };
+
+
+    public static String player_inventory = "KCZZZZZZZ";
+    //public static String selected_inventory = "";
+    public static String selected_inventory = player_inventory.substring(0, 3);
+
+    public void setSelectedInvent(String _inventory) {
+        selected_inventory = _inventory;
+    }
+
+    public String getSelectedInvent() {
+
+        return selected_inventory;
+    }
+
+    public String getFullInvent() {
+        return player_inventory;
+    }
+
+
+    private static String player_tuple = "";
+
+    public String getPlayertuple() {
+
+
+        return player_tuple;
+    }
+
+
+
+
+    /**
+     *  File writing code that is now obsolete
+     *
+     * @param data
+     * @param context
+     */
     private void writeToFile(String data,Context context) {
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("config.txt", Context.MODE_PRIVATE));
@@ -206,6 +235,12 @@ public class Player {
     }
 
 
+    /**
+     * File reading code that is now obsolete
+     *
+     * @param context
+     * @return
+     */
     public String readFromFile(Context context) {
 
         String ret = "";
@@ -237,6 +272,9 @@ public class Player {
         return ret;
     }
 
+    /**
+     * Read player from file code that is now obsolete as using a server, dbms system
+     */
     private void readPlayerFile() {
 
 
@@ -264,12 +302,3 @@ public class Player {
 
 }
 
-
-
-
-
-
-
-//////////
-///
-///
