@@ -12,9 +12,20 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonPlaceHolderApi;
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.Post;
 import com.example.a219_lemonade_stand.GameEngineSystem.GameObject;
+import com.example.a219_lemonade_stand.GameEngineSystem.Player;
 import com.example.a219_lemonade_stand.MenuSystem.MainMenuActivity;
 import com.example.a219_lemonade_stand.R;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class StoreView extends View {
 
@@ -42,6 +53,9 @@ public class StoreView extends View {
     private int iconSizeWidth = 150;
     private int iconSizeHeight = 200;
 
+    private Bitmap shoppingcarticon;
+    private Bitmap ushoppingcarticon;
+
     private Bitmap lemonsIcon;
     private Bitmap unscaledlemons;
     private int lemonsX, lemonsY;
@@ -54,13 +68,18 @@ public class StoreView extends View {
     private Bitmap unscaledwater;
     private int waterX, waterY;
 
-    private String lemonstock = "Lemons: 10";
-    private String waterstock = "Water: 90";
-    private String sugarstock = "Sugar: 30";
+    private String lemonstock = "Lemons: ";
+    private String waterstock = "Water: ";
+    private String sugarstock = "Sugar: ";
+
+    private String intent_lemonstock = "Lemons: ";
+    private String intent_waterstock = "Water: ";
+    private String intent_sugarstock = "Sugar: ";
 
     GameObject storeGameObject = new GameObject();
 
     private Paint scorePaint = new Paint();
+    private Paint scorePaint2 = new Paint();
 
     private int canvasWidth, canvasHeight;
 
@@ -68,9 +87,84 @@ public class StoreView extends View {
 
     private Bitmap lemonstandbg, ulemonstandbg;
 
+    private Player storePlayer = new Player();
+
+    private void getPostData() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.56:8080/")
+
+                //.baseUrl("localhost:8080")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+
+        //Post loginpost = new Post(username, password);
+
+        Call<List<Post>> call = jsonPlaceHolderApi.getPosts();
+
+        call.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if(!response.isSuccessful()) {
+                    System.out.println("code:" + response.code());
+
+
+                }
+
+                List<Post> tempPost = response.body();
+
+                String content = "";
+                content += "Code: " + response.code() + "\n";
+
+                for(Post post : tempPost) {
+
+                    if(post.getName().equals(storePlayer.s_getPlayerName(1))){
+                        //if(post.getName().equals(sp1Player.s_getPlayerName(1))){
+
+                        storePlayer.setChosenPlayerName(storePlayer.s_getPlayerName(1));
+                        storePlayer.setChosenPlayerBalance("" + post.getBalance());
+                        storePlayer.setPlayer_ID(post.getId());
+                        System.out.println("Balance print:" + post.getBalance());
+
+
+
+                        storePlayer.setChosenPlayerStock(
+                                post.getLemons(),
+                                post.getShiny_lemons(),
+                                post.getHoney(),
+                                post.getSugar(),
+                                post.getWater()
+                        );
+                    }
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+
+
+
+            }
+        });
+
+
+
+    }
+
+
     public StoreView(Context context){
+
         super(context);
 
+        getPostData();
 
 
         unscaledhome = BitmapFactory.decodeResource(getResources(), R.drawable.homebutton);
@@ -97,11 +191,19 @@ public class StoreView extends View {
         unscaledi50 = BitmapFactory.decodeResource(getResources(), R.drawable.plus_icon50);
         increment50b = Bitmap.createScaledBitmap(unscaledi50, i50bWidth, i50bHeight, false);
 
+        ushoppingcarticon = BitmapFactory.decodeResource(getResources(), R.drawable.shoppingcart_image);
+        shoppingcarticon = Bitmap.createScaledBitmap(ushoppingcarticon, 400, 250, false);
+
 
         scorePaint.setColor(Color.CYAN);
         scorePaint.setTextSize(70);
         scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
         scorePaint.setAntiAlias(true);
+
+        scorePaint2.setColor(Color.CYAN);
+        scorePaint2.setTextSize(40);
+        scorePaint2.setTypeface(Typeface.DEFAULT_BOLD);
+        scorePaint2.setAntiAlias(true);
 
         ulemonstandbg = BitmapFactory.decodeResource(getResources(), R.drawable.background);
         lemonstandbg = Bitmap.createScaledBitmap(ulemonstandbg, 1100, 2000, false);
@@ -115,14 +217,24 @@ public class StoreView extends View {
         super.onDraw(canvas);
         canvas.drawBitmap(lemonstandbg, 0, 0, null);
 
-        canvas.drawText("Balance: $xxx", (canvasWidth/2) -200, 100, scorePaint);
+
+        canvas.drawText("General Store", 300, 100, scorePaint);
+        canvas.drawText("Balance: $" + storePlayer.s_getPlayerBalance(1), 300, 220, scorePaint2);
+        canvas.drawText("Receipt: $" + (storeGameObject.getBalance()), 300, 280, scorePaint2);
+
 
         stockImageX =  20;
         stockImageY = canvas.getHeight() - 500 - 20;
 
-        lemonstock = "Lemons: " + storeGameObject.getLemons();
-        waterstock = "Water: " + storeGameObject.getWater();
-        sugarstock = "Sugar: " + storeGameObject.getSugar();
+        lemonstock = "Lemons: " + storePlayer.returnLemonStock();
+        waterstock = "Water: " + storePlayer.getWater();
+        sugarstock = "Sugar: " + storePlayer.getSugar();
+
+        intent_lemonstock = "restocking: " + storeGameObject.getLemons();
+        intent_waterstock = "refilling: " +  storeGameObject.getWater();
+        intent_sugarstock = "purchasing: " +  storeGameObject.getSugar();
+
+
 
         canvasWidth = canvas.getWidth();
         canvasHeight = canvas.getHeight();
@@ -131,36 +243,41 @@ public class StoreView extends View {
         waterX = 500;
         sugarX = 800;
 
-        lemonsY = 500;
-        sugarY =  500;
-        waterY =  500;
+        lemonsY = 400;
+        sugarY =  400;
+        waterY =  400;
 
 
-        canvas.drawText("Fresh lemons", lemonsX, lemonsY, scorePaint);
+        canvas.drawText("Fresh Lemons", lemonsX, lemonsY, scorePaint2);
         canvas.drawBitmap(lemonsIcon, lemonsX, lemonsY, null);
 
         canvas.drawBitmap(increment1b, i1bX, i1bY, null);
         canvas.drawBitmap(increment5b, i5bX, i5bY, null);
 
 
-        canvas.drawText("Tap water", waterX, waterY, scorePaint);
+        canvas.drawText("Tap Water", waterX, waterY, scorePaint2);
         canvas.drawBitmap(waterIcon, waterX, waterY, null);
 
         canvas.drawBitmap(increment10b, i10bX, i10bY, null);
         canvas.drawBitmap(increment50b, i50bX, i50bY, null);
 
 
-        canvas.drawText("Honey", sugarX, sugarY,  scorePaint);
+        canvas.drawText("Refined Sugar", sugarX, sugarY,  scorePaint2);
         canvas.drawBitmap(sugarIcon, sugarX, sugarY, null);
 
         canvas.drawBitmap(increment5b, i5bX2, i5bY, null);
         canvas.drawBitmap(increment10b, i10bX2, i10bY, null);
 
+        canvas.drawText("Buy ingredients:", 100, 1700,  scorePaint);
+        canvas.drawBitmap(shoppingcarticon, 600, 1650, null);
 
+        canvas.drawText(lemonstock, stockImageX + 50, stockImageY    - 200 +50, scorePaint);
+        canvas.drawText(waterstock, stockImageX + 50, stockImageY    - 200 + 150, scorePaint);
+        canvas.drawText(sugarstock, stockImageX + 50, stockImageY    - 200  + 250, scorePaint);
 
-        canvas.drawText(lemonstock, stockImageX, stockImageY+50, scorePaint);
-        canvas.drawText(waterstock, stockImageX, stockImageY+ 150, scorePaint);
-        canvas.drawText(sugarstock, stockImageX, stockImageY + 250, scorePaint);
+        canvas.drawText(intent_lemonstock, stockImageX + 500, stockImageY-200  +20, scorePaint2);
+        canvas.drawText(intent_waterstock, stockImageX + 500, stockImageY-200 + 120, scorePaint2);
+        canvas.drawText(intent_sugarstock, stockImageX + 500, stockImageY-200  + 220, scorePaint2);
 
         canvas.drawBitmap(homeButton, homeButtonX, homeButtonY, null);
 
@@ -201,6 +318,27 @@ public class StoreView extends View {
                 if( x > waterX && x < waterX + stockImageWidth && y > waterY && y < waterY + stockImageHeight ) {
 
                     storeGameObject.buyWater();
+
+                }
+
+
+                //shopping cart / purchases button
+                if( x > 600 && x < 600 + 400 && y > 1650 && y < 1650 + 250 ) {
+
+                    Toast.makeText(getContext(), "Sending post to purchase", Toast.LENGTH_SHORT).show();
+
+                    /// save new values
+
+
+                    //send postdata method
+
+
+
+
+                    storeGameObject.setLemons(0);
+                    storeGameObject.setSugar(0);
+                    storeGameObject.setWater(0);
+                    storeGameObject.setBalance(0);
 
                 }
 

@@ -8,17 +8,32 @@ import java.util.Random;
 
 public class GameObject {
 
-    public int inital_lemons = 1000;
-    public int inital_sugar =  300;
-    public int inital_water =  1000;
-    public int inital_money =  6000;
+    public int inital_lemons = 40;
+    public int inital_sugar =  30;
+    public int inital_water =  20;
+    public int inital_money =  500;
 
 
-    private static int lemons = 0;
-    private static int sugar = 0;
-    private static int water = 0;
-    private static double Balance = 5000;
+    private static long lemons = 0;
+    private static long sugar = 0;
+    private static long water = 0;
+    private static long Balance = 0;
 
+    public static void setLemons(long lemons) {
+        GameObject.lemons = lemons;
+    }
+
+    public static void setSugar(long sugar) {
+        GameObject.sugar = sugar;
+    }
+
+    public static void setWater(long water) {
+        GameObject.water = water;
+    }
+
+    public static void setBalance(long balance) {
+        Balance = balance;
+    }
 
     private Recipe recipeObj = new Recipe();
     private Pricing pricingObj = new Pricing();
@@ -172,17 +187,17 @@ public class GameObject {
 
     //bool profit window
 
-    public int getSugar(){
+    public long getSugar(){
 
         return sugar;
     }
 
-    public int getWater(){
+    public long getWater(){
 
         return water;
     }
 
-    public int getLemons() {
+    public long getLemons() {
 
         return lemons;
     }
@@ -300,7 +315,7 @@ public class GameObject {
 
         public void usePricing() {
 
-            Balance = (Balance + pricingpercup);
+            Balance = (Balance + (long) pricingpercup);
         }
 
         public void decreasePricingIncrement() {

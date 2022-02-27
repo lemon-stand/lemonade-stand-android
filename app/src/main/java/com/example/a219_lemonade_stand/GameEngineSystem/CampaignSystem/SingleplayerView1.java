@@ -248,7 +248,7 @@ public class SingleplayerView1 extends View {
 
                 for(Post post : tempPost) {
 
-                    if(post.getName().equals("Bob")){
+                    if(post.getName().equals(sp1Player.s_getPlayerName(1))){
                     //if(post.getName().equals(sp1Player.s_getPlayerName(1))){
 
                         sp1Player.setChosenPlayerBalance("" + post.getBalance());

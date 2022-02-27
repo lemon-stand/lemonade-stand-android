@@ -108,6 +108,8 @@ public class Player {
     }
 
 
+    private static String bufferplayername = "Bob"; //bob for test reasons
+
     public String s_getPlayerName(int _id) {
 
         _id = 1;
@@ -147,6 +149,9 @@ public class Player {
      */
     public Player() {
 
+        if(chosenPlayerName.isEmpty()){
+            chosenPlayerName = bufferplayername;
+        }
 
         //0 = bob , 1 james, 2 edna
         int_characterDesign = 1;    //default user
@@ -163,8 +168,8 @@ public class Player {
         //k = knife, c= cooler, z = empty, a = adboard
         //player_inventory = "KCZZZZZZZ";
         //selected_inventory = player_inventory.substring(0, 3);
-        
 
+        bufferplayername = chosenPlayerName;
 
     }
 

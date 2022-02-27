@@ -12,9 +12,19 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonPlaceHolderApi;
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.Post;
 import com.example.a219_lemonade_stand.LoginSystem.LoginSystemActivity;
 import com.example.a219_lemonade_stand.MenuSystem.MainMenuActivity;
 import com.example.a219_lemonade_stand.R;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class InventoryView extends View {
 
@@ -26,7 +36,7 @@ public class InventoryView extends View {
 
     private Paint scorePaint = new Paint();
 
-    Player sp1Player = new Player();
+    Player ivPlayer = new Player();
 
     private String player_string_inventory ="";
     private String player_string_fullinventory ="";
@@ -42,6 +52,15 @@ public class InventoryView extends View {
     private Bitmap slot3;
     private int slot3X = 800, slot3Y = 1000;
 
+
+    private Bitmap slot4;
+    private int slot4X = 150, slot4Y = 1400;
+
+    private Bitmap slot5;
+    private int slot5X = 500, slot5Y = 1400;
+
+    private Bitmap slot6;
+    private int slot6X = 800, slot6Y = 1400;
 
 
 
@@ -64,8 +83,10 @@ public class InventoryView extends View {
     public InventoryView(Context context) {
         super(context);
 
+        getPostData();
+
         scorePaint.setColor(Color.CYAN);
-        scorePaint.setTextSize(70);
+        scorePaint.setTextSize(65);
         scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
         scorePaint.setAntiAlias(true);
 
@@ -78,14 +99,14 @@ public class InventoryView extends View {
         unscaledknife = BitmapFactory.decodeResource(getResources(), R.drawable.knife);
         unscaledcooler = BitmapFactory.decodeResource(getResources(), R.drawable.icecooler);
 
-        player_string_inventory = sp1Player.getSelectedInvent();
-        player_string_fullinventory = sp1Player.getFullInvent();
+        player_string_inventory = ivPlayer.getSelectedInvent();
+        player_string_fullinventory = ivPlayer.getFullInvent();
 
         uselectedbmap = BitmapFactory.decodeResource(getResources(), R.drawable.selectedpng);
         selectedbmap = Bitmap.createScaledBitmap(uselectedbmap,selectslotsize , selectslotsize, false);
 
 
-        char invent1_choice = player_string_inventory.charAt(0);
+        char invent1_choice = player_string_fullinventory.charAt(0);
 
         //slot1 = Bitmap.createScaledBitmap(unscaledemptyslot, slotWidth, slotHeight, false);
 
@@ -104,7 +125,7 @@ public class InventoryView extends View {
         }
 
 
-        char invent2_choice = player_string_inventory.charAt(1);
+        char invent2_choice = player_string_fullinventory.charAt(1);
 
         switch(invent2_choice) {
             case 'K':
@@ -120,7 +141,7 @@ public class InventoryView extends View {
         }
 
 
-        char invent3_choice = player_string_inventory.charAt(2);
+        char invent3_choice = player_string_fullinventory.charAt(2);
 
 
         switch(invent3_choice) {
@@ -136,6 +157,125 @@ public class InventoryView extends View {
 
         }
 
+
+        switch(player_string_fullinventory.charAt(3)) {
+            case 'K':
+                slot4 = Bitmap.createScaledBitmap(unscaledknife, slot_size, slot_size, false);
+                break;
+            case 'Z':
+                slot4 = Bitmap.createScaledBitmap(unscaledemptyslot, slot_size, slot_size, false);
+                break;
+            case 'C':
+                slot4= Bitmap.createScaledBitmap(unscaledcooler, slot_size, slot_size, false);
+                break;
+
+        }
+
+
+        switch(player_string_fullinventory.charAt(4)) {
+            case 'K':
+                slot5 = Bitmap.createScaledBitmap(unscaledknife, slot_size, slot_size, false);
+                break;
+            case 'Z':
+                slot5 = Bitmap.createScaledBitmap(unscaledemptyslot, slot_size, slot_size, false);
+                break;
+            case 'C':
+                slot5= Bitmap.createScaledBitmap(unscaledcooler, slot_size, slot_size, false);
+                break;
+
+        }
+
+        switch(player_string_fullinventory.charAt(5)) {
+            case 'K':
+                slot6 = Bitmap.createScaledBitmap(unscaledknife, slot_size, slot_size, false);
+                break;
+            case 'Z':
+                slot6 = Bitmap.createScaledBitmap(unscaledemptyslot, slot_size, slot_size, false);
+                break;
+            case 'C':
+                slot6= Bitmap.createScaledBitmap(unscaledcooler, slot_size, slot_size, false);
+                break;
+
+        }
+
+
+
+
+
+
+
+
+
+
+    }
+
+    private void getPostData() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.56:8080/")
+
+                //.baseUrl("localhost:8080")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+
+        //Post loginpost = new Post(username, password);
+
+        Call<List<Post>> call = jsonPlaceHolderApi.getPosts();
+
+        call.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if(!response.isSuccessful()) {
+                    System.out.println("code:" + response.code());
+
+
+                }
+
+                List<Post> tempPost = response.body();
+
+                String content = "";
+                content += "Code: " + response.code() + "\n";
+
+                for(Post post : tempPost) {
+
+                    if(post.getName().equals(ivPlayer.s_getPlayerName(1))){
+                        //if(post.getName().equals(sp1Player.s_getPlayerName(1))){
+
+                        ivPlayer.setChosenPlayerName(ivPlayer.s_getPlayerName(1));
+                        ivPlayer.setChosenPlayerBalance("" + post.getBalance());
+                        ivPlayer.setPlayer_ID(post.getId());
+                        System.out.println("Balance print:" + post.getBalance());
+
+
+
+                        ivPlayer.setChosenPlayerStock(
+                                post.getLemons(),
+                                post.getShiny_lemons(),
+                                post.getHoney(),
+                                post.getSugar(),
+                                post.getWater()
+                        );
+                    }
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+
+
+
+            }
+        });
+
+
     }
 
     @Override
@@ -147,24 +287,31 @@ public class InventoryView extends View {
         canvas.drawBitmap(lemonstandbg, 0, 0, null);
         canvas.drawBitmap(homeButton, homeButtonX, homeButtonY, null);
 
+        canvas.drawBitmap(selectedbmap, slot1X - 30, slot1Y - 30, null);
+        canvas.drawBitmap(selectedbmap, slot2X - 30, slot2Y - 30, null);
+        canvas.drawBitmap(selectedbmap, slot3X - 30, slot3Y - 30, null);
 
-        //canvas.drawBitmap(slot3, slot3X, slot3Y, null);
-        //canvas.drawBitmap(slot2, slot2X, slot2Y, null);
+
         canvas.drawBitmap(slot1, slot1X, slot1Y, null);
         canvas.drawBitmap(slot2, slot2X, slot2Y, null);
         canvas.drawBitmap(slot3, slot3X, slot3Y, null);
 
+        canvas.drawBitmap(slot4, slot4X, slot4Y, null);
+        canvas.drawBitmap(slot5, slot5X, slot5Y, null);
+        canvas.drawBitmap(slot6, slot6X, slot6Y, null);
+
 
 
         canvas.drawText("Inventory Management",300, 100, scorePaint);
-        canvas.drawText("Stock: ",100, 350, scorePaint);
-        canvas.drawText("Shiny Lemons: ",200, 500, scorePaint);
-        canvas.drawText("Lemons: ",200, 580, scorePaint);
-        canvas.drawText("Sugar: ",200, 660, scorePaint);
-        canvas.drawText("Honey: ",200, 740, scorePaint);
-        canvas.drawText("Water: ",200, 820, scorePaint);
+        canvas.drawText("Balance: $" + ivPlayer.s_getPlayerBalance(1),350, 250, scorePaint);
+        canvas.drawText("Stock: ",100, 400, scorePaint);
+        canvas.drawText("Shiny Lemons: " + ivPlayer.getShiny_lemons(),200, 500, scorePaint);
+        canvas.drawText("Lemons: " + ivPlayer.returnLemonStock(),200, 580, scorePaint);
+        canvas.drawText("Sugar: " + ivPlayer.getSugar(),200, 660, scorePaint);
+        canvas.drawText("Honey: " + ivPlayer.getHoney(),200, 740, scorePaint);
+        canvas.drawText("Water: " + ivPlayer.getWater(),200, 820, scorePaint);
 
-        canvas.drawText("Items: ",100, 1000, scorePaint);
+        canvas.drawText("Items: ",100, 950, scorePaint);
 
         canvas.drawText("[Change Inventory Order]",200, 1800, scorePaint);      //TODO implement this
         //canvas.drawText("[Botany Lab]",200, 1700, scorePaint);
@@ -193,6 +340,10 @@ public class InventoryView extends View {
 
                 }
 
+                if( x > 50 && x < 50 + 1300 && y > 1600 && y < 1600 + 500 ) {
+
+                    Toast.makeText(getContext(), "Change inventory order under construction", Toast.LENGTH_SHORT).show();
+                }
 
 
                 return true;

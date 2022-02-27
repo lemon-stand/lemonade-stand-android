@@ -129,6 +129,7 @@ public class MainMenuView extends View {
 
                     if(post.getName().equals(mmPlayer.s_getPlayerName(1))){
 
+                        mmPlayer.setChosenPlayerName(mmPlayer.s_getPlayerName(1));
                         mmPlayer.setChosenPlayerBalance("" + post.getBalance());
                         mmPlayer.setPlayer_ID(post.getId());
                         System.out.println("Balance print:" + post.getBalance());
@@ -271,9 +272,9 @@ public class MainMenuView extends View {
 
 
         if((s_Player_Name).isEmpty()) {
-            s_Player_Name = "Name: NA";
+            s_Player_Name = "User: NA";
         }
-        s_Player_Name = "$: " + mmPlayer.s_getPlayerName(1) + " #" + mmPlayer.getID();
+        s_Player_Name = "User: " + mmPlayer.s_getPlayerName(1) + " #" + mmPlayer.getID();
 
 
 
@@ -283,7 +284,7 @@ public class MainMenuView extends View {
         }
 
         //s_Player_Balance = "Balance: $" + mmGameObject.getBalance();
-        s_Player_Balance = "Bal.:" + mmPlayer.s_getPlayerBalance(1);
+        s_Player_Balance = "Bal.: $" + mmPlayer.s_getPlayerBalance(1);
 
         canvas.drawText(s_Player_Name, 300, 100, scorePaint);
         canvas.drawText(s_Player_Balance, 300, 200, scorePaint);
