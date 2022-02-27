@@ -131,6 +131,16 @@ public class MainMenuView extends View {
 
                         mmPlayer.setChosenPlayerBalance("" + post.getBalance());
                         System.out.println("Balance print:" + post.getBalance());
+
+
+
+                        mmPlayer.setChosenPlayerStock(
+                                post.getLemons(),
+                                post.getShiny_lemons(),
+                                post.getHoney(),
+                                post.getSugar(),
+                                post.getWater()
+                        );
                     }
 
                 }

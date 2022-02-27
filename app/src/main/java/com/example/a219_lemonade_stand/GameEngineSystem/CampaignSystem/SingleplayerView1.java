@@ -20,12 +20,22 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonPlaceHolderApi;
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.Post;
 import com.example.a219_lemonade_stand.GameEngineSystem.GameObject;
 import com.example.a219_lemonade_stand.MenuSystem.MainMenuActivity;
 import com.example.a219_lemonade_stand.GameEngineSystem.Player;
 import com.example.a219_lemonade_stand.R;
 import com.example.a219_lemonade_stand.GameEngineSystem.RecipePricingActivity;
 import com.example.a219_lemonade_stand.GameEngineSystem.EconomySystem.StoreActivity;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Singleplayer View 1 Class
@@ -205,6 +215,75 @@ public class SingleplayerView1 extends View {
     private Bitmap lemonstandbg, ulemonstandbg;
 
 
+    private void getPostData() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.56:8080/")
+
+                //.baseUrl("localhost:8080")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+
+        //Post loginpost = new Post(username, password);
+
+        Call<List<Post>> call = jsonPlaceHolderApi.getPosts();
+
+        call.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if(!response.isSuccessful()) {
+                    System.out.println("code:" + response.code());
+
+
+                }
+
+                List<Post> tempPost = response.body();
+
+                String content = "";
+                content += "Code: " + response.code() + "\n";
+
+                for(Post post : tempPost) {
+
+                    if(post.getName().equals("Bob")){
+                    //if(post.getName().equals(sp1Player.s_getPlayerName(1))){
+
+                        sp1Player.setChosenPlayerBalance("" + post.getBalance());
+                        System.out.println("Balance print:" + post.getBalance());
+
+
+
+                        sp1Player.setChosenPlayerStock(
+                                post.getLemons(),
+                                post.getShiny_lemons(),
+                                post.getHoney(),
+                                post.getSugar(),
+                                post.getWater()
+                        );
+                    }
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+
+
+
+            }
+        });
+
+
+    }
+
+
+
     /**canvas.drawBitmap(im_slot1, im_slot1X, im_slot_1Y, null);
      canvas.drawBitmap(im_slot2, im_slot2X, im_slot_2Y, null);
      canvas.drawBitmap(im_slot3, im_slot3X, im_slot_3Y, null);
@@ -214,7 +293,7 @@ public class SingleplayerView1 extends View {
      */
     public SingleplayerView1(Context context) {
         super(context);
-
+        getPostData();
 
         ulemonstandbg = BitmapFactory.decodeResource(getResources(), R.drawable.background);
         lemonstandbg = Bitmap.createScaledBitmap(ulemonstandbg, 1100, 2000, false);
@@ -587,9 +666,9 @@ public class SingleplayerView1 extends View {
 
         canvas.drawBitmap(lemonstandbg, 0, 0, null);
 
-        lemonstock = "Lemons: " + sp1GameObject.getLemons();
-        waterstock = "Water: " + sp1GameObject.getWater();
-        sugarstock = "Sugar: " + sp1GameObject.getSugar();
+        lemonstock = "Lemons: " + sp1Player.returnLemonStock();
+        waterstock = "Water: " + sp1Player.getWater();
+        sugarstock = "Sugar: " + sp1Player.getSugar();
 
 
        s_Revenue = "Revenue/Total Return: $" + sp1GameObject.getRevenue();
@@ -626,7 +705,7 @@ public class SingleplayerView1 extends View {
         canvas.drawBitmap(slot2, slot2X, slot2Y, null);
         canvas.drawBitmap(slot1, slot1X, slot1Y, null);
 
-        canvas.drawText("Balance $: xxx", 50, 650, scorePaint2);
+        canvas.drawText("Balance $: " + sp1Player.s_getPlayerBalance(1), 50, 650, scorePaint2);
         canvas.drawText("PREVIOUS RETURN", 400, 750, scorePaint2);
         canvas.drawText(s_Revenue, 400, 850, scorePaint2);
         canvas.drawText(s_Overhead, 400, 950, scorePaint2);

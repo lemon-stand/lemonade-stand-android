@@ -26,6 +26,9 @@ public class Player {
     private long playerid =1;
 
     private long lemons;
+
+
+
     private long shiny_lemons;
     private long honey;
     private long sugar;
@@ -35,6 +38,42 @@ public class Player {
     public long getID(){
         return playerid;
     }
+
+    public long returnLemonStock() {
+
+        return lemons;
+    }
+
+    public long getShiny_lemons() {
+        return shiny_lemons;
+    }
+
+    public long getHoney() {
+        return honey;
+    }
+
+    public long getSugar() {
+        return sugar;
+    }
+
+    public long getWater() {
+        return water;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private static int int_characterDesign;
 
@@ -72,11 +111,32 @@ public class Player {
         chosenPlayerName = _postTuple;
     }
 
+    public void setChosenPlayerStock(long _lemons, long _shiny_lemons, long _honey, long _sugar, long _water){
+        lemons = _lemons;
+        shiny_lemons = _shiny_lemons;
+        honey = _honey;
+        sugar = _sugar;
+        water = _water;
+    }
+
+
+
+
+
+
+
+
     public String getPlayertuple() {
 
 
         return player_tuple;
     }
+
+
+
+
+
+
 
     public String s_getPlayerName(int _id) {
 
@@ -103,6 +163,15 @@ public class Player {
 
         return connectionCheck;
     }
+
+
+
+
+
+
+
+
+
     public Player() {
 
 
@@ -116,6 +185,10 @@ public class Player {
 
 
     }
+
+
+
+
 
     public int getCharacterDesign() {
      return int_characterDesign;
@@ -180,10 +253,7 @@ public class Player {
 
     }
 
-    public long returnLemonStock() {
 
-        return lemons;
-    }
 
 
 
