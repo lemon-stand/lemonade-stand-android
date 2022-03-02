@@ -11,11 +11,20 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonPlaceHolderApi;
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.Post;
 import com.example.a219_lemonade_stand.GameEngineSystem.GameObject;
 import com.example.a219_lemonade_stand.GameEngineSystem.Player;
 import com.example.a219_lemonade_stand.R;
 
+import java.util.List;
 import java.util.Random;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SingleplayerView2 extends View {
 
@@ -98,6 +107,8 @@ public class SingleplayerView2 extends View {
 
 
     private Paint scorePaint = new Paint();
+
+    private Paint smallText = new Paint();
 
     private int gametime;
     private int hours;
@@ -192,6 +203,15 @@ public class SingleplayerView2 extends View {
 
     private Bitmap slot2;
     private int slot2X = 300, slot2Y= 1850;
+
+
+    /**
+     * Need to implement an on end void function with deals with post and udpating the game values properly
+     */
+
+
+
+
 
 
     public SingleplayerView2(Context context) {
@@ -398,6 +418,11 @@ public class SingleplayerView2 extends View {
         scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
         scorePaint.setAntiAlias(true);
 
+        smallText.setColor(Color.CYAN);
+        smallText.setTextSize(30);
+        smallText.setTypeface(Typeface.DEFAULT_BOLD);
+        smallText.setAntiAlias(true);
+
         rainPaint.setColor(Color.CYAN);
         rainPaint.setAntiAlias(false);
 
@@ -432,6 +457,78 @@ public class SingleplayerView2 extends View {
 
     }
 
+    private void getPostData() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.56:8080/")
+
+                //.baseUrl("localhost:8080")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+
+        //Post loginpost = new Post(username, password);
+
+        Call<List<Post>> call = jsonPlaceHolderApi.getPosts();
+
+        call.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if(!response.isSuccessful()) {
+                    System.out.println("code:" + response.code());
+
+
+                }
+
+                List<Post> tempPost = response.body();
+
+                String content = "";
+                content += "Code: " + response.code() + "\n";
+
+                for(Post post : tempPost) {
+
+                    if(post.getName().equals(sp2Player.s_getPlayerName(1))){
+                        //if(post.getName().equals(sp1Player.s_getPlayerName(1))){
+
+                        sp2Player.setChosenPlayerName(sp2Player.s_getPlayerName(1));
+                        sp2Player.setChosenPlayerBalance("" + post.getBalance());
+                        sp2Player.setPlayer_ID(post.getId());
+                        System.out.println("Balance print:" + post.getBalance());
+
+
+
+                        sp2Player.setChosenPlayerStock(
+                                post.getLemons(),
+                                post.getShiny_lemons(),
+                                post.getHoney(),
+                                post.getSugar(),
+                                post.getWater()
+                        );
+                    }
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+
+
+
+            }
+        });
+
+
+
+    }
+
+
+
     @Override
     protected void onDraw(Canvas canvas) {
 
@@ -439,9 +536,9 @@ public class SingleplayerView2 extends View {
 
         canvas.drawBitmap(lemonstandbg, 0, 0, null);
 
-        lemonstock = "Lemons: " + sp2GameObject.getLemons();
-        waterstock = "Water: " + sp2GameObject.getWater();
-        sugarstock = "Sugar: " + sp2GameObject.getSugar();
+        lemonstock = "used Lemons: " + sp2GameObject.getLemons();
+        waterstock = "used Water: " + sp2GameObject.getWater();
+        sugarstock = "used Sugar: " + sp2GameObject.getSugar();
 
 
         canvasWidth = canvas.getWidth();
@@ -500,7 +597,7 @@ public class SingleplayerView2 extends View {
         s_gametime = s_hours + ":" + s_minutes;
 
 
-        s_Balance = "Balance: $ " + sp2GameObject.getBalance();
+        s_Balance = "Revenue: $ " + sp2GameObject.getBalance();
         int i_BalX = 400;
         int i_BalY = 100;
 
@@ -800,14 +897,35 @@ public class SingleplayerView2 extends View {
 
         canvas.drawBitmap(weathericon, weather_iconX, weather_iconY, null);
 
-        canvas.drawText(s_Balance, i_BalX, i_BalY , scorePaint);
+
         canvas.drawText("Temp: " + weatherString, 430, 1650, scorePaint);
         canvas.drawText("" + temp_text, 600, 1800, scorePaint);
         canvas.drawText("Time: " + s_gametime , 600, 200, scorePaint);
 
-        canvas.drawText(lemonstock, stockImageX, stockImageY+50, scorePaint);
-        canvas.drawText(waterstock, stockImageX, stockImageY+ 150, scorePaint);
-        canvas.drawText(sugarstock, stockImageX, stockImageY + 250, scorePaint);
+        canvas.drawText(lemonstock, stockImageX + 50, stockImageY + 80, smallText);
+        canvas.drawText(waterstock, stockImageX + 50, stockImageY + 180, smallText);
+        canvas.drawText(sugarstock, stockImageX + 50, stockImageY + 280, smallText);
+
+
+        canvas.drawText(s_Balance, i_BalX, i_BalY +50 , smallText);
+
+
+
+        String player_bal = sp2Player.s_getPlayerBalance(1);
+
+
+        String player_lemons =  "" + sp2Player.returnLemonStock();
+        String player_sugar =  "" + sp2Player.getSugar();
+        String player_water =  "" + sp2Player.getWater();
+
+
+        canvas.drawText("Balance: $" + player_bal, i_BalX, i_BalY , scorePaint);
+
+
+        canvas.drawText("Lemons:" + player_lemons, stockImageX, stockImageY+50, scorePaint);
+        canvas.drawText("Water: " + player_water, stockImageX, stockImageY+ 150, scorePaint);
+        canvas.drawText("Sugar: " + player_sugar, stockImageX, stockImageY + 250, scorePaint);
+
 
 
         canvas.drawBitmap(seller, sellerX, sellerY, null);

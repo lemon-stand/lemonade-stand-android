@@ -230,8 +230,8 @@ public class StoreView extends View {
         waterstock = "Water: " + storePlayer.getWater();
         sugarstock = "Sugar: " + storePlayer.getSugar();
 
-        intent_lemonstock = "restocking: " + storeGameObject.getLemons();
-        intent_waterstock = "refilling: " +  storeGameObject.getWater();
+        intent_lemonstock = "restocking: " +  storeGameObject.getLemons();
+        intent_waterstock = "refilling: " +   storeGameObject.getWater();
         intent_sugarstock = "purchasing: " +  storeGameObject.getSugar();
 
 
@@ -326,6 +326,15 @@ public class StoreView extends View {
                 if( x > 600 && x < 600 + 400 && y > 1650 && y < 1650 + 250 ) {
 
                     Toast.makeText(getContext(), "Sending post to purchase", Toast.LENGTH_SHORT).show();
+
+
+
+
+
+                    System.out.println("printing: l" +  storeGameObject.getLemons() );
+                    System.out.println("printing: w" +  storeGameObject.getWater() );
+                    System.out.println("printing: s" +  storeGameObject.getSugar() );
+                    System.out.println("printing: b" + storeGameObject.getBalance());
 
                     /// save new values
 

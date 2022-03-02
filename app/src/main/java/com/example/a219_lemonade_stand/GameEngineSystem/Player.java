@@ -110,6 +110,8 @@ public class Player {
 
     private static String bufferplayername = "Bob"; //bob for test reasons
 
+
+
     public String s_getPlayerName(int _id) {
 
         _id = 1;
@@ -151,6 +153,11 @@ public class Player {
 
         if(chosenPlayerName.isEmpty()){
             chosenPlayerName = bufferplayername;
+        }
+
+
+        if(chosenPlayerName.isEmpty()){
+            chosenPlayerName = "Bob"; playerid = 5;
         }
 
         //0 = bob , 1 james, 2 edna
