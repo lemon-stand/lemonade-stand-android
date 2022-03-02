@@ -25,6 +25,7 @@ import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.Post;
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.verifyPost;
 import com.example.a219_lemonade_stand.GameEngineSystem.Player;
 import com.example.a219_lemonade_stand.MenuSystem.MainMenuActivity;
+import com.example.a219_lemonade_stand.MenuSystem.SettingsActivity;
 import com.example.a219_lemonade_stand.R;
 
 import org.json.JSONArray;
@@ -94,6 +95,7 @@ public class LoginSystemActivity extends AppCompatActivity {
         eUsername = findViewById(R.id.etUsername);
         ePassword = findViewById(R.id.etPassword);
         eLogin =  findViewById(R.id.bLogin);
+        b_createAccount =  findViewById(R.id.bcreateacc);
         reveal = (TextView) findViewById(R.id.revealtext);
 
 
@@ -148,6 +150,24 @@ public class LoginSystemActivity extends AppCompatActivity {
 //
 //            getContext().startActivity(intent_EndDay);
 
+
+        b_createAccount.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Function to return boolean value based on user data.
+             * @param v
+             */
+            @Override
+            public void onClick(View v) {
+
+                //Intent i = new Intent(LoginSystemActivity.this, RegisterSystemActivity.class);
+               // LoginSystemActivity.this.startActivity(i);
+                Toast.makeText(LoginSystemActivity.this, "Register account under construction.", Toast.LENGTH_SHORT).show();
+
+
+            }
+
+            });
 
 
 
