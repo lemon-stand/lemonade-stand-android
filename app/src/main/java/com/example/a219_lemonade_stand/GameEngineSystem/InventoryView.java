@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonPlaceHolderApi;
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.Post;
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.ServerDeets;
 import com.example.a219_lemonade_stand.LoginSystem.LoginSystemActivity;
 import com.example.a219_lemonade_stand.MenuSystem.MainMenuActivity;
 import com.example.a219_lemonade_stand.R;
@@ -209,10 +210,13 @@ public class InventoryView extends View {
 
     }
 
+    private String serverString = ServerDeets.IP_ADDRESS;
+
+
     private void getPostData() {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.56:8080/")
+                .baseUrl(serverString)
 
                 //.baseUrl("localhost:8080")
                 .addConverterFactory(GsonConverterFactory.create())

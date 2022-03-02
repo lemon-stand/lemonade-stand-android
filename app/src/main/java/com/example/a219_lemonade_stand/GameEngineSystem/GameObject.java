@@ -41,7 +41,7 @@ public class GameObject {
     private LStandBusinessAdminObj BusinessAdminObj= new LStandBusinessAdminObj();
 
     //temp can be between -2 and 30
-    private int temperature;
+    private int temperature =15;
 
     //0 none, 1 rain, 2 snow, 3 windy
     private int weatherstate;
@@ -118,6 +118,15 @@ public class GameObject {
         return ii;
     }
 
+    public void callChangeWeather() {
+
+        //need to make this only called in spgame1...
+        //have the variable saved as static
+        temperature = generatRandomPositiveNegitiveValue(30, -2);
+
+    }
+
+
     /**
      *
      * Main game object
@@ -130,7 +139,6 @@ public class GameObject {
         }
 
 
-        temperature = generatRandomPositiveNegitiveValue(30, -2);
 
         //check for rain
         int rainchance = new Random().nextInt((7 - 1) + 1 ) + 1;

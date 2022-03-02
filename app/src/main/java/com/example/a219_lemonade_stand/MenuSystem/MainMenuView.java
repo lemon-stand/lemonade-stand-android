@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonPlaceHolderApi;
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.Post;
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.ServerDeets;
 import com.example.a219_lemonade_stand.GameEngineSystem.CampaignSystem.SingleplayerActivity;
 import com.example.a219_lemonade_stand.GameEngineSystem.GameObject;
 import com.example.a219_lemonade_stand.GameEngineSystem.EconomySystem.MarketActivity;
@@ -93,10 +94,12 @@ public class MainMenuView extends View {
     private int avatarChoice;
 
 
+    private String serverString = ServerDeets.IP_ADDRESS;
+
     private void getPostData() {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.56:8080/")
+                .baseUrl(serverString)
 
                 //.baseUrl("localhost:8080")
                 .addConverterFactory(GsonConverterFactory.create())

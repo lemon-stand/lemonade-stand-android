@@ -141,6 +141,15 @@ public class LoginSystemActivity extends AppCompatActivity {
         reveal.setText(stringsplittemp + "trying to print username and password");*/
 
 
+        //register account button action listener needed here
+//
+//            Intent intent_EndDay = new Intent(getContext(), RegisterSystemActivity.class);
+//            //intent_EndDay.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//            getContext().startActivity(intent_EndDay);
+
+
+
 
         /**
          *Function to compare user input with login data, and to prove authenticity.
@@ -209,7 +218,7 @@ public class LoginSystemActivity extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.56:8080/")
+                .baseUrl("http://192.168.1.9:8080/")
 
                 //.baseUrl("localhost:8080")
                 .addConverterFactory(GsonConverterFactory.create())

@@ -20,6 +20,10 @@ import com.example.a219_lemonade_stand.MenuSystem.MainMenuActivity;
 public class MainActivity extends AppCompatActivity {
 
 
+
+    // STATIC GLOBAL CONSTANT VARIABLE FOR IP
+    //public static final String IP_ADDRESS ="http://192.168.1.9:8080/";
+
     /**
      * Main Activity onCreate Function
      */

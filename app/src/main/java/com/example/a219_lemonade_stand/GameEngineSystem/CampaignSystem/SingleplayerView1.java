@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonPlaceHolderApi;
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.Post;
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.ServerDeets;
 import com.example.a219_lemonade_stand.GameEngineSystem.GameObject;
 import com.example.a219_lemonade_stand.MenuSystem.MainMenuActivity;
 import com.example.a219_lemonade_stand.GameEngineSystem.Player;
@@ -215,10 +216,12 @@ public class SingleplayerView1 extends View {
     private Bitmap lemonstandbg, ulemonstandbg;
 
 
+    private String serverString = ServerDeets.IP_ADDRESS;
+
     private void getPostData() {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.56:8080/")
+                .baseUrl(serverString)
 
                 //.baseUrl("localhost:8080")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -295,6 +298,7 @@ public class SingleplayerView1 extends View {
     public SingleplayerView1(Context context) {
         super(context);
         getPostData();
+        sp1GameObject.callChangeWeather();
 
         ulemonstandbg = BitmapFactory.decodeResource(getResources(), R.drawable.background);
         lemonstandbg = Bitmap.createScaledBitmap(ulemonstandbg, 1100, 2000, false);
