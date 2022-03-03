@@ -4,39 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash_bg"
-    tools:context=".CoreComponents.ThreadingSystem.SplashScreenActivity">
+    android:background="@drawable/background"
+    tools:context=".CoreComponents.SplashScreenActivity">
 
 
     <ImageView
         android:id="@+id/id_splash_icon"
-        android:src="@drawable/splash_icon"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        />
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/splash_icon" />
+
+    <ImageView
+        android:id="@+id/id_logo_icon"
+        android:layout_width="400dp"
+        android:layout_height="200dp"
+        android:src="@drawable/lemonlogo"
+        android:layout_marginTop="500dp"/>
 
     <TextView
         android:id="@+id/id_splash_title"
-        android:text="Lemonade Stand Game, developed by 19129576; come219;"
+        android:text="Lemonade Stand Game"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/teal_200"
         android:textSize="34sp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="200dp"
         android:textStyle="bold"
         android:layout_alignParentLeft="true"
         android:gravity="center_horizontal" />
 
-
-
-
-
-
+    <TextView
+        android:id="@+id/id_splash_credit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginLeft="-2dp"
+        android:layout_marginTop="300dp"
+        android:gravity="center_horizontal"
+        android:text="developed by 19129576; come219;"
+        android:textAlignment="center"
+        android:textColor="@color/teal_200"
+        android:textSize="34sp"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>

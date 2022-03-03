@@ -41,7 +41,7 @@ public class GameObject {
     private LStandBusinessAdminObj BusinessAdminObj= new LStandBusinessAdminObj();
 
     //temp can be between -2 and 30
-    private static int temperature;
+    private static int temperature = 14; // default 14 degress sunny
 
     //0 none, 1 rain, 2 snow, 3 windy
     private static int weatherstate;

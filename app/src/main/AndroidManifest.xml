@@ -42,7 +42,7 @@
             android:name=".GameEngineSystem.CampaignSystem.SingleplayerActivity2"
             android:exported="false" />
         <activity
-            android:name=".CoreComponents.ThreadingSystem.SplashScreenActivity"
+            android:name=".CoreComponents.SplashScreenActivity"
             android:exported="false" />
         <activity
             android:name=".CoreComponents.InitLoader"
