@@ -14,10 +14,10 @@ public class GameObject {
     public int inital_money =  500;
 
 
-    private static long lemons = 0;
-    private static long sugar = 0;
-    private static long water = 0;
-    private static long Balance = 0;
+    private static long lemons;
+    private static long sugar;
+    private static long water;
+    private static long Balance;
 
     public static void setLemons(long lemons) {
         GameObject.lemons = lemons;
@@ -41,12 +41,12 @@ public class GameObject {
     private LStandBusinessAdminObj BusinessAdminObj= new LStandBusinessAdminObj();
 
     //temp can be between -2 and 30
-    private int temperature =15;
+    private static int temperature;
 
     //0 none, 1 rain, 2 snow, 3 windy
-    private int weatherstate;
+    private static int weatherstate;
 
-    //1/5 of rain
+    //2/7 of rain
     private boolean chanceofRain;
 
     //1/2 of snow
@@ -124,8 +124,17 @@ public class GameObject {
         //have the variable saved as static
         temperature = generatRandomPositiveNegitiveValue(30, -2);
 
+        //chance for rain
+        rainchance = new Random().nextInt((7 - 1) + 1 ) + 1;
+
+        //check for rain
+
+        snowchance = new Random().nextInt((2 - 1) + 1 ) + 1;
+
     }
 
+    private static int rainchance = 7;  //default no rain
+    private static int snowchance = 0;  //default no snow
 
     /**
      *
@@ -138,16 +147,7 @@ public class GameObject {
             //lemons = inital_lemons;
         }
 
-
-
-        //check for rain
-        int rainchance = new Random().nextInt((7 - 1) + 1 ) + 1;
-
-        //check for rain
-
-        int snowchance = new Random().nextInt((2 - 1) + 1 ) + 1;
-
-        if(rainchance == 1) {
+        if(rainchance <= 2) {
             chanceofRain = true;
         }
         else {
@@ -159,8 +159,6 @@ public class GameObject {
         } else {
             chanceofSnow = false;
         }
-
-        weatherstate = 0;
 
         if(temperature <= 14) {
             weatherstate = 3;

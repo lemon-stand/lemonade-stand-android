@@ -159,25 +159,25 @@ public class SingleplayerView2 extends View {
 
     ////
     ///
-    int numberbuyers = 3;
+    private int numberbuyers = 4;
 
     private Bitmap buyer[][] = new Bitmap[2][numberbuyers];
-    private static int buyerX[] = new int[3];
-    private static int buyerY[] = new int[3];
-    private static int buyerSpeed[] = new int[3];
-    private static int buyerXStep[] = new int[3];
-    private static int buyerYStep[] = new int[3];
+    private static int buyerX[] = new int[4];
+    private static int buyerY[] = new int[4];
+    private static int buyerSpeed[] = new int[4];
+    private static int buyerXStep[] = new int[4];
+    private static int buyerYStep[] = new int[4];
 
     private int initbuyerstep1X,initbuyerstep1Y , initbuyerstep2X, initbuyerstep2Y;
     private int initcheck =0;
 
 
     private Bitmap buyer2[][] = new Bitmap[2][numberbuyers];
-    private static int buyerX2[] = new int[3];
-    private static int buyerY2[] = new int[3];
-    private static int buyerSpeed2[] = new int[3];
-    private static int buyerXStep2[] = new int[3];
-    private static int buyerYStep2[] = new int[3];
+    private static int buyerX2[] = new int[4];
+    private static int buyerY2[] = new int[4];
+    private static int buyerSpeed2[] = new int[4];
+    private static int buyerXStep2[] = new int[4];
+    private static int buyerYStep2[] = new int[4];
 
 
 
@@ -327,7 +327,7 @@ public class SingleplayerView2 extends View {
 
         //change number of buyers algorithm based on weather
         Random rand = new Random();
-        int randompopulation = rand.nextInt((3 - 1) + 1) + 1;
+        int randompopulation = rand.nextInt((4 - 1) + 1) + 1;
 
         if(weatherselect ==0) {
 
@@ -342,6 +342,8 @@ public class SingleplayerView2 extends View {
             numberbuyers = randompopulation;
         }
             randompopulation = 1;
+
+       //snow
         if((weatherselect == 1) || (int_temp < 5)){
 
             numberbuyers = randompopulation;
@@ -911,7 +913,7 @@ public class SingleplayerView2 extends View {
 
         canvas.drawText(s_Balance, i_BalX, i_BalY +50 , smallText);
 
-
+//////////////////string identifier seperation
 
         String player_bal = sp2Player.s_getPlayerBalance(1);
 
