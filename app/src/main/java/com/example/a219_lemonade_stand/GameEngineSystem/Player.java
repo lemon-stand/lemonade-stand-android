@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonPlaceHolderApi;
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.Post;
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.ServerDetails;
 import com.example.a219_lemonade_stand.R;
 
 import java.io.BufferedReader;
@@ -33,6 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class Player {
 
+    private String serverString = ServerDetails.IP_ADDRESS;
 
     /**
      * Player attritbutes
