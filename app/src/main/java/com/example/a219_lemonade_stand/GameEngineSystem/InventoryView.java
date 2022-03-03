@@ -14,8 +14,7 @@ import android.widget.Toast;
 
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonPlaceHolderApi;
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.Post;
-import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.ServerDeets;
-import com.example.a219_lemonade_stand.LoginSystem.LoginSystemActivity;
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.ServerDetails;
 import com.example.a219_lemonade_stand.MenuSystem.MainMenuActivity;
 import com.example.a219_lemonade_stand.R;
 
@@ -210,7 +209,7 @@ public class InventoryView extends View {
 
     }
 
-    private String serverString = ServerDeets.IP_ADDRESS;
+    private String serverString = ServerDetails.IP_ADDRESS;
 
 
     private void getPostData() {
