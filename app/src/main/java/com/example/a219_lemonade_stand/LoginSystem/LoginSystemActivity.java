@@ -22,6 +22,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonPlaceHolderApi;
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.JsonVerifyApi;
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.Post;
+import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.ServerDetails;
 import com.example.a219_lemonade_stand.CoreComponents.NetworkingSystem.verifyPost;
 import com.example.a219_lemonade_stand.GameEngineSystem.Player;
 import com.example.a219_lemonade_stand.MenuSystem.MainMenuActivity;
@@ -232,13 +233,13 @@ public class LoginSystemActivity extends AppCompatActivity {
     }
 
 
-
+    private String serverString = ServerDetails.IP_ADDRESS;
 
     private void getPostData() {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.9:8080/")
+                .baseUrl(serverString)
 
                 //.baseUrl("localhost:8080")
                 .addConverterFactory(GsonConverterFactory.create())
